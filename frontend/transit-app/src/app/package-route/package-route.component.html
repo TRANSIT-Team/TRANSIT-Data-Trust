@@ -1,0 +1,126 @@
+<div class="container">
+
+  <div class="p-4 w-100">
+    <div class="row">
+      <div *ngFor="let item of data;let isLast = last" class="route-card-desktop col-lg p-0">
+        <div class="row">
+          <div class="col-6 p-0">
+            <mat-card class="p-2">
+              <div class="row">
+                <div class="col">
+                  <b> Name: {{item.name}}</b><br>
+                  PLZ: {{item.zip}}<br>
+                  Ort: {{item.city}}
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col">
+                  <button type="button" mat-raised-button primary color="primary">Auf Karte</button>
+                </div>
+              </div>
+            </mat-card>
+          </div>
+
+          <div class="col-6 p-0 connecting-line" *ngIf="!isLast">
+            <div class="p-0">
+              <div class="line"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row d-none">
+    <div class="col">
+      <mat-card class="p-0 map-card">
+        <div id="map" class="map"></div>
+      </mat-card>
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+
+
+  <div class="row d-inline">
+    <div class="col-4 m-0 p-0">
+      <mat-card class="p-4">
+        <div class="row">
+          <div class="col">
+            <h2><b>Aufrag vom 01.01.2022</b><br></h2>
+            Ziel: Musterstraße 12, 01234 Berlin
+          </div>
+        </div>
+
+      </mat-card>
+    </div>
+  </div>
+
+  <mat-divider></mat-divider>
+  <div class="row d-inline">
+    <mat-card class="p-4">
+      <div class="row">
+        <div class="col-10">
+          <h3><b>LDL A Company</b><br></h3>
+          Adresse: Musterstraße 12, 04109 Leipzig
+        </div>
+        <div class="col-2">
+          <b>12,70€</b><br>
+          <button type="button" mat-raised-button primary color="primary">Auswählen</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h4><b>Ausführung 03.01.2022</b><br></h4>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+
+  <div class="row d-inline">
+    <mat-card class="p-4">
+      <div class="row">
+        <div class="col-10">
+          <h3><b>LDL B Company</b><br></h3>
+          Adresse: Oktoberstr. 12, 04129 Leipzig
+        </div>
+        <div class="col-2">
+          <b>14,20€</b><br>
+          <button type="button" mat-raised-button primary color="primary">Auswählen</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h4><b>Ausführung 02.01.2022</b><br></h4>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+
+
+  <div class="row d-inline">
+    <mat-card class="p-4">
+      <div class="row">
+        <div class="col-10">
+          <h3><b>LDL C Company</b><br></h3>
+          Adresse: Musterstraße 2, 03409 Stadt
+        </div>
+        <div class="col-2">
+          <b>17,70€</b><br>
+          <button type="button" mat-raised-button primary color="primary">Auswählen</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h4><b>Ausführung 01.01.2022</b><br></h4>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+</div>
+

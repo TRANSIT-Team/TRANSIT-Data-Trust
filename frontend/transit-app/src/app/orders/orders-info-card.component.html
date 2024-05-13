@@ -1,0 +1,38 @@
+<mat-card class="order-summary-card cursor-pointer"
+          [class.extraFilterSelected]="extraFilter === this.orderStatusFilter"
+          [class.border-yellow]="this.orderStatusFilter === 'PROCESSING'"
+          [class.border-cyan]="this.orderStatusFilter === 'OPEN'"
+          [class.border-red]="this.orderStatusFilter === 'CANCELED'"
+          [class.border-teal]="this.orderStatusFilter === 'COMPLETE'"
+          [class.border-gray]="this.orderStatusFilter === 'CREATED'"
+          [class.border-primary]="this.orderStatusFilter === 'ALL'"
+          [class.border-orange]="this.orderStatusFilter === 'REQUESTED'"
+          [class.border-green]="this.orderStatusFilter === 'ACCEPTED'"
+>
+  <app-loading-placeholder *ngIf="this.loading" [small]="true"></app-loading-placeholder>
+  <div *ngIf="!this.loading">
+    <div class="row">
+      <div class="col display-flex ">
+        <span class="text-muted position-absolute"><b>{{this.orderStatusDescription}}</b></span>
+      </div>
+
+      <div class="col text-end" style="margin-top: -2.5px;">
+        <mat-icon color="primary" *ngIf="this.orderStatusFilter === 'ALL'">functions</mat-icon>
+        <mat-icon color="gray" *ngIf="this.orderStatusFilter === 'CREATED'">edit_square</mat-icon>
+        <mat-icon color="cyan" *ngIf="this.orderStatusFilter === 'OPEN'">inventory_2</mat-icon>
+        <mat-icon color="accent" *ngIf="this.orderStatusFilter === 'PROCESSING'">local_shipping</mat-icon>
+        <mat-icon color="warn" *ngIf="this.orderStatusFilter === 'CANCELED'">cancel</mat-icon>
+        <mat-icon color="teal" *ngIf="this.orderStatusFilter === 'COMPLETE'">verified</mat-icon>
+        <mat-icon color="orange" *ngIf="this.orderStatusFilter === 'REQUESTED'">quiz</mat-icon>
+        <mat-icon color="green" *ngIf="this.orderStatusFilter === 'ACCEPTED'">beenhere</mat-icon>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <span class="" style="font-size:2em;"><b>{{this.orderSummary}}</b></span>
+      </div>
+    </div>
+  </div>
+</mat-card>

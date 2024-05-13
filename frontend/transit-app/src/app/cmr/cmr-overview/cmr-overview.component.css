@@ -1,0 +1,128 @@
+.cmrBody {
+    font-family: "Arial Sans";
+    letter-spacing: -0.3px;
+    font-size: 4px;
+    line-height: 95%;
+}
+
+table, th, td, tr {
+    border-collapse: collapse;
+    vertical-align: top;
+    border: 1px solid black;
+    font-weight: 500;
+}
+
+td {
+    font-size: 6px;
+    line-heigh: 95%;
+    font-weight: 650;
+}
+
+
+.tablepack {
+    font-size: 6px;
+}
+
+
+.cmrBody {
+    width: 700px;
+    height: auto;
+}
+
+.scale {
+    transform: scale(1.5);
+    margin-top: 330px !important;
+}
+
+.num {
+    font-size: 20px;
+    float: left;
+    line-height: 100%;
+}
+
+.bigNum {
+    font-size: 26px;
+    float: left;
+    margin: 10px;
+}
+
+
+tableInside table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid black;
+
+}
+
+.filledValues {
+    font-weight: 700;
+    font-size: 8px;
+}
+
+tableInside tr {
+    font-size: 4px;
+
+}
+
+tr {
+    font-size: 8px;
+    line-height: 100%;
+}
+
+
+.noBorder {
+    border: none !important;
+}
+
+.numWidth {
+    width: 30px;
+}
+
+tableInside td {
+    font-size: 4px;
+
+}
+
+.tr-filledValues .filledValues {
+    padding: 1px;
+    display: block;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: black;
+}
+
+.cell21 {
+    font-size: 6px;
+    line-height: 4px;
+    float: left;
+}
+
+.p {
+    margin: 0px;
+    padding: 0px;
+}
+
+.pre-loader {
+    width: 350px;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    margin-left: -175px;
+    z-index: 100;
+}
+
+.package-td {
+    border: 1px solid #bababa;
+    border-left: none;
+    border-bottom: none;
+    width: 12.5%;
+}
+
+.tr-filledValues {
+    border-top: 1px solid #bababa;
+    border-bottom: none;
+
+}

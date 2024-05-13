@@ -1,0 +1,96 @@
+<div class="container">
+  <mat-card class="mb-4 mt-4">
+
+    <div class="row w-100 p-4">
+      <div class="col">
+        <h2>Meine Voreinstellung</h2>
+        <mat-divider></mat-divider>
+      </div>
+    </div>
+
+    <div class="row p-4 w-100">
+      <div class="col">
+        <mat-slide-toggle checked (change)="selectAll($event)"color="primary">
+        </mat-slide-toggle>
+        <span class="toggle-caption ps-2">Alles teilen</span>
+      </div>
+
+      <div class="col p-3 pt-1 text-end">
+        <b>Legende</b><br>
+        <span class="toggle-caption pe-2">teilen</span>
+        <mat-slide-toggle checked disabled color="primary" class="disabled-show">
+        </mat-slide-toggle>
+        <br>
+        <span class="toggle-caption pe-2" >nicht teilen</span>
+        <mat-slide-toggle disabled color="primary" class="disabled-show">
+        </mat-slide-toggle>
+      </div>
+    </div>
+
+    <div class="row ps-4 w-100">
+      <div class="col-6">
+        <button mat-stroked-button (click)="expandCollapsAll(true)">Alle erweitern</button>
+        <button mat-stroked-button (click)="expandCollapsAll(false)">Alle einklappen</button>
+      </div>
+
+      <div class="col-6 text-end">
+      </div>
+    </div>
+
+    <div class="row w-100 p-4">
+      <div class="col">
+        <mat-accordion multi>
+          <mat-expansion-panel *ngFor="let item of this.entityRightsGlobal; let i = index"
+                               [(expanded)]="item.valuesExpanded" class="expandedColor">
+            <mat-expansion-panel-header>
+              <mat-panel-title><b>
+                {{item.description}}
+              </b></mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <table class="mat-table">
+              <thead>
+              <tr>
+                <th width="50%">Name</th>
+                <th width="50%">Teilen</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let itemReadProperty of item.properties; let iP = index">
+                <td>{{itemReadProperty.description}}</td>
+                <td>
+                  <span *ngIf="itemReadProperty.alwaysShared">Wird immer geteilt</span>
+                  <span *ngIf="itemReadProperty.neverShared">Wird nie geteilt</span>
+                  <mat-slide-toggle [(ngModel)]="itemReadProperty.default"
+                                    *ngIf="!itemReadProperty.neverShared && !itemReadProperty.alwaysShared"
+                                    color="primary"></mat-slide-toggle>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </div>
+    <div class="row p-4 w-100">
+      <div class="col-6">
+
+      </div>
+    </div>
+    <div class="row ps-4 w-100">
+      <div class="col-6">
+        <button mat-raised-button (click)="saveData()" color="primary">Speichern</button>
+      </div>
+    </div>
+    <div class="row p-2 w-100">
+      <div class="col-6">
+
+      </div>
+    </div>
+  </mat-card>
+  <div class="row p-4 w-100">
+    <div class="col-6">
+
+    </div>
+  </div>
+</div>

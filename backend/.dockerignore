@@ -1,0 +1,15 @@
+Jenkinsfile
+spring-app/.gradle
+spring-app/.idea
+spring-app/build
+spring-app/gradle
+spring-app/.gitignore
+spring-app/.run
+spring-app/bin
+spring-app/native_config
+docker-compose.yml
+docker-compose-api.yml
+docker-compose-db.yml
+application-local-security.properties
+spring-app/src/main/resources/application-local-security.properties
+

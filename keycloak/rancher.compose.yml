@@ -1,0 +1,12 @@
+version: '2'
+services:
+  keycloak-db-volume:
+    scale: 1
+    start_on_create: true
+  keycloak:
+    scale: 1
+    start_on_create: true
+  dbkeycloak:
+    scale: 1
+    start_on_create: true
+

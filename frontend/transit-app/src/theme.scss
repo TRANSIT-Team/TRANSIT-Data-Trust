@@ -1,0 +1,67 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+$my-app-primary: mat-palette($mat-indigo, 500, 800, 400);
+$my-app-primary: mat-palette($mat-indigo, A700);
+$my-app-accent: mat-palette($mat-yellow, 500, 900, A100);
+
+
+$my-app-theme: mat-light-theme($my-app-primary, $my-app-accent);
+@include angular-material-theme($my-app-theme);
+.alternate-theme {
+  $alternate-primary: mat-palette($mat-light-blue);
+  $alternate-accent: mat-palette($mat-yellow, 400);
+  $alternate-theme: mat-light-theme($alternate-primary, $alternate-accent);
+  @include angular-material-theme($alternate-theme);
+}
+
+.mat-green {
+  color: var(--bs-teal);
+}
+.mat-border{
+  border: 1px solid rgba(0, 0, 0, .2);
+}
+.mat-card, .mapboxgl-map, .tcard, .mat-dialog-container, .mat-menu-panel {
+  border-radius: 7px !important;
+}
+
+.mat-chip.mat-chip-yellow {
+  background-color: var(--bs-yellow);
+  color: #fff;
+}
+
+.mat-chip.mat-chip-orange {
+  background-color: var(--bs-orange);
+  color: #fff;
+}
+
+.mat-chip.mat-chip-green {
+  background-color: var(--bs-teal);
+  color: #fff;
+}
+
+.mat-chip.mat-chip-red {
+  background-color: var(--bs-red);
+  color: #fff;
+}
+
+.mat-chip.mat-chip-info {
+  background-color: var(--bs-orange);
+  color: #fff;
+}
+
+.mat-chip.mat-chip-primary {
+  background-color: var(--main-theme-primary);
+  color: #fff;
+}
+
+.mat-toolbar.mat-primary {
+  background: #fff;
+  color: #000;
+}
+
+.mat-table-compact .dx-datagrid .dx-data-row > td {
+  padding: 4px 16px !important;
+  font-size: 13px !important;
+  font-weight: 500;
+}

@@ -1,0 +1,63 @@
+<div class="p-4 mt-4">
+  <div class="row p-2">
+    <div class="col-lg-9 col-sm-12 mt-2 d-inline">
+      <h1><b>Adressverwaltung</b></h1>
+    </div>
+
+    <div class="col-lg-3 col-sm-12 mt-2 float-end">
+
+      <button class="float-end" mat-button mat-raised-button color="primary" routerLink="/">
+        <mat-icon mat-list-icon>arrow_back</mat-icon>
+        zurück
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col mt-4 mb-4">
+      <mat-card>
+        <div class="row pt-0 pb-0">
+          <div class="col">
+            <h3 class="mb-0"><b>Adressen des Unternehmens bearbeiten</b></h3>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+
+  </div>
+
+  <div class="row" style=";">
+    <div class="col-1" *ngIf="!this.addAddress">
+      <button color="primary" mat-raised-button aria-label="Clear"
+              (click)="this.addAddress=true;">
+        <mat-icon>add</mat-icon>
+        neue Adresse anlegen
+      </button>
+    </div>
+
+    <div class="col-1" *ngIf="this.addAddress">
+      <button color="warn" mat-raised-button aria-label="Clear"
+              (click)="this.addAddress=false;">
+        <mat-icon>cancel</mat-icon>
+        abbrechen
+      </button>
+    </div>
+  </div>
+
+  <mat-card class="mt-2">
+    <div class="row" style=";" *ngIf="this.addAddress">
+      <app-add-address [dialogComponent]="true" (externButtonClick)="afterAdd()"></app-add-address>
+    </div>
+
+    <div class="row mt-2" style=";" *ngIf="!this.addAddress">
+      <div class="col">
+
+        <app-address-table></app-address-table>
+
+      </div>
+    </div>
+  </mat-card>
+
+</div>

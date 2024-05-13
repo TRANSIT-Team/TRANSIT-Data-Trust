@@ -1,0 +1,280 @@
+<app-loading-info *ngIf="(this.globals.dataLoading && this.orderLoaded) || this.order==undefined"
+                  [showText]="this.globals.dataLoadingText"></app-loading-info>
+
+
+<app-chat-box [isParentChat]="false" *ngIf="this.order!=undefined && this.order.suborderType"
+              [order]="this.order"></app-chat-box>
+
+<app-chat-box [isParentChat]="true" *ngIf="this.order!=undefined && !this.order.suborderType && this.showSubChat"
+              [order]="this.subChatOrder" (closeChat)="closeSubChat()"></app-chat-box>
+
+<div class="pb-4 order" id="order" *ngIf="this.order!=undefined && this.order.orderRightsGlobal!=undefined">
+  <div class="row px-2" style="margin: 0;overflow-x: hidden;">
+    <div class="col">
+      <div class="row">
+
+        <div class="col-lg-8 col-md-12 col-sm-12 px-1 pe-lg-2 px-sm-2">
+          <div class="row">
+            <div class="col-lg-4 col-flex col-md-6 col-sm-12">
+              <button class="d-contents" mat-button color="primary" (click)="goBack()">
+                <mat-icon mat-list-icon>arrow_back</mat-icon>
+                <span *ngIf="this.order.isMyOrder">zurück</span>
+                <span *ngIf="!this.order.isMyOrder">Hauptauftrag</span>
+              </button>
+              <div class="ps-2">
+                <app-order-status-chip [orderStatus]="this.order.orderStatus"
+                                       [orderStatusDescription]="this.order.orderStatusDescription"></app-order-status-chip>
+              </div>
+
+
+              <div class="ps-2" *ngIf="this.order.oldOrderId">
+                <app-order-status-chip [orderStatus]="'RECREATED'" [small]="true"
+                                       [orderStatusDescription]="'NEU ERSTELLT'"></app-order-status-chip>
+              </div>
+
+
+              <div class="ps-2" *ngIf="this.order.isOutsourced">
+                <app-order-status-chip [orderStatus]="'OUTSOURCED'" [small]="true"
+                                       [orderStatusDescription]="'OUTSOURCED'"></app-order-status-chip>
+              </div>
+
+              <div class="ps-2">
+                <button mat-icon-button color="primary" (click)="reloadOrder()" matTooltip="Auftrag neu laden">
+                  <mat-icon>refresh</mat-icon>
+                </button>
+              </div>
+
+            </div>
+            <div class="col">
+              <div class="row pe-2">
+
+                <div class="col col-action-btn">
+
+
+                  <div
+                    *ngIf="(this.order.orderRightsGlobal!.can.reject || this.order.orderRightsGlobal!.can.accept) && this.order.isMyOrder">
+
+                    <button class="float-lg-end float-sm-start" mat-button color="warn" (click)="denyOrderRequest()"
+                            type="button">
+                      <mat-icon mat-list-icon>cancel</mat-icon>
+                      Auftrag ablehnen
+                    </button>
+
+                    <button class="float-lg-end float-sm-start" mat-button color="primary"
+                            (click)="acceptOrderRequest()"
+                            type="button">
+                      <mat-icon mat-list-icon>done</mat-icon>
+                      Auftrag annehmen
+                    </button>
+                  </div>
+
+                  <button mat-stroked-button [matMenuTriggerFor]="menu" aria-label="" color="primary">
+                    weitere Aktionen
+                    <mat-icon>expand_more</mat-icon>
+                  </button>
+
+
+                  <mat-menu #menu="matMenu">
+
+
+                    <button class="me-1" mat-menu-item type="button"
+                            color="primary"
+                            (click)="this.openCmrDialog()">
+                      <mat-icon mat-list-icon>picture_as_pdf</mat-icon>
+                      CMR
+                    </button>
+
+                    <button class="" mat-menu-item type="button"
+                            [disabled]="!this.order.orderRightsGlobal!.can.outsource || this.orderIsDelayed || this.order.isOutsourced"
+                            [matTooltip]="this.outsourceTooltip" matTooltipPosition="right"
+                            color="accent"
+                            (click)="this.openOutsourceDialog()">
+                      <mat-icon mat-list-icon>local_shipping</mat-icon>
+                      Outsource
+                    </button>
+
+                    <button class="" mat-menu-item type="button"
+                            *ngIf="this.order.orderStatus=='CANCELED' && !this.order.newOrderId && !this.order.suborderType"
+                            color="primary"
+                            (click)="this.copyOrder()">
+                      <mat-icon mat-list-icon>library_add</mat-icon>
+                      als neuen Auftrag anlegen
+                    </button>
+
+                    <button class="" mat-menu-item type="button" *ngIf="this.order.newOrderId"
+                            color="primary" routerLink="/orders/order/{{this.order.newOrderId}}">
+                      <mat-icon mat-list-icon>file_open</mat-icon>
+                      Zeige neuen Auftrag an
+                    </button>
+
+
+                    <button class="" mat-menu-item type="button" *ngIf="this.order.oldOrderId"
+                            color="primary" routerLink="/orders/order/{{this.order.oldOrderId}}">
+                      <mat-icon mat-list-icon>restore_page</mat-icon>
+                      Zeige alten Auftrag an
+                    </button>
+
+                    <button mat-menu-item color="warn" type="button" *ngIf="this.order.orderRightsGlobal!.delete.order"
+                            (click)=" this.deleteOrderDialog()">
+                      <mat-icon mat-list-icon>cancel</mat-icon>
+                      Auftrag löschen
+                    </button>
+
+
+                  </mat-menu>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+
+              <div class="row mt-3" *ngIf="this.order.isMyOrder && this.order.suborderType">
+                <div class="col">
+                  <app-order-parentorder-info [order]="this.order"></app-order-parentorder-info>
+                </div>
+              </div>
+
+              <div class="row mt-3">
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                  <app-order-infobar *ngIf="this.order && !this.orderIsRefreshing" [order]="this.order"
+                                     [orderStatusTmp]="this.orderStatusTmp"
+                                     (refreshOrder)=" this.setUpOrderActionsRights()"></app-order-infobar>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-12 mt-lg-0 mt-md-0 mt-sm-3">
+                  <app-order-customer *ngIf="this.order" [order]="this.order"></app-order-customer>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-12 mt-lg-0 mt-md-3 mt-sm-3">
+                  <app-order-price *ngIf="this.order.isMyOrder && !this.globals.dataLoading"
+                                   [order]="this.order"></app-order-price>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-12 mt-lg-0 mt-md-3 mt-sm-3">
+                  <app-order-comment *ngIf="this.order" [order]="this.order"></app-order-comment>
+                </div>
+
+              </div>
+
+              <div class="row mt-lg-3 mt-md-3 mt-sm-0">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                  <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 mt-lg-0 mt-md-0 mt-sm-3">
+                      <app-order-dates [labelText]="'Abholzeitraum'" [type]="'pickUp'"
+                                       [order]="this.order"></app-order-dates>
+                    </div>
+                  </div>
+                  <div class="row mt-3">
+                    <div class="col-lg-12 col-md-12 col-sm-12 mt-lg-0 mt-md-0 mt-sm-3">
+                      <app-order-dates-info [labelText]="'Abholung'" [type]="'pickUp'" *ngIf="this.order"
+                                            [order]="this.order"></app-order-dates-info>
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-12 mt-lg-0 mt-md-0 mt-sm-3">
+
+                  <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 mt-lg-0 mt-md-0 mt-sm-3">
+                      <app-order-dates [labelText]="'Lieferzeitraum'" [type]="'delivery'"
+                                       [order]="this.order"></app-order-dates>
+                    </div>
+                  </div>
+
+                  <div class="row mt-3">
+                    <div class="col-lg-12 col-md-12 col-sm-12 mt-lg-0 mt-md-0 mt-sm-3">
+                      <app-order-dates-info [labelText]="'Lieferung'" [type]="'delivery'" *ngIf="this.order"
+                                            (refreshOrder)=" this.refreshOrder()"
+                                            [order]="this.order"></app-order-dates-info>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row mt-3" *ngIf="!this.order.isMyOrder">
+            <div class="col">
+              <app-order-packages [order]="this.order"></app-order-packages>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-lg-4 col-md-12 col-sm-12 px-2 mt-lg-0 mt-sm-3">
+
+          <div class="row">
+            <div class="col">
+              <app-order-map [order]="this.order"></app-order-map>
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col">
+              <app-order-address [order]="this.order"
+                                 (refreshOrder)="refreshOrderMap()"></app-order-address>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="row mt-3" *ngIf="this.order.isMyOrder">
+
+        <div class="col-lg-6 col-md-12 col-sm-12 px-2"
+             *ngIf="this.order.orderStatus=='REQUESTED' || this.order.orderStatus=='ACCEPTED'">
+          <app-order-packages [order]="this.order"></app-order-packages>
+        </div>
+
+        <div class="col-lg-6 col-md-12 col-sm-12 px-2 pe-lg-2 px-sm-2">
+
+
+          <div class="row" *ngIf="this.order.orderStatus!='REQUESTED' && this.order.orderStatus!='ACCEPTED'">
+            <div class="col">
+              <app-order-packages [order]="this.order"></app-order-packages>
+            </div>
+          </div>
+
+
+          <div class="row mt-sm-3 mt-md-3"
+               [ngClass]="{'mt-lg-3': (this.order.orderStatus!='REQUESTED' && this.order.orderStatus!='ACCEPTED'),'mt-lg-0': (this.order.orderStatus=='REQUESTED' || this.order.orderStatus=='ACCEPTED')}">
+            <div class="col">
+              <app-order-comments-public *ngIf="this.order!=undefined && this.showComments && this.order.orderRightsGlobal!.can.commentPublic"
+                                         [order]="this.order"></app-order-comments-public>
+            </div>
+          </div>
+
+
+        </div>
+
+        <div class="col-lg-6 col-md-12 col-sm-12 px-1 pb-1 ps-lg-2 px-sm-2 mt-lg-0 mt-sm-3"
+             *ngIf="this.order.orderStatus!='REQUESTED' && this.order.orderStatus!='ACCEPTED'">
+
+          <app-order-suborders [startTime]="this.startTime" [order]="this.order" (reloadSubOrders)="reloadSubOrders()"
+                               *ngIf="this.loadSubOrders"
+                               (refreshOrder)="setUpOrderActionsRights()"
+                               (openChat)="openChat($event)"
+                               (reloadOrder)="reloadOrder()"></app-order-suborders>
+        </div>
+      </div>
+
+
+      <div class="row mt-3">
+        <div class="col">
+
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+

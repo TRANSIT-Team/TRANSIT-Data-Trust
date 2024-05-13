@@ -1,0 +1,15 @@
+projectPath: C:\Repository\TRANSIT-project\backend\rest
+# projectPath: c://workspace_private/springboot-3layer-generator/demo
+classesDirectory: build/classes/java/main
+outputDirectory: src/main/java
+options:
+  dtoLayer: true
+  serviceInterface: true
+
+inputPackages:
+  jpaEntities: com.transit.backend.domain
+
+outputPackages:
+  repositories: com.transit.backend.repository
+  services: com.transit.backend.service
+  controllers: com.transit.backend.controller

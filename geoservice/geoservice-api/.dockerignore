@@ -1,0 +1,9 @@
+Jenkinsfile
+geoservice/.gradle
+geoservice/.idea
+geoservice/build
+geoservice/gradle
+geoservice/.gitignore
+geoservice/.run
+geoservice/bin
+docker-compose.yml

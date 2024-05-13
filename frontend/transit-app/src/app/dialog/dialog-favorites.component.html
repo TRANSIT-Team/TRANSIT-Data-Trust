@@ -1,0 +1,16 @@
+<div class="row" style="top:0;">
+  <div class="col">
+    <h2 mat-dialog-title>Liste bearbeiten</h2>
+  </div>
+  <div class="col text-end">
+    <button (click)="close()" mat-icon-button>
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>
+
+<div class="row p-3">
+  <div class="col">
+    <app-company-lists [companiesIds]="companiesIds" (submitData)="this.submitData($event)"></app-company-lists>
+  </div>
+</div>

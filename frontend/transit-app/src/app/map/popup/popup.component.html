@@ -1,0 +1,9 @@
+<!-- component.html -->
+<div #popupContainer class="popup-container">
+  <div *ngIf="popup">
+    <img [src]="popup.profile_picture" width="150">
+    <b style="text-align: center;">{{ popup.name }}</b><br>
+    <i>{{ popup.location.address }}</i><br>
+    <a routerLink="/foodrevolution/profile">Tap to see availble offers!</a>
+  </div>
+</div>

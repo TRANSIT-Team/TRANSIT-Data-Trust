@@ -1,0 +1,12 @@
+.mat-form-field {
+  max-width: 250px;
+}
+.pre-loader{
+  z-index: 100;
+  position: absolute;
+  width: 350px;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  margin-left: -175px;
+}

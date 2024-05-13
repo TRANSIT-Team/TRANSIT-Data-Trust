@@ -1,0 +1,206 @@
+<div class="position-relative message-center">
+  <div class="row h-100 m-0">
+    <div class="col h-100">
+
+
+      <div class="row h-100" style="">
+        <div class="col-lg-4 col-md-6 col-sm-12 pb-2 message-col px-0">
+
+          <div class="row pb-0" style=";">
+            <div class="col ps-5 pe-0 pt-3 pb-0">
+              <mat-form-field class="pb-0" appearance="fill">
+                <mat-label>Suche...</mat-label>
+                <input matInput class="" type="text" [(ngModel)]="searchValue">
+                <button *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear"
+                        (click)="clearFilterChatSummaries()">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+
+            <div class="col-1 pt-4">
+              <button *ngIf="searchValue" mat-mini-fab color="primary" aria-label="Clear"
+                      (click)="filterChatSummaries()">
+                <mat-icon>search</mat-icon>
+              </button>
+            </div>
+          </div>
+
+
+          <div *ngIf="this.loading" class="row m-auto ps-3 pe-3 pb-3 message-row">
+            <div class="col">
+              <div class="text-center m-auto" style="width:250px;">
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="!this.loading">
+            <div *ngFor="let m of filteredChatSummaries" class="row m-auto ps-3 pe-3 pb-3 message-row"
+                 [ngClass]="m.active? 'message-row-active' : ''" (click)="activateChat(m)">
+
+              <div class="col">
+                <div class="row">
+                  <div class="col">
+                    <mat-divider></mat-divider>
+                  </div>
+                </div>
+
+                <div class="row pt-3">
+
+                  <div class="col-2 pt-1">
+                    <button mat-fab disabled>
+                      <mat-icon>person</mat-icon>
+                    </button>
+                  </div>
+
+                  <div class="col-10 pt-1" [ngClass]="m.person=='YOU'&&!m.readStatus? 'unread' : ''" style="">
+                    <div class="row">
+                      <div class="col">
+
+                        <div class="row">
+                          <div class="col p-0" style="font-size: 0.975em;word-break: break-word;">
+                            <span style="font-weight: 600">Auftrag {{m.orderShortId}}</span>
+                          </div>
+
+                          <div class="col-2 pe-0 text-end" style="font-size: 0.8575em;">
+                            <div class="row">
+                              <div class="col">
+
+                                {{m.createDate | date:'dd.MM.YY' }}<br/>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col">
+                                {{m.createDate | date:'HH:mm' }}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row pt-0">
+                          <div class="col ps-0 message" style="font-size: 0.9em">
+                            {{m.text | slice:0:35}}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-1 float-end">
+                        <div *ngIf="m.person=='YOU'&&!m.readStatus" class="unread-dot float-end"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-8 position-relative " style="border-left:1px solid #e6e6e6;" *ngIf="!this.activeChat">
+
+          <div class="position-absolute no-chat text-center" style="">
+            <div class="row">
+              <div class="col">
+
+                <button mat-fab color="primary" class="" style="transform: scale(2);">
+                  <mat-icon>forum</mat-icon>
+                </button>
+
+              </div>
+            </div>
+            <div class="row mt-5">
+              <div class="col">
+                <h2>Nachrichten</h2>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col">
+                Wählen Sie einen Chat aus, um eine Konversation zu beginnen.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-8 position-relative " style="border-left:1px solid #e6e6e6;" *ngIf="this.activeChat">
+          <div *ngIf="this.currentChatLoading">
+            <div class="position-absolute no-chat text-center" style="">
+              <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </div>
+          </div>
+
+          <mat-card class="position-relative" [ngClass]="this.currentChatLoading? 'd-none' : ''">
+            <!-- Chat Holder -->
+            <div class="row ps-2 pe-2 pb-1 pt-0">
+              <div class="col pt-4">
+
+                <div class="container-divider">
+                  <div class="line">
+                    <mat-divider></mat-divider>
+                  </div>
+                  <div class="text mat-typography"><b>Auftrag
+                    Nr. {{this.currentChat.orderId}} (<a style="color: var(--main-theme-primary);"
+                                                         routerLink="/orders/order/{{this.currentOrderLinkId}}">meinen
+                      Auftrag anzeigen</a>)</b></div>
+                  <div class="line">
+                    <mat-divider></mat-divider>
+                  </div>
+                </div>
+
+                <div class="btn-div d-none">
+                  <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                  <mat-menu #menu="matMenu">
+                    <a mat-menu-item href="/orders/order/{{this.currentChat.orderId}}" target="_blank">
+                      <span>Auftrag öffnen</span>
+                    </a>
+                  </mat-menu>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row p-3 w-100" style="bottom:70px;">
+              <div class="col chat-col" #chatDiv>
+                <!-- Chat Rows -->
+                <div *ngFor="let cE of chatEntries" class="row mb-3">
+                  <div class="col msg">
+                    <div class="bubble {{cE.person | lowercase}}">
+                      {{cE.text}}
+                    </div>
+                    <div class="row">
+                      <div class="col p-0">
+                  <span
+                    class="text-muted txt-small msg-timestamp {{cE.person | lowercase}}">{{ cE.createDate | date:'dd.MM.yy HH:mm' }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row  w-100 ps-3 pe-3">
+              <div class="col" style="">
+                <form (ngSubmit)="postMessage()">
+                  <mat-form-field class="pb-0" appearance="fill">
+                    <mat-label></mat-label>
+                    <input matInput class="" type="text" name="messageValue" [(ngModel)]="messageValue"
+                           (keydown.enter)="postMessage()">
+                    <button matSuffix mat-icon-button aria-label="Clear" type="submit">
+                      <mat-icon>send</mat-icon>
+                    </button>
+                  </mat-form-field>
+                </form>
+              </div>
+            </div>
+          </mat-card>
+
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+</div>

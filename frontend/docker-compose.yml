@@ -1,0 +1,26 @@
+version: '2'
+services:
+  transit-app:
+    image: devdocker.wifa.uni-leipzig.de:5000/transit/angular-frontend:latest
+    restart: always
+    labels:
+      io.rancher.scheduler.affinity:host_label: role=worker
+      project: transit
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+  redirect-http-https-nginx:
+    image: schmunk42/nginx-redirect
+    environment:
+      SERVER_REDIRECT: ~^www.(?<app>.+).transit-project.de
+      SERVER_REDIRECT_CODE: '307'
+      SERVER_REDIRECT_SCHEME: https
+    stdin_open: true
+    tty: true
+    labels:
+      io.rancher.scheduler.affinity:host_label: role=worker
+      project: transit
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+
+
+# rancher up -s transit-frontend -f docker-compose.yml -u -c -d 

@@ -1,0 +1,85 @@
+<div class="chatbox-button" *ngIf="hideChatBox">
+  <button mat-fab color="primary" (click)="changeView()">
+    <mat-icon>message</mat-icon>
+  </button>
+</div>
+
+
+<mat-card class="chatbox mat-elevation-z8" [ngClass]="hideChatBox?'d-none':''">
+
+  <div class="row p-2 position-relative ">
+    <div class="col col-flex" style="">
+      <span><b>#{{this.order.id}}</b></span><span
+      *ngIf='this.order.companyId!=undefined'></span>
+      <button class="btn-end" mat-icon-button aria-label="Clear" (click)="changeView()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+  </div>
+
+  <div class="row position-relative h-100">
+    <div class="col position-relative chat-holder" style="overflow-y:auto;">
+      <!-- Chat Holder -->
+      <div class="row chat-holder-messages" #chatDiv style=";">
+        <div class="col chat-col">
+          <div class="row mb-2">
+            <div class="col">
+              <div class="container-divider">
+                <div class="line">
+                  <mat-divider></mat-divider>
+                </div>
+                <div class="text mat-typography">Chat</div>
+                <div class="line">
+                  <mat-divider></mat-divider>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chat Rows -->
+          <div *ngFor="let cE of chatEntries" class="row mb-3">
+            <div class="col msg">
+              <div class="row">
+                <div class="col">
+                  <div class="bubble {{cE.person | lowercase}}">
+                    {{cE.text}}
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col">
+                  <span
+                    class="text-muted txt-small msg-timestamp {{cE.person | lowercase}}">{{ cE.createDate | date:'dd.MM.yy HH:mm' }}</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+      <div class="row position-absolute bottom-0 w-100 ps-2 pe-2">
+        <div class="col" style="">
+          <form (ngSubmit)="postMessage()">
+            <mat-form-field class="pb-0" appearance="fill">
+              <mat-label></mat-label>
+              <input matInput class="" type="text" name="messageValue" [(ngModel)]="messageValue"
+                     (keydown.enter)="postMessage()">
+              <button matSuffix mat-icon-button aria-label="Clear" type="submit">
+                <mat-icon>send</mat-icon>
+              </button>
+            </mat-form-field>
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+</mat-card>

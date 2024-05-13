@@ -1,0 +1,100 @@
+<div class="row">
+  <div class="col text-center d-flex" style="justify-content: space-evenly;">
+    <div class="d-flex align-content-center">
+      <mat-icon mat-list-icon>local_shipping</mat-icon>
+      &nbsp;{{this.distanceOrder}}km
+    </div>
+    <div class="d-flex align-content-center">
+      <mat-icon mat-list-icon>schedule</mat-icon>
+      &nbsp;{{this.travelTimeOrder}}h
+    </div>
+
+  </div>
+</div>
+<div class="row mt-1">
+  <div class="col">
+    <div class="tcard bg-white p-4 py-3">
+      <div class="row">
+        <div class="col">
+          <h4 class="mb-1">Absender</h4>
+          <div class="tcard-btn-div p-2" *ngIf="this.order.orderRightsGlobal!.edit.addressFrom">
+            <button color="primary" mat-icon-button aria-label="bearbeiten" (click)="openAddressDialog('from')">
+              <mat-icon>edit</mat-icon>
+            </button>
+
+            <button *ngIf="this.addressFrom.id!=this.order.addressFrom!.id!" color="primary" mat-icon-button
+                    type="button"
+                    aria-label="speichern" (click)="updateOrderAddress('from')">
+              <mat-icon>save</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col break-word">
+          <span class="break-word"
+          >{{this.addressFrom!.companyName}}
+            <br/></span>
+          {{this.addressFrom!.street}}<br/>
+          {{this.addressFrom!.zip}}
+          {{this.addressFrom!.city}}<br/>
+          {{this.addressFrom!.country}}
+          <hr>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col break-word">
+          {{this.addressFrom!.clientName}} <span *ngIf="this.addressFrom!.phoneNumber">(Tel. {{this.addressFrom!.phoneNumber}}
+          )</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col">
+    <div class="tcard bg-white p-4 py-3">
+      <div class="row">
+        <div class="col">
+          <h4 class="mb-1">Empfänger</h4>
+
+          <div class="tcard-btn-div p-2" *ngIf="this.order.orderRightsGlobal!.edit.addressTo">
+            <button color="primary" mat-icon-button aria-label="bearbeiten" (click)="openAddressDialog('to')">
+              <mat-icon>edit</mat-icon>
+            </button>
+
+            <button *ngIf="this.addressTo.id!=this.order.addressTo!.id!" color="primary" mat-icon-button
+                    aria-label="speichern" (click)="updateOrderAddress('to')">
+              <mat-icon>save</mat-icon>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col">
+         <span
+         >{{this.addressTo!.companyName}}
+           <br/></span>
+          {{this.addressTo!.street}}<br/>
+          {{this.addressTo!.zip}}
+          {{this.addressTo!.city}}<br/>
+          {{this.addressTo!.country}}
+          <hr>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          {{this.addressTo!.clientName}} <span *ngIf="this.addressTo!.phoneNumber">(Tel. {{this.addressTo!.phoneNumber}}
+          )</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

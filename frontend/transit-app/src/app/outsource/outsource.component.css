@@ -1,0 +1,32 @@
+
+.pre-loader {
+  width: 350px;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  margin-left: -175px;
+}
+
+
+.mat-expansion-panel-header {
+  font-weight: 500 !important;
+}
+
+.mat-expansion-panel.mat-expansion-panel-spacing.expandedColor {
+  background: #8fa0fe29;
+}
+.mat-expansion-panel.mat-expansion-panel-spacing.expandedColorDark {
+  background: #8fa0fe69;
+}
+
+
+.mat-table tr td:first-child{
+  width:25%;
+}
+.mat-table tr td:nth-child(2){
+  width:65%;
+}
+
+.mat-table tr td:nth-child(3){
+  width:10%;
+}

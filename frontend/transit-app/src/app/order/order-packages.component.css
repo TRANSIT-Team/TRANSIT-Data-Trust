@@ -1,0 +1,18 @@
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #fff; /* or any other color you prefer */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb); /* or any other color you prefer */
+  border-radius: 10px;
+  border: 3px solid #fff; /* or the same background-color as the track */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-hover); /* darker color on hover */
+}

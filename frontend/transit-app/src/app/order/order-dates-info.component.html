@@ -1,0 +1,72 @@
+<div class="tcard bg-white p-4 pb-2">
+
+  <app-loading-confetti *ngIf="this.showFinish"></app-loading-confetti>
+
+  <div class="row" *ngIf="this.loading">
+    <div class="col">
+      <h4>Lieferung</h4>
+    </div>
+  </div>
+  <app-loading-placeholder *ngIf="this.loading" [small]="true"></app-loading-placeholder>
+
+  <div *ngIf="!this.loading">
+    <form [formGroup]="editForm" (ngSubmit)='saveInformations()'>
+
+      <div class="row">
+        <div class="col">
+          <h4>{{labelText}}</h4>
+          <div class="tcard-btn-div p-3 px-2"
+               *ngIf="(this.order.orderRightsGlobal!.edit.pickupTimestamp && this.type=='pickUp')||( this.order.orderRightsGlobal!.edit.deliveryTimestamp && this.type=='delivery')">
+            <button color="primary" mat-icon-button type="submit"
+                    aria-label="speichern">
+              <mat-icon>save</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <dx-date-box appearance="outline" formControlName="actionTimestampArrive" stylingMode="outlined"
+                       (onValueChanged)="changeDateTo($event)"
+                       class="material-small"
+                       label="{{this.typeDescriptionArrive}}"
+                       displayFormat="dd.MM.yyyy HH:mm"
+                       id="completionDateArrive"
+                       type="datetime"
+                       [min]="minDateArrive"
+                       [max]="now">
+          </dx-date-box>
+        </div>
+        <div class="col">
+          <dx-date-box appearance="outline" formControlName="actionTimestampLeave" stylingMode="outlined"
+                       class="material-small"
+                       label="{{this.typeDescriptionLeave}}"
+                       displayFormat="dd.MM.yyyy HH:mm"
+                       id="completionDate"
+                       type="datetime"
+                       [min]="minDateLeave"
+                       [max]="now">
+          </dx-date-box>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label *ngIf="this.type=='delivery'">Abgegeben bei</mat-label>
+            <mat-label *ngIf="this.type=='pickUp'">Abgeholt bei</mat-label>
+
+            <input type="text" class="material-small"
+                   matInput
+                   formControlName="actionPerson">
+          </mat-form-field>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+
+

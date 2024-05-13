@@ -1,0 +1,72 @@
+version: '2'
+
+services:
+
+  keycloak:
+    image: devdocker.wifa.uni-leipzig.de:5000/transit/keycloak:18.0.0
+    restart: unless-stopped 
+    environment:
+      KEYCLOAK_ADMIN: ${KEYCLOAK_INITIAL_NAME}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_INITIAL_PASSWORD}
+      KC_DB_USERNAME: ${KEYCLOAK_DATABASE_USER_NAME}
+      KC_DB_PASSWORD:  ${KEYCLOAK_DATABASE_USER_PASSWORD}
+      KC_DB_URL: 'jdbc:mysql://dbkeycloak/${KEYCLOAK_DATABASE_NAME}'   
+      KEYCLOAK_FRONTEND_URL: https://auth.transit-project.de
+      KC_HOSTNAME: auth.transit-project.de
+      KC_PROXY: edge
+      PROXY_ADDRESS_FORWARDING: 'true'
+      TZ: ${TIME_ZONE}
+      JAVA_OPTS_APPEND: -Dkeycloak.migration.strategy=update
+    depends_on:
+     - dbkeycloak
+    labels:
+      io.rancher.scheduler.affinity:host_label: role=worker
+      project: transit
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+
+  dbkeycloak:
+      image: mysql:${MYSQL_VERSION} 
+      restart: unless-stopped 
+      environment:
+        MYSQL_DATABASE: ${KEYCLOAK_DATABASE_NAME}
+        MYSQL_USER: ${KEYCLOAK_DATABASE_USER_NAME}
+        MYSQL_PASSWORD: ${KEYCLOAK_DATABASE_USER_PASSWORD}
+        MYSQL_ROOT_PASSWORD: ${KEYCLOAK_DATABASE_ROOT_PASSWORD}
+        TZ: ${TIME_ZONE} 
+      cap_add:
+        - SYS_NICE 
+      volumes_from:
+        - keycloak-db-volume
+      labels:
+        io.rancher.scheduler.affinity:host_label: role=worker
+        project: transit
+        io.rancher.sidekicks: keycloak-db-volume
+        io.rancher.container.hostname_override: container_name
+        io.rancher.container.pull_image: always
+    
+
+  keycloak-db-volume:
+    image: rawmind/alpine-volume:0.0.2-4
+    environment:
+      SERVICE_GID: '999'
+      SERVICE_UID: '999'
+      SERVICE_VOLUME: /var/lib/mysql
+    network_mode: none
+    volumes:
+    - keycloak_db_data-1:/var/lib/mysql
+    labels:
+      io.rancher.container.start_once: 'true'
+      project: transit
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+
+volumes:
+  keycloak_db_data-1:
+    driver: local
+
+
+#docker-compose --env-file config/.env.prod up -d
+
+
+#rancher up -s transit-keycloak-1 -f docker-compose.yml --env-file config/.env.prod -u -d  

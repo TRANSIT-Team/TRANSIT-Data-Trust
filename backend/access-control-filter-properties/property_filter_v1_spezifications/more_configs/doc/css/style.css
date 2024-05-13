@@ -1,0 +1,19 @@
+img[alt=width100] {
+    max-width: 550px;
+    width: 100%;
+}
+
+img[alt=width75] {
+    max-width: 450px;
+    width: 75%;
+}
+
+img[alt=width50] {
+    max-width: 450px;
+    width: 50%;
+}
+
+img[alt=width25] {
+    max-width: 450px;
+    width: 25%;
+}

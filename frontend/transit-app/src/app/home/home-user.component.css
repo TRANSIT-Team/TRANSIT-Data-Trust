@@ -1,0 +1,253 @@
+
+.header.home {
+  height: 100%;
+  min-height:calc(100vh + 150px);
+  background:#fff;
+}
+body,.body{
+  background-color:#fff !important;
+  /* opacity: 0.8;
+   background-image:  radial-gradient(#000dff 0.5px, transparent 0.5px), radial-gradient(#000dff 0.5px, #e5e5f7 0.5px);
+   background-size: 20px 20px;
+   background-position: 0 0,10px 10px;
+*/
+}
+h1 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 100;
+  font-size: 4em;
+}
+
+
+.home-logo {
+
+  width: 225px;
+}
+
+.account-button-container {
+
+  float: right;
+}
+
+
+.header {
+
+  /* background-color: #fff;
+ background-color: #e5e5f7;
+
+  background-image:  radial-gradient(#000dff 0.5px, transparent 0.5px), radial-gradient(#000dff 0.5px, #e5e5f7 0.5px);
+  background-size: 20px 20px;
+  background-position: 0 0,10px 10px;
+  min-height: 100vh;
+  background: var(--main-theme-primary);
+  background: -webkit-linear-gradient(290deg,#a6ffcb 10%,#2c84ff 70%,#6458b1 50%);
+  background: linear-gradient(290deg,#a6ffcb 10%,#2c84ff 70%,#6458b1 50%);*/
+}
+
+.card {
+  height: 450px;
+  margin-top: 100px;
+  box-shadow: 0 20px 10px 10px #0003, 0 1px 1px #00000024, 0 1px 3px #0000001f;
+}
+
+.card-mid {
+  height: 550px;
+  box-shadow: 0 20px 10px 10px #0003, 0 1px 1px #00000024, 0 1px 3px #0000001f;
+}
+
+.card-row {
+  position: relative;
+  width: 75%;
+
+  padding-top: 15vh;
+}
+
+.content {
+  z-index: 2;
+  position: relative;
+  width: 100%;
+  /*background: var(--main-theme-primary);*/
+  height: 100%;
+
+}
+
+.circle-top {
+  width: 100%;
+  height: 80%;
+  position: fixed;
+  background: var(--main-theme-primary);;
+  border-radius: 13% 0 100% 0;
+  z-index: 0;
+  top: 0;
+  opacity: 0.3;
+}
+
+.circle-bottom {
+  width: 80%;
+  height: 40%;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background: var(--main-theme-primary);;
+  border-radius: 100% 0 0 0;
+  z-index: 0;
+  opacity: 0.7;
+
+}
+
+.svg-bg {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+#stripes {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  transform-origin: 0;
+  transform: skewY(-13deg);
+  background: -webkit-linear-gradient(300deg, #53f 15%, #05d5ff 70%, #a6ffcb 94%);
+  background: linear-gradient(150deg, #53f 15%, #05d5ff 70%, #a6ffcb 94%);
+  z-index: 1;
+  margin-top: 150px;
+
+}
+
+#stripes, #stripes span {
+  position: absolute;
+  z-index: 1;
+}
+
+#stripes span {
+  height: 40px;
+}
+
+#stripes :nth-child(1) {
+  width: 50%;
+  left: 50%;
+  top: 40px;
+  background: #4c29ff;
+}
+
+#stripes :nth-child(2) {
+  width: 14%;
+  right: 0;
+  bottom: 40px;
+  background: #2be7ff;
+}
+
+#stripes :nth-child(3) {
+  width: 25%;
+  bottom: 0;
+  right: 0;
+  background: #a1ffc8;
+}
+
+@media (min-width: 670px) {
+  #stripes span {
+    height: 150px;
+  }
+
+  #stripes :nth-child(1) {
+    top: 0;
+  }
+
+  #stripes :nth-child(2) {
+    width: 16.66667%;
+    top: 300px;
+    bottom: auto;
+    background: #0dcfff;
+  }
+
+  #stripes :nth-child(3) {
+    width: 33.33333%;
+    right: auto;
+    background: #11bdff;
+  }
+}
+
+@media (min-width: 880px) {
+  #stripes span {
+    height: 190px;
+  }
+
+  #stripes :nth-child(1) {
+    width: 33.33333%;
+    left: -16.66666%;
+    background: #53f;
+  }
+
+  #stripes :nth-child(2) {
+    width: 33.33333%;
+    top: 0;
+    left: 16.66666%;
+    right: auto;
+    background: #4553ff;
+  }
+
+  #stripes :nth-child(3) {
+    width: 33.33333%;
+    left: 49.99999%;
+    bottom: auto;
+    background: #4f40ff;
+  }
+
+  #stripes :nth-child(4) {
+    width: 33.33333%;
+    top: 380px;
+    right: -16.66666%;
+    background: #25ddf5;
+  }
+
+  #stripes :nth-child(5) {
+    width: 33.33333%;
+    bottom: 0;
+    background: #1fa2ff;
+  }
+}
+
+
+@media only screen and (max-width: 600px) {
+
+  .card, .card-mid {
+    margin-top: 50px;
+  }
+
+  .card-row {
+    position: relative;
+    width: 100%;
+    left: 0;
+    padding-top: 5vh;
+  }
+
+  h1 {
+    font-size: 3em;
+    line-height: normal;
+  }
+
+  .row {
+    margin: auto;
+
+  }
+  .home-logo {
+    width: 170px;
+  }
+  .account-button-container {
+
+    display: inline;
+  }
+
+  .account-button-container button {
+    width: 100%;
+    display: inline;
+    max-width: 125px;
+    float: right;
+    margin-bottom: 10px;
+
+  }
+
+
+}

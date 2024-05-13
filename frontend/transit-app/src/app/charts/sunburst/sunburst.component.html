@@ -1,0 +1,11 @@
+<div class="mGraph-wrapper p-4">
+    <div class="mGraph" id="chart"></div>
+</div>
+
+
+<div class="p-4" *ngIf="!this.hasData">
+    <h4>Es sind keine Aufträge vorhanden</h4>
+</div>
+
+
+<app-loading *ngIf="this.loadingChart">Loading</app-loading>

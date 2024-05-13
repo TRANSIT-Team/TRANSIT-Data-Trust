@@ -1,0 +1,87 @@
+.message-row {
+  cursor: pointer;
+  height: 100px;
+}
+
+.message-row:hover {
+  background-color: #e6e6e6;
+}
+
+.unread .message {
+  font-weight: 700;
+}
+
+.unread-dot {
+  background: var(--main-theme-primary);
+  border-radius: 9px;
+  width: 10px;
+  height: 10px;
+  margin-top: 25px;
+}
+
+.message-row-active {
+  background-color: #e6e6e6;
+}
+
+.message-col {
+  overflow-y: auto;
+  max-height: 100vh;
+}
+
+.message-center {
+  height: calc(100vh - 64px);
+
+}
+
+.msg-timestamp{
+  display:block;
+}
+
+.msg-timestamp.you{
+  float:left;
+}
+.msg-timestamp.me{
+  float:right;
+}
+
+.chat-col {
+  overflow-y: auto;
+  height: calc(100vh - 255px);
+}
+
+.no-chat {
+  width: 300px;
+  margin-left: -150px;
+  left: 50%;
+  top: 30%;
+}
+
+
+.row {
+
+  width: 100%;
+}
+
+.btn-div{
+  position:absolute;
+  right:5px;
+  top:28px;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #fff; /* or any other color you prefer */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb); /* or any other color you prefer */
+  border-radius: 10px;
+  border: 3px solid #fff; /* or the same background-color as the track */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-hover); /* darker color on hover */
+}

@@ -1,0 +1,11 @@
+.home-logo {
+  width: 170px;
+  margin:auto;
+}
+.footer{
+  text-align: center;
+  display: flex;
+  text-align: center;
+  align-items: baseline;
+  justify-content: center;
+}

@@ -1,0 +1,177 @@
+<app-loading *ngIf="!hideLoader" showText="Daten werden geladen..." class="pre-loader"></app-loading>
+
+<div class="row w-100 p-0 pt-0 m-0">
+  <div class="col p-0">
+    <div class="row w-100 p-0 m-0">
+
+      <div class="col-lg-6 col-md-12 col-sm-12 p-0">
+        <div class="companies p-3 pt-0 mt-lg-0 mt-md-3 mt-sm-3">
+
+          <div class="row ps-1 mt-4">
+            <div class="col p-0">
+              <h3><b>Übersicht Logistiker ({{this.companies.length}})</b></h3>
+            </div>
+          </div>
+
+          <div class="row mt-2 row-vertical-scroll">
+            <div class="col ps-1">
+              <app-outsource-companies (submitData)="companySelectedForOutsource($event)"
+                                       [outsourceMapCompanies]="this.outsourceMapCompanies" [order]="this.order"
+                                       (submitListData)="companiesSelectedForOutsource($event)"></app-outsource-companies>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-md-12 col-sm-12 p-0 mt-lg-0 mt-md-3 mt-sm-3">
+        <mat-card class="p-0" [ngClass]="{'d-none': (!this.mapLoaded),'mat-elevation-z0':(!hideLoader)}">
+          <div class="map p-0" id="map-route" style=""></div>
+        </mat-card>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+
+<!-- outsourcelist popup -->
+<div class="side-tool right-side-tool autoscroll col-lg-2 col-md-3 col-sm-2 p-0 outsourceStrategie"
+     *ngIf="(this.companiesSelected.length>0)">
+  <mat-card class="ps-3 pe-3 mt-2 mb-1 glass-effect">
+
+    <div class="row">
+      <div class="col p-0">
+        <button mat-icon-button class="float-end m-2" (click)="routePlannerClearCompanies()">
+          <mat-icon>close</mat-icon>
+        </button>
+        <h2 class="mb-0 p-3"><b>Outsource-Planer</b></h2>
+      </div>
+    </div>
+
+    <div class="row pt-2 pb-2 mb-1">
+      <div class="col p-0">
+        <mat-divider></mat-divider>
+      </div>
+    </div>
+
+    <div *ngFor="let item of this.outsourceStategieCompanies; let i = index" class="row mt-2">
+
+      <div class="col-2 p-0" [ngClass]="this.outsourceStategieCompanies.length>1? 'ms-1rem' : ''"
+           *ngIf="this.outsourceStategieCompanies.length>1">
+        <div *ngIf="item.sort>1">
+          <button mat-icon-button class="float-end sort-up" (click)="changeSort(this.item.company.id,false)">
+            <mat-icon>expand_less</mat-icon>
+          </button>
+        </div>
+
+        <div *ngIf="item.sort<(this.outsourceStategieCompanies.length)">
+          <button mat-icon-button class="float-end sort-down" (click)="changeSort(this.item.company.id,true)">
+            <mat-icon>expand_more</mat-icon>
+          </button>
+        </div>
+
+
+      </div>
+      <div class="col" [ngClass]="this.outsourceStategieCompanies.length>1? 'ps-0 col-10' : 'col-12'">
+        <mat-card class="pt-2 mat-elevation-z5 " *ngIf="item.company">
+          <div class="row">
+            <div class="col ">
+              <h4 class="" style="margin:5px;"><b>({{item.sort}})&nbsp;{{item.company.name}}</b></h4>
+            </div>
+            <div class="col-1">
+              <button class="float-end" mat-button [matMenuTriggerFor]="menu">
+                <mat-icon color="primary">more_horiz</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="flyToCompany(item.company.id,14)">Auf Karte</button>
+                <button mat-menu-item (click)="loadCompanyZipArea(item.company.id,true)">Liefergebiet
+                  anzeigen
+                </button>
+                <button mat-menu-item (click)="routePlannerClearCompany(item.company.id)">Anfrage löschen
+                </button>
+
+              </mat-menu>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col">
+              <mat-list>
+                <mat-list-item class="mat-list-p-0" *ngIf="item.company.companyAddresses">
+                  <mat-icon color="primary" matListItemIcon>location_on</mat-icon>&nbsp;
+                  <div matListItemTitle
+                       style="word-break: break-all;"> {{item.company.companyAddresses![0].street}}&nbsp;{{item.company.companyAddresses![0].zip}}&nbsp;{{item.company.companyAddresses![0].city}}</div>
+                </mat-list-item>
+              </mat-list>
+            </div>
+          </div>
+
+        </mat-card>
+      </div>
+    </div>
+
+
+    <div class="row pt-2 pb-2 mt-3">
+      <div class="col p-0">
+        <mat-divider></mat-divider>
+      </div>
+    </div>
+
+    <div class="row pt-2 pb-2 mt-1">
+      <div class="col p-3 d-inline">
+        <button class="float-end w-100" mat-button mat-raised-button color="accent"
+                (click)="saveRequestedCompanies(false)">
+          <mat-icon mat-list-icon>arrow_forward</mat-icon>
+          Outsource Einstellung
+        </button>
+
+        <button class="float-end w-100 mt-3" mat-button mat-raised-button color="primary"
+                (click)="saveRequestedCompanies(true)">
+          <mat-icon mat-list-icon>send</mat-icon>
+          Direkt absenden
+        </button>
+      </div>
+    </div>
+
+  </mat-card>
+</div>
+
+
+<!-- map popup -->
+<div #popupContainer class="popup-container mat-elevation-z1" style="width:100%;max-width:400px;">
+  <div *ngIf="popup">
+
+    <div class="row mw-100 m-0 bg-blue" style="border-radius: 7px 7px 0 0;">
+      <div class="col pt-3">
+        <h4 class="text-white text-center mb-0"><b>{{ popup.name }}</b></h4><br>
+      </div>
+    </div>
+    <div class="row p-3">
+      <div class="col font-weight-bold">
+        {{ popup.companyAddresses[0].street }}<br/>
+        {{ popup.companyAddresses[0].zip }}
+        {{ popup.companyAddresses[0].city }}
+        {{ popup.companyAddresses[0].country }}<br/>
+      </div>
+    </div>
+    <div class="row mt-2 p-3">
+      <div class="col d-none">
+        <button class="" mat-button color="primary" (click)="this.loadCompanyZipArea(popup.id)">
+          <mat-icon mat-list-icon>visibility</mat-icon>
+          Liefergebiet
+        </button>
+      </div>
+
+
+      <div class="col">
+        <button class="w-100" mat-button mat-flat-button color="accent" (click)="routePlannerAddCompany(popup.id)"
+                *ngIf="companyAlreadyRequested(popup.id)">
+          <mat-icon mat-list-icon>contact_support</mat-icon>
+          Anfragen
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

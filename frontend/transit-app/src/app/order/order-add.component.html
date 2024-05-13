@@ -1,0 +1,278 @@
+<div class="container mt-4">
+  <div class="row p-2">
+    <div class="col-lg-9 col-sm-12 mt-2 d-inline">
+      <h1><b>Neuer Auftrag</b></h1>
+    </div>
+
+    <div class="col-lg-3 col-sm-12 mt-2 float-end">
+      <button class="float-end" mat-button mat-raised-button color="warn" (click)="goBack()">
+        <mat-icon mat-list-icon>cancel</mat-icon>
+        abbrechen
+      </button>
+    </div>
+  </div>
+
+  <form [formGroup]="editForm" (ngSubmit)='onSubmitOrder()'>
+
+    <mat-card class="mt-3">
+      <div class="row">
+        <div class="col p-3">
+
+          <div class="row ">
+            <div class="col-lg-5 col-sm-12 align-self-start">
+
+              <div class="row">
+                <div class="col-12 pb-1">
+                  <h2>Abholung</h2>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <div class="col">
+
+                  <dx-date-box  formControlName="pickUpDate" label="Abholung-von"
+                                (ngModelChange)="onDateTimeChangePickupFrom($event)"
+                                displayFormat="dd.MM.yyyy HH:mm"
+                                id="pickUpDate"
+                                type="datetime"
+                                [min]="minDatePickUpFrom"
+                                [max]="maxDatePickUpFrom">
+                  </dx-date-box>
+                </div>
+
+                <div class="col">
+                  <dx-date-box  formControlName="pickUpDateTo" label="Abholung-bis"
+                                (ngModelChange)="onDateTimeChangePickupTo($event)"
+                                displayFormat="dd.MM.yyyy HH:mm"
+                                id="pickUpDateTo"
+                                type="datetime"
+                                [min]="minDatePickUpTo"
+                                [max]="maxDatePickUpTo">
+                  </dx-date-box>
+                </div>
+              </div>
+
+              <div class="row address-row ps-2" *ngIf="this.fromAddress==undefined">
+                <div class="col font-weight-bold">
+                  keine Adresse ausgewählt
+                </div>
+              </div>
+
+              <div class="row address-row" *ngIf="this.fromAddress!=undefined">
+                <div class="col font-weight-bold">
+                  <span
+                    *ngIf="this.fromAddress.clientName!='' && this.fromAddress.clientName!=undefined">{{this.fromAddress.clientName}}
+                    <br/></span>
+                  {{this.fromAddress.street}}<br/>
+                  {{this.fromAddress.zip}}
+                  {{this.fromAddress.city}}<br/>
+                  {{this.fromAddress.country}}
+                </div>
+              </div>
+
+
+              <mat-form-field appearance="fill" class="d-none">
+                <mat-label>addressIdTo</mat-label>
+                <input matInput formControlName="addressIdFrom" id="addressIdFrom"/>
+              </mat-form-field>
+
+
+              <div class="row pt-2">
+                <div class="col-12 pb-3">
+                  <button type="button" mat-stroked-button (click)="openAddressDialog('from')">Absender auswählen
+                  </button>
+                </div>
+              </div>
+
+
+
+
+
+            </div>
+
+            <!--  second columm-->
+            <div class="col-lg-5 col-sm-12 offset-sm-0 offset-lg-1">
+
+              <div class="row">
+                <div class="col-12pb-1">
+                  <h2>Lieferung</h2>
+                </div>
+              </div>
+
+
+              <div class="row mb-4">
+                <div class="col">
+
+                  <dx-date-box  formControlName="destinationDate" label="Lieferung-von"
+                               (ngModelChange)="onDateTimeChangeDeliveryFrom($event)"
+                               displayFormat="dd.MM.yyyy HH:mm"
+                               id="destinationDate"
+                               type="datetime"
+                               [min]="minDateDeliveryFrom"
+                               [max]="maxDateDeliveryFrom">
+                  </dx-date-box>
+
+
+                </div>
+
+                <div class="col">
+
+                  <dx-date-box  formControlName="destinationDateTo" label="Lieferung-bis"
+                               (ngModelChange)="onDateTimeChangeDeliveryTo($event)"
+                               displayFormat="dd.MM.yyyy HH:mm"
+                               id="destinationDateTo"
+                               type="datetime"
+                               [min]="minDateDeliveryTo"
+                               [max]="maxDateDeliveryTo">
+                  </dx-date-box>
+
+
+                </div>
+              </div>
+
+              <div class="row address-row" *ngIf="this.toAddress==undefined">
+                <div class="col font-weight-bold">
+                  keine Adresse ausgewählt
+                </div>
+              </div>
+
+              <div class="row address-row" *ngIf="this.toAddress!=undefined">
+                <div class="col font-weight-bold">
+                  <span
+                    *ngIf="this.toAddress.clientName!='' && this.toAddress.clientName!=undefined">{{this.toAddress.clientName}}
+                    <br/></span>
+                  {{this.toAddress.street}}<br/>
+                  {{this.toAddress.zip}}
+                  {{this.toAddress.city}}<br/>
+                  {{this.toAddress.country}}
+                </div>
+              </div>
+
+              <mat-form-field appearance="fill" class="d-none">
+                <mat-label>addressIdTo</mat-label>
+                <input matInput formControlName="addressIdTo" id="addressIdTo"/>
+              </mat-form-field>
+
+
+              <div class="row pt-2">
+                <div class="col-12 px-3 pb-3">
+                  <button type="button" mat-stroked-button (click)="openAddressDialog('to')">Empfänger auswählen
+                  </button>
+                </div>
+              </div>
+
+
+
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-12">
+              <mat-divider></mat-divider>
+            </div>
+          </div>
+
+          <div class="row pt-3">
+            <div class="col-12">
+              <h2>Daten meines Unternehmens</h2>
+            </div>
+          </div>
+
+
+          <div class="row" *ngIf="this.contactPersons.length==0">
+            <div class="col-lg-12 col-sm-12 pb-3">
+              Es wurde noch keine Ansprechperson hinterlegt.
+              <button type="button" mat-button class="txt-nav" href="#" color="primary"
+                 (click)="openContactPersonDialog()">Jetzt hier hinterlegen</button>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-5 col-sm-12 align-self-start">
+              <mat-form-field appearance="fill" style="width:250px">
+                <mat-label>Ansprechpartner</mat-label>
+                <mat-select [(value)]="selectedContactPerson" formControlName="contactPerson">
+                  <mat-option *ngFor="let p of this.contactPersons" [value]="p.id">
+                    {{p.name}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="editForm.controls['contactPerson'].hasError('required')">Ansprechpartner
+                  ist ein Pflichtfeld
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-5 col-sm-12 offset-sm-0 offset-lg-1">
+
+              <div class="row address-row ps-2" *ngIf="this.customer==undefined">
+                <div class="col font-weight-bold">
+                  kein Kunde ausgewählt
+                </div>
+              </div>
+
+              <div class="row address-row" *ngIf="this.customer!=undefined">
+                <div class="col font-weight-bold">
+                  <b
+                  >{{this.customer!.name}}
+                    <br/></b>
+                  {{this.customer!.email}}<br/>
+                  {{this.customer!.tel}}
+                </div>
+              </div>
+
+              <div class="row pt-2">
+                <div class="col-12 pb-3">
+                  <button type="button" mat-stroked-button (click)="openCustomerDialog()">Kunden auswählen
+                  </button>
+                </div>
+              </div>
+
+
+
+
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-12">
+              <mat-divider></mat-divider>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-12 pb-1">
+              <h2>Bemerkung</h2>
+            </div>
+          </div>
+
+          <div class="row pt-0">
+            <div class="col">
+              <mat-form-field appearance="fill">
+                <mat-label>Bemerkung zum Auftrag</mat-label>
+                <input matInput formControlName="orderComment" id="orderComment"/>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <mat-divider>
+              </mat-divider>
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col float-end">
+              <button mat-raised-button color="primary" type="submit" [disabled]="!editForm.valid || this.sendingData">
+                Speichern
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </mat-card>
+
+  </form>
+</div>

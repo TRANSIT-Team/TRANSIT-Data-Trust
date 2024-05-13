@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>Auftragsangebot senden</h2>
+<form [formGroup]="editForm" (ngSubmit)='action()'>
+  <mat-dialog-content>
+    <div class="row">
+      <div class="col">
+
+
+        <mat-form-field appearance="outline" floatLabel="always" class="mat-input-inline">
+          <mat-label>Angebotspreis</mat-label>
+          <input matInput (keypress)="preventNonNumericalInput($event)" pattern="[0-9]+([.,][0-9]+)?"
+                 type="number" placeholder="0"
+                 formControlName="orderPrice"
+                 id="orderPrice"/>
+          <span matTextPrefix>€&nbsp;</span>
+          <mat-error *ngIf="editForm.controls['orderPrice'].hasError('min')">Mindestens 0€
+          </mat-error>
+          <mat-error *ngIf="editForm.controls['orderPrice'].hasError('pattern')">Bitte geben Sie eine Zahl ein
+          </mat-error>
+        </mat-form-field>
+
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-raised-button class=" me-3" (click)="close()">Abbrechen</button>
+    <button mat-raised-button class="" color="primary" (click)="action()" type="submit">Auftrag annehmen</button>
+  </mat-dialog-actions>
+</form>

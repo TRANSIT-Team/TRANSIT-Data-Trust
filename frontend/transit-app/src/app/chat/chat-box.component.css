@@ -1,0 +1,67 @@
+.chatbox {
+  height: 650px;
+  width: 400px;
+  background: white;
+  position: fixed;
+  right: 15px;
+  bottom: 15px;
+  z-index: 999999999;
+  max-width: calc(100vw - 30px);
+}
+.col-flex{
+  display:flex;
+  align-items: center;
+}
+
+.btn-end{
+  position: absolute;
+  right:5px;
+
+}
+.chat-holder {
+  height: calc(100% - 40px);
+}
+.chat-holder-messages {
+  height: 500px;
+  overflow-y: auto;
+}
+
+.chatbox-button {
+  z-index: 999999999;
+  position: fixed;
+  right: 75px;
+  bottom: 35px;
+}
+
+.msg-timestamp{
+  display:block;
+}
+
+.msg-timestamp.you{
+  float:left;
+}
+.msg-timestamp.me{
+  float:right;
+}
+
+.bubble {
+   margin-bottom: 0px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #fff; /* or any other color you prefer */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb); /* or any other color you prefer */
+  border-radius: 10px;
+  border: 3px solid #fff; /* or the same background-color as the track */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-hover); /* darker color on hover */
+}

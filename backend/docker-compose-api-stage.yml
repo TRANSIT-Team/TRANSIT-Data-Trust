@@ -1,0 +1,104 @@
+version: '2'
+volumes:
+  backend-db-store:
+    driver: local
+services:
+  spring-app:
+    image: devdocker.wifa.uni-leipzig.de:5000/transit/spring-backend:stage-test
+    restart: unless-stopped 
+    command: "/bin/sh start-test.sh"
+    environment:
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.spatial.dialect.postgis.PostgisPG9Dialect
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+      SPRING_DATASOURCE_URL:  jdbc:postgresql://backend-db:5432/order-data-storage?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&createDatabaseIfNotExist=true
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_CODEC_MAX_IN_MEMORY_SIZE: 100MB       
+      #none
+      SERVER_SERVLET_CONTEXT_PATH: /api/v1
+      SERVER_FORWARD_HEADERS_STRATEGY: FRAMEWORK
+    depends_on:
+      - backend-db
+    labels:
+      io.rancher.scheduler.affinity:host_label: role=worker
+      project: transit
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+    external_links:
+      - stage-transit-backend-db/backend-db:backend-db
+  
+
+    secrets:
+      - TRANSIT_BACKEND_DB_USER_NAME
+      - TRANSIT_BACKEND_DB_USER_PASSWORD
+      - STAGE_TRANSIT_BACKEND_AUTH_CLIENT_ID
+      - STAGE_TRANSIT_BACKEND_AUTH_CLIENT_SECRET
+      - TRANSIT_BACKEND_AUTH_SCOPE
+      - STAGE_TRANSIT_BACKEND_AUTH_ISSUER_URI
+
+      - STAGE_TRANSIT_BACKEND_ADMIN_CLIENT_URL
+      - STAGE_TRANSIT_BACKEND_ADMIN_CLIENT_REALM
+      - STAGE_TRANSIT_BACKEND_ADMIN_CLIENT_ID
+      - STAGE_TRANSIT_BACKEND_ADMIN_CLIENT_SECRET
+
+      - STAGE_TRANSIT_KEYCLOAK_SERVER_CLIENT_ID
+      - STAGE_TRANSIT_KEYCLOAK_SERVER_CLIENT_SECRET
+      - TRANSIT_KEYCLOAK_SERVER_AUTHORIZATION_GRANT_TYPE
+      - STAGE_TRANSIT_KEYCLOAK_SERVER_ISSUER_URI
+      - STAGE_TRANSIT_KEYCLOAK_SERVER_TOKEN_URI
+      - STAGE_RIGHTS_SERVICE_BASE_PATH_CORE
+      - TRANSIT_MAIL_HOST
+      - TRANSIT_MAIL_PORT
+      - TRANSIT_MAIL_USERNAME
+      - TRANSIT_MAIL_PASSSWORD
+secrets:
+  STAGE_TRANSIT_BACKEND_DB_USER_NAME:
+    file: ./secrets/transit_backend_db_user_name.txt
+  STAGE_TRANSIT_BACKEND_DB_USER_PASSWORD:
+    file: ./secrets/transit_backend_db_user_password.txt
+  STAGE_TRANSIT_BACKEND_AUTH_CLIENT_ID:
+    file: ./secrets/transit_backend_auth_client_id - Kopie.txt
+  STAGE_TRANSIT_BACKEND_AUTH_CLIENT_SECRET:
+    file: ./secrets/transit_backend_auth_client_secret - Kopie.txt
+  TRANSIT_BACKEND_AUTH_SCOPE:
+    file: ./secrets/transit_backend_auth_scope.txt
+  STAGE_TRANSIT_BACKEND_AUTH_ISSUER_URI:
+    file: ./secrets/transit_backend_auth_issuer_uri - Kopie.txt
+
+  STAGE_TRANSIT_BACKEND_ADMIN_CLIENT_URL:
+    file: ./secrets/transit_backend_admin_client_url - Kopie.txt
+    
+  STAGE_TRANSIT_BACKEND_ADMIN_CLIENT_REALM:
+    file: ./secrets/transit_backend_admin_client_realm - Kopie.txt
+  STAGE_TRANSIT_BACKEND_ADMIN_CLIENT_ID:
+    file: ./secrets/transit_backend_admin_client_id - Kopie.txt
+  STAGE_TRANSIT_BACKEND_ADMIN_CLIENT_SECRET:
+    file: ./secrets/transit_backend_admin_client_secret - Kopie.txt
+
+
+  STAGE_TRANSIT_KEYCLOAK_SERVER_CLIENT_ID:
+    file: ./secrets/transit_keycloak_server_server_client_id - Kopie.txt
+  STAGE_TRANSIT_KEYCLOAK_SERVER_CLIENT_SECRET:
+    file: ./secrets/transit_keycloak_server_client_secret - Kopie.txt
+  TRANSIT_KEYCLOAK_SERVER_AUTHORIZATION_GRANT_TYPE:
+    file: ./secrets/transit_keycloak_server_authorization_grant_type.txt
+  STAGE_TRANSIT_KEYCLOAK_SERVER_ISSUER_URI:
+    file: ./secrets/transit_keycloak_server_issuer_uri - Kopie.txt  
+  STAGE_TRANSIT_KEYCLOAK_SERVER_TOKEN_URI:
+    file: ./secrets/transit_keycloak_serverr_token_uri - Kopie.txt  
+  STAGE_RIGHTS_SERVICE_BASE_PATH_CORE:
+    file: ./secrets/stage_rights_service_base_path_core.txt  
+
+   #Mail
+  TRANSIT_MAIL_HOST:
+    file: ./secrets/mail_host.txt    
+  TRANSIT_MAIL_PORT:
+    file: ./secrets/mail_port.txt   
+  TRANSIT_MAIL_USERNAME:
+    file: ./secrets/mail_username.txt    
+  TRANSIT_MAIL_PASSSWORD:
+    file: ./secrets/mail_password.txt      
+
+#docker-compose up -d  
+
+#rancher up -s stage-transit-backend-api -f docker-compose-api-stage.yml -u -c -d 
+

@@ -1,0 +1,30 @@
+version: '2'
+services:
+  konga:
+    scale: 1
+    start_on_create: true
+    upgrade_strategy:
+      start_first: true
+  kong-migration:
+    scale: 1
+    start_on_create: true
+  konga-db-volume:
+    scale: 1
+    start_on_create: true
+  konga-db:
+    scale: 1
+    start_on_create: true
+  kong-migration-bootstrap:
+    scale: 1
+    start_on_create: true
+  kong-db:
+    scale: 1
+    start_on_create: true
+  king-for-kong:
+    scale: 1
+  kong-db-volume:
+    scale: 1
+    start_on_create: true
+  kong:
+    scale: 1
+    start_on_create: true

@@ -1,0 +1,17 @@
+<app-outsource-map [ngClass]="{'d-none': this.showRights}" class="position-relative"
+                   [companiesSelected]="this.companiesSelected"
+                   [outsourceStategieCompanies]="this.outsourceStategieCompanies"
+                   [outsourceMapCompanies]="this.outsourceMapCompanies"
+                   [order]="this.order" (storeOutsourceMapCompanies)="storeData($event)"
+                   [dialogComponent]="true"
+                   (forwardToRights)="this.goToRights($event)" (directlySendRequests)="this.setDirectly($event)">
+</app-outsource-map>
+
+<app-outsource-rights *ngIf="this.showRights" class="position-relative"
+                      [order]="this.order"
+                      [outsourceCompanies]="this.outsourceCompanies"
+                      (forwardToMap)="this.goToMap($event)"
+                      (closeWindow)="this.closeWindow.emit()" [sendDirectly]="this.sendDirectly">
+</app-outsource-rights>
+
+

@@ -1,0 +1,46 @@
+version: "2"
+services:
+  db:
+    image: devdocker.wifa.uni-leipzig.de:5000/transit/geoservice-db:latest
+    container_name: local_pgdb
+    restart: always
+    ports:
+      - 54320:5432
+    environment:
+      PGDATA: /var/lib/postgresql/data/geoservice
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      #POSTGRES_MULTIPLE_EXTENSIONS: postgis,hstore,postgis_topology,postgis_raster,pgrouting
+    volumes_from:
+      - geoservice-db-volume
+    labels:
+      io.rancher.scheduler.affinity:host_label: role=worker
+      project: transit
+      io.rancher.sidekicks: geoservice-db-volume
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+  geoservice-db-volume:
+    image: rawmind/alpine-volume:0.0.2-4
+    environment:
+      SERVICE_GID: '999'
+      SERVICE_UID: '999'
+      SERVICE_VOLUME: /var/lib/postgresql/data
+    network_mode: none
+    volumes:
+    - local_pgdata:/var/lib/postgresql/data
+    labels:
+      io.rancher.container.start_once: 'true'
+      project: transit
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+
+
+volumes:
+  local_pgdata:
+    driver: local
+
+
+#docker-compose --env-file config/.env.prod up -d --build
+#rancher up -s transit-geoservice-db  -f docker-compose.yml  --env-file config/.env.prod.yml -u -c -d 
+

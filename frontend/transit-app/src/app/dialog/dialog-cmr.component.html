@@ -1,0 +1,17 @@
+<div class="row" style="top:0;">
+  <div class="col">
+    <h2 mat-dialog-title>CMR</h2>
+  </div>
+  <div class="col-1 text-end">
+    <button (click)="close()" mat-icon-button aria-label="Schließen">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>
+
+
+<div class="row mt-2" style=";">
+  <div class="col">
+    <app-cmr-overview *ngIf="this.order" [order]="this.order"></app-cmr-overview>
+  </div>
+</div>

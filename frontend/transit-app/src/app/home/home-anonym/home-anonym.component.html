@@ -1,0 +1,71 @@
+<div class="home-banner vh-100">
+  <div class="row h-100 p-0 m-0">
+    <div class="col-lg-6 col-md-6 col-sm-12 d-ld-block d-md-block d-sm-none h-100 bg-white left-side p-0 m-0">
+
+      <div class="bg-home" style="background-image: url('assets/img/bg-home.webp');">
+      </div>
+
+      <div class="left-side-center" style="height:200px;">
+        <a routerLink="/"><img src="assets/img/transit-logo.svg" class="home-logo" alt="logo"/></a>
+      </div>
+
+      <div class="bg-home" style="  background-image: url('assets/img/bg-home.webp');">
+
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-12 h-100 bg-blue m-0 right-side p-4">
+
+      <mat-card class="p-4">
+        <div class="p-4">
+          <div class="row my-4">
+            <div class="col text-center">
+              <h1 class="font-weight-bold">Datentreuhandplattform für die Logistik</h1>
+            </div>
+          </div>
+
+          <div class="row my-4">
+            <div class="col text-center">
+         Der sichere Aufbewahrungsort Ihrer Dateien. Teilen Sie mit größten Vertrauen Aufträge und bestimmen Sie wer was sehen darf.
+            </div>
+          </div>
+
+          <div class="row my-4">
+            <div class="col">
+              <div class="account-button-container">
+                <div class="p-2">
+                  <button mat-raised-button class="primary w-100 py-2" color="primary" (click)="login()">
+                    Anmelden
+                  </button>
+                </div>
+                <div class="p-2">
+                  <button mat-raised-button class="w-100 py-2" color="primary" (click)="register()">
+                    Registrieren
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="footer text-center m-auto mt-4">
+            <div class="p-2">
+              <input type="button" class="p-0 mat-button primary-color" mat-button color="primary"
+                     (click)="openInfoDialog('privacy-policy')" value="Datenschutz"/>
+            </div>
+            <div class="p-2">
+              <input type="button" class="p-0 mat-button primary-color" style="min-width:0px;" mat-button
+                     color="primary"
+                     (click)="openInfoDialog('imprint')" value="Impressum"/>
+            </div>
+          </div>
+
+        </div>
+      </mat-card>
+
+    </div>
+
+  </div>
+</div>
+
+

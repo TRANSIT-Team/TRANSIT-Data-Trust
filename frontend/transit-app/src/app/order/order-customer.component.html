@@ -1,0 +1,49 @@
+<div class="tcard bg-white p-4 pb-2">
+
+
+  <div class="row" *ngIf="this.loading">
+    <div class="col">
+      <h4>Kunde</h4>
+    </div>
+  </div>
+  <app-loading-placeholder *ngIf="this.loading"></app-loading-placeholder>
+
+  <div *ngIf="!this.loading">
+    <div class="row">
+      <div class="col">
+        <h4>Kunde</h4>
+        <div class="tcard-btn-div p-3 px-2">
+          <button color="primary" mat-icon-button aria-label="bearbeiten" (click)="openDialog()">
+            <mat-icon>edit</mat-icon>
+          </button>
+
+          <button color="primary" mat-icon-button
+                  aria-label="speichern" (click)="saveInformations()">
+            <mat-icon>save</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row" *ngIf="this.customer">
+      <div class="col break-word">
+          <b
+          >{{this.customer!.name}}
+            <br/></b>
+        {{this.customer!.email}}<br/>
+        {{this.customer!.tel}}
+      </div>
+    </div>
+
+    <div class="row" *ngIf="!this.customer">
+      <div class="col">
+       Kein Kunde ausgewählt
+      </div>
+    </div>
+
+
+  </div>
+
+</div>
+

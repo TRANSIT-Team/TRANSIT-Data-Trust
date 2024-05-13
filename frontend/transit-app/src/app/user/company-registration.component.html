@@ -1,0 +1,266 @@
+<div class="container pb-5">
+  <section>
+    <div class="mt-4 mw-100 m-auto" style="max-width: 750px !important;">
+      <div class="col">
+        <mat-card class="m-auto">
+          <div class="container p-4 m-auto">
+
+            <div class="row">
+
+              <div class="col-lg-12 col-sm-12 m-auto">
+                <h2>Firma anlegen</h2>
+                <div>
+
+
+                  <mat-divider></mat-divider>
+
+
+                  <div class="row">
+                    <div class="col-lg-12 col-sm-12 p-3">
+                      <h3>Angaben zur Person</h3>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-12 col-sm-12 ">
+                      <mat-form-field appearance="fill" id="firstName" type="text">
+                        <mat-label>ID</mat-label>
+                        <input matInput disabled class="disabled-show" value="{{this.keycloakInstance.id}}">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6 col-sm-12 ">
+                      <mat-form-field appearance="fill" id="firstName" type="text">
+                        <mat-label>Vorname</mat-label>
+                        <input matInput disabled class="disabled-show" value="{{this.keycloakInstance.firstName}}">
+                      </mat-form-field>
+
+
+                    </div>
+                    <div class="col-lg-6 col-sm-12 ">
+                      <mat-form-field appearance="fill">
+                        <mat-label>Nachname</mat-label>
+                        <input matInput disabled class="disabled-show" value="{{this.keycloakInstance.lastName}}">
+                      </mat-form-field>
+                    </div>
+
+
+                    <form [formGroup]="createItemForm" (ngSubmit)='onSubmit()'>
+
+
+                      <div class="col-lg-6 col-sm-12 ">
+                        <mat-form-field appearance="fill">
+                          <mat-label>Geschlecht</mat-label>
+                          <mat-select required formControlName="userGender" id="userGender">
+                            <mat-option value="m">männlich</mat-option>
+                            <mat-option value="w">weiblich</mat-option>
+                            <mat-option value="d">keine Angabe</mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="createItemForm.controls['userGender'].hasError('required')">Pflichtfeld
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-lg-12 col-sm-12 ">
+                        <mat-form-field appearance="fill">
+                          <mat-label>Jobposition</mat-label>
+                          <input matInput formControlName="userJobPostion" id="userJobPostion" type="text">
+                          <mat-error *ngIf="createItemForm.controls['userJobPostion'].hasError('required')">Pflichtfeld
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+
+
+                      <mat-divider></mat-divider>
+                      <div class="row">
+                        <div class="col-lg-12 col-sm-12 p-3">
+                          <h3>Angaben zur Firma</h3>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-lg-12 col-sm-12 ">
+                          <mat-form-field appearance="fill">
+                            <mat-label>Firma</mat-label>
+                            <input matInput formControlName="companyName" id="companyName" type="text">
+                            <mat-error *ngIf="createItemForm.controls['companyName'].hasError('required')">Pflichtfeld
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-lg-12 col-sm-12 p-3">
+                          <h4>Hauptanschrift</h4>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-lg-12 col-sm-12 ">
+                          <mat-form-field appearance="fill">
+                            <mat-label>Straße</mat-label>
+                            <input matInput formControlName="companyAddress" id="companyAddress" type="text">
+                            <mat-error *ngIf="createItemForm.controls['companyAddress'].hasError('required')">
+                              Pflichtfeld
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+
+
+                      </div>
+
+                      <div class="row">
+                        <div class="col-lg-6 col-sm-12 ">
+                          <mat-form-field appearance="fill">
+                            <mat-label>PLZ</mat-label>
+                            <input matInput formControlName="companyZip" id="companyZip" type="text">
+                            <mat-error *ngIf="createItemForm.controls['companyZip'].hasError('required')">Pflichtfeld
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-6 col-sm-12 ">
+                          <mat-form-field appearance="fill">
+                            <mat-label>Ort</mat-label>
+                            <input matInput formControlName="companyCity" id="companyCity" type="text">
+                            <mat-error *ngIf="createItemForm.controls['companyCity'].hasError('required')">Pflichtfeld
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                      </div>
+
+                      <div class="row">
+
+
+                        <div class="col-lg-6 col-sm-12 ">
+                          <mat-form-field appearance="fill">
+                            <mat-label>State</mat-label>
+                            <input matInput formControlName="companyState" id="companyState" type="text">
+                            <mat-error *ngIf="createItemForm.controls['companyState'].hasError('required')">Pflichtfeld
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-6 col-sm-12 pb-3">
+                          <mat-form-field appearance="fill">
+                            <mat-label>Land</mat-label>
+                            <mat-select [(ngModel)]="selectedCountriesWithIso" [(value)]="selectedCountriesWithIso" formControlName="companyCountry"
+                                        (selectionChange)="changeCountry($event.value)">
+                              <mat-option *ngFor="let p of countriesWithIso; let i = index;" [value]="p.countryCode">
+                                {{p.name}}
+                              </mat-option>
+                            </mat-select>
+
+                            <mat-error *ngIf="createItemForm.controls['companyCountry'].hasError('required')">
+                              Pflichtfeld
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+
+
+                      </div>
+
+
+                      <div class="row">
+                        <div class="col-lg-12 col-sm-12 ">
+                          <mat-form-field appearance="fill">
+                            <mat-label>Bemerkung</mat-label>
+                            <input matInput formControlName="companyComment" id="companyComment" type="text">
+                            <mat-error *ngIf="createItemForm.controls['companyComment'].hasError('required')">
+                              Pflichtfeld
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                      </div>
+
+                      <!--          <div class="row">
+                             <div class="col-lg-12 col-sm-12 p-3">
+                               <h4>Webseite</h4>
+                             </div>
+                           </div>
+                      <div class="row d-none">
+                             <div class="col-lg-12 col-sm-12 ">
+                               <mat-form-field appearance="fill">
+                                 <mat-label>Webseite</mat-label>
+                                 <input matInput formControlName="companyWebUrl" id="companyWebUrl" type="text">
+                                 <mat-error *ngIf="createItemForm.controls['companyWebUrl'].hasError('required')">
+                                   Pflichtfeld
+                                 </mat-error>
+                               </mat-form-field>
+                             </div>
+                           </div> -->
+
+                      <div *ngIf="alertDisplay" class="">
+                        <mat-divider></mat-divider>
+                        <div class="alert alert-danger mt-3">
+                      <mat-icon class="text-white">warning</mat-icon>
+                          <span>{{alertMessage}}</span>
+                        </div>
+                      </div>
+
+                      <mat-divider></mat-divider>
+
+                      <div class="row">
+                        <div class="col-lg-12 col-sm-12 mt-3">
+
+                            <mat-checkbox matInput formControlName="acceptTerms" id="acceptTerms" color="primary">
+                              Ich akzeptiere die
+                              <input type="button" class="p-0 mat-button primary-color" style="min-width:0px;" mat-button color="primary" (click)="openInfoDialog('agb')" value="AGB" />
+                                und
+                              <input type="button" class="p-0 mat-button primary-color" mat-button color="primary" (click)="openInfoDialog('privacy-policy')" value="Datenschutzerklärung"/>*
+                            </mat-checkbox>
+
+                        </div>
+                      </div>
+
+                      <div class="row mt-4 w-100">
+                        <div class="col d-inline float-start">
+                          <div class="float-end d-inline ms-3">
+                            <button mat-raised-button color="primary" type="submit" [disabled]="!createItemForm.valid || this.sendingData">
+                              Speichern
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+
+                    </form>
+
+                  </div>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </mat-card>
+
+      </div>
+    </div>
+  </section>
+</div>
+
+
+
+
+
+
+
+
+
+<div class="footer text-center m-auto">
+
+  <div class="p-2">
+    <input type="button" class="p-0 mat-button primary-color" mat-button color="primary"
+           (click)="openInfoDialog('privacy-policy')" value="Datenschutz"/>
+  </div>
+  <div class="p-2">
+    <input type="button" class="p-0 mat-button primary-color" style="min-width:0px;" mat-button color="primary"
+           (click)="openInfoDialog('imprint')" value="Impressum"/>
+
+
+  </div>
+</div>
+
+
+

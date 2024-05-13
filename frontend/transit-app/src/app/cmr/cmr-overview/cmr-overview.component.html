@@ -1,0 +1,732 @@
+<app-loading [showText]="'Exportieren...'" *ngIf="this.loading" class="pre-loader"></app-loading>
+<div class="container">
+    <div class="row my-1">
+        <div class="col">
+            <button mat-raised-button color="primary" [disabled]="this.loading" type="button" class="float-end"
+                    (click)="convertToPDF()">Export
+                PDF
+            </button>
+        </div>
+    </div>
+    <mat-card style="width:777px;" class="m-auto mb-4 " [class.scale]="this.scaleView" *ngIf="this.order">
+        <div #contentToConvert class="cmrBody m-auto">
+            <table>
+                <tr>
+                    <td colspan="2" style="height:65px;">
+                        <table class="noBorder">
+                            <tr class="noBorder">
+                                <td class="noBorder numWidth">
+                                    <span class="num">1</span>
+                                </td>
+                                <td class="noBorder">
+                                    Absender ( Name, Anschrift, Land )<br>
+                                    Sender (name, address, country)<br>
+                                    Expéditeur ( nom, adresse, pays )<br>
+                                    Nadawca ( Nazwisko lub nazwa, adres, kraj )<br>
+                                </td>
+                            </tr>
+                            <tr class="noBorder">
+                                <td class="noBorder">
+
+                                </td>
+                                <td class="noBorder filledValues">
+                                    {{this.order.addressFrom!.companyName}}<br>
+                                    {{this.order.addressFrom!.clientName}}<br>
+                                    {{this.order.addressFrom!.street}}<br>
+                                    {{this.order.addressFrom!.city}}, {{this.order.addressFrom!.country}}<br>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td colspan="2" style="font-size: 6px; letter-spacing: -0.3px; line-height: 95%;">
+                        <table class="noBorder">
+                            <tr class="noBorder">
+                                <td class="noBorder">
+                                    INTERNATIONALER FRACHTBRIEF<br>
+                                    INTERNATIONAL WAYBILL<br>
+                                    LETTRE DE VOITURE INTERNATIONAL<br>
+                                    MIĘDZYNARODOWY SAMOCHODOWY LIST PRZEWOZOWY<br>
+                                </td>
+                                <td class="noBorder">
+                                    <div style="margin:0 auto; width:70px;height:40px;top:-20px;"><img
+                                            alt="CMR picture"
+                                            src=" data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEBLAEsAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wgARCAAiAEYDAREAAhEBAxEB/8QAHAAAAQQDAQAAAAAAAAAAAAAACQADBggCBAUH/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAEC/9oADAMBAAIQAxAAAAEzS04WIHKVseO0k3L0sitbLywKtvWI0TFPRQhLIlW9cLswLBqfFYls2kqS9SCQbtvM+JWx1eaYyOW9VJEWgSxCIQ2YDhmIR//EACYQAAEDBQABAgcAAAAAAAAAAAYDBQcAAQIECBIQFhMYICEzNDj/2gAIAQEAAQUCMD4SA9TZm8zeaVd+rHW9xvq/br2V1ZasWTrHRpIm6iZ61Z+2Gq7CQMpO2n2OK3T6yuGuiLbEvS41SYbS+xg0oy+XJBBeXmq8jRUZF26e7GGCiHJ320zr+olksF0RprmaKmp+Aj9zbloUPfa7hFS7/KYFH7kEygr+Lk/9aQ4l1zJ1WeOlhelOgjZrvfrQZQr5vgOrdWs+1Sc5yY8Ukh0iYWjeNWSM2f18cb18JOvG30f/xAApEQABAgMHAwUBAAAAAAAAAAABABESIVECECIxQWFxMoHRMFKRofCx/9oACAEDAQE/AQHyUI1IWDdYKH93T2KH93WDdYKlQ0INw6Dz4ukJM9UAHNEAHL1b++FKcnmiAz5bXW9OEOg8+LpGeVU4no4UQcffwyeR5RLgVut6cIFpZhYdwoRpaCgNQoDUKA1ChHuWHcol/S//xAAUEQEAAAAAAAAAAAAAAAAAAABQ/9oACAECAQE/ATf/xABCEAABBAECBAIFBwYPAAAAAAACAQMEBQYREgAHEyEUMSIjMkFRFUJhcpGhshAWM3GBkxcgRFJzdHV2gpKUotHV5v/aAAgBAQAGPwIJeUXDFcj2vhY2hyJ8wk+bEgxxckvrromoN7BX2iHhUwHk/lVnHL9FaZAC1EcvgaRAB3c0ftAR2Ectvm2Kr23RsZxTH2y8upIrXVH/AAvWs55F+s3+zjUswxSBr81CYTb+6x+V9yrxr/CNi6/R1P8Ax/G4ckxOy2/MJYi7v31PCT/cnG6xwXGr9ofaKLKhg6SJ59MIdwJoq+7dFL6q8IHMblvmGFh2Q7VuG9c07fxdkutR40mO38OlHmfSXv4Zt8fsolrWyNUblQ3UcDeOm5o09pp4NU3suiDgapuFNU45dNuijrY1kRRBxEMEVPlg0VBLVEVDRDRfcSIXnw68fZtlo3S+o2KkX3JxYZ3TZ6mG1rk+xYxCgi09fLjPsVzxxxet5Etl15zxEls2Hd3WQCbcdbZAFBrjAlJxrEs3t7qZV27cJqktmJfQgSnY7jKOt2sVnxStNu9No97bqq2qoGgcYLc4bcfJc+wxMcryJ1uFWzNGvF0NC5H2T4cplrp3tubJK2ALub2ouiacYtisDmMzg1XY8tK3I5k6VWY7JYdtjm2TTqqdrE9A5TbTSI02+DQ9HVtjUjVcswq4yaBn1PTVUWyi5fXwIEMGpj7kUfkh8qkRr3HCCQ8aJ3eAoL3pkJKLTwOCJgTTiEBohCSKK6oQr2VF+C8cxG07NhkkbYCdgD1cxPRHyHsIp2TyEU9yccvP7Li/hueHWHO4PNm0afEHBUC+5eLPBsaw+ty2nSbYP4nkRXkSvGpZsXTf2WtfJ9fKSPIcOUrbRApOG631jaNtWuUQ3ExrJ7rHcxYvMrnqUKIy3FUHN4MNi1ECQ1HQhjogMdR7apqOhcczKXwTMj1UHHuXrSzoqdXHw5hfnXMccMndI5PNo08oPqBasg0ibk74tc5Hj1bb4nXcsodDNCx8JLZC+jTZ7oh4J1SI1bbkIoSBBQTeqIXnxm0mrq2anALuqrjrY0F9kIQ28bwyOKlcJ74xbXJqCYtI3pqPkocOf0Z/hXjmP/eSL+CdxV5XT3czFs0ogQKy6jNNzI5ABOGDE6A6oI6CK66iONOtOILhI5120RrjZJx7D89it/yysdcgzXU93qVfg7TVPb21zooXZDJO5bMg5G5bEUfbdgyJU1v6V0+QgbFP1yS/XxpYYRm0IveJR63svw9fPir9opx2xrM9f6tR/wDecaVXL3N7A19kRjw/S/0r04vsFeNmPci8g1X2JFtOlRm0195suU0NNPjpM/bx0p0jEuW9c8m112GyVtcIyfmrDRSZrfXRP50uvVF8tPLh+sqXZc2TPkeNtrScQrKsJe3bvUG0FlhoNS6TLY+juJTN1wicL8vcU+xOP0Yf5R/448k+z+J//8QAJBABAAICAQIHAQEAAAAAAAAAAREhADFBUWEQIHGBobHhwdH/2gAIAQEAAT8hhKTlygznqtQRryrqCfieJOSt2BmAK9RHqLuYe3DOtctvcU6/1ufoZ7aHzkWtX2/tO/s4cqIo7mM6pHlqKiwGCx50m0wTaYp+oJxFQZfCxTKSguuPxOAIiCOajisEQ1oIftkI/wBb47RUM7zQXMSc3ORvRMIPBykUxMsvNptDizyAyZ32LIMnTG4wF6yUcQkdcy1CUykETee/s0Fx7n4JQqLGAIdloR7uYeStJ+ABkjHmSLS6If8A05QUwAbLqu0bNHqeCDA+G57HUVLxT7opQW1UNggfGhpJq20uzu2qrIzMEJO+YdNxjzBYAd/DgE+y68soeaqRu0x3PUMlpfA/Z9Zx+++OA+ceTemeCAfDuARwxK+ZgaADVswlbCgrDrjOHGu+T+jvH1b7PBYDovQH88n/2gAMAwEAAgADAAAAEBaBCDAJCZADDaBzBxaABBAB/8QAJxEBAAECBAYCAwEAAAAAAAAAAREAITFBcYEQUWGh0fCRsTDB8eH/2gAIAQMBAT8QRQJ/WtAYLoX+XLvVk3V7WjwMbeJ5j3RWJ93u21Ssh7q+7VCcDUtl0+/m1IXaMHvbv/iIwiPWrNl634M8pAJKl0y6X9SabYUEmJ4w9m1OAWIMTmmzy7qACbUAlLbco5TRABS4mbXve/C6rsX3wK4lUEImY5PXRoC0hAGPfr2npVxvm6rGvrnRGBRZGlXAyFu8tc+KhKJMTDccsqh4PQST+blipMRrZ+71yE3fFf0XxUGIbvgqHEbX7z+qtvHQbHryvTuWCLAZH4v/xAAiEQABAgMJAAAAAAAAAAAAAADwASARMMExQVFhcZGhseH/2gAIAQIBAT8QcdZ09kAK0Cj4a7nFt8WRTFJ3/8QAIBABAQADAAIBBQAAAAAAAAAAAREAITEQUUEgYXGBof/aAAgBAQABPxCA2mGxeESFrAe4on9KwgGsYgzt0xoBJY9hl2jouIEk72SLyQcyHAabspG6He5ye0xSvgDg3Agcb+9ouUIgXxsQ4EUojD3hMThZV6S4VMpFQoCOitjJmOWrYAEgHitbCqXS+xOpoMqCbQwj1rjA1wxYiJja6KmeJOmLgM89cqoQwNLrBTWA6jbnUQlK5j1Q1tL/ALWUzsdpzcORUsgRTGtms7xfPzU1g/gwcSMiCFaiCCUTexNeEJOLjbnjHLKDgQ2lNq9WPMxpONlqL3iRi/NAP+RAhfsjBBIDJs0n8kT0lrempmDSirfa/B9LTkcmE2xAEWGWpEOkqHAyjttJGqJJcecrZiPEcBvBaGi+iN/T9vjHxmRKxsoKwnzgPEa1wQoBzS0QfcqhyzMt8w7V1VwQSSkKlRRh5pnIOkp6cIQd6EP5EMBaGnEJP3iXq+aqckEn0f/Z"/>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <span style="padding-left:70px;float:none;">NR:</span><br><br>
+                        Diese Beförderung unterliegt trotz einer gegenteiligen
+                        Abmachung den Bestimmungen des Übereinkommens
+                        über den Beförderungsvertrag im
+                        internat. Straßengüterverkehr (CMR)<br>
+                        This transport is subject despite a contrary agreement
+                        that Regulations of the convention over the transport
+                        contract in internat. Road haulage (CMR)<br>
+                        Ce transport est soumis, nonobstant toute clause contraire,
+                        á la Convention relative au contrat de transport
+                        international de marchandises par route (CMR) <br>
+                        Niniejszy przewóz podlega postanowieniom konwencji o umowie międzynarodowej przewozu
+                        drogowego towarów (CMR) bez względu na jakąkolwiek przeciwną klauzulę.<br>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="height:65px;">
+                        <table class="noBorder">
+                            <tr class="noBorder">
+                                <td class="noBorder numWidth">
+                                    <span class="num">2</span>
+                                </td>
+                                <td class="noBorder">
+                                    Empfänger (Name, Anschrift, Land)<br>
+                                    Consignee (name, address, country)<br>
+                                    Destinataire (nom, adresse, pays)<br>
+                                    Odbiorca ( Nazwisko lub nazwa, adres, kraj )<br>
+                                </td>
+                            </tr>
+                            <tr class="noBorder">
+                                <td class="noBorder">
+
+                                </td>
+                                <td class="noBorder filledValues">
+                                    {{this.order.addressTo!.companyName}}<br>
+                                    {{this.order.addressTo!.clientName}}<br>
+                                    {{this.order.addressTo!.street}}<br>
+                                    {{this.order.addressTo!.city}}, {{this.order.addressTo!.country}}<br>
+                                </td>
+                            </tr>
+
+
+                        </table>
+                    </td>
+                    <td colspan="2" style="border:2px solid black;border-bottom:none;">
+                        <table class="noBorder">
+                            <tr class="noBorder">
+                                <td class="noBorder numWidth">
+                                    <span class="num">16</span>
+                                </td>
+                                <td class="noBorder">
+                                    Frachtführer (Name, Anschrift, Land)<br>
+                                    Carrier (name, address, country)<br>
+                                    Transporteur (nom, adresse, pays)<br>
+                                    Przewoźnik (nazwisko lub nazwa, adres, kraj)<br>
+                                </td>
+                            </tr>
+                            <tr class="noBorder">
+                                <td class="noBorder numWidth">
+
+                                </td>
+                                <td class="noBorder">
+                                    <br><br><br><br>
+                                    <span style="padding-top:40px;padding-left:25px;font-size:6px;">NR. REJ.</span>
+                                </td>
+                            </tr>
+
+
+                        </table>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="height:60px;">
+                        <table class="noBorder">
+                            <tr class="noBorder">
+                                <td class="noBorder numWidth">
+                                    <span class="num">3</span>
+                                </td>
+                                <td class="noBorder">
+                                    Auslieferungsort des Gutes (Ort, Land,Datum)<br>
+                                    Place of delivery of the goods (place, country, date)<br>
+                                    Lieu prévu pour la livraison de la marchandise (lieu, pays, date)<br>
+                                    Miejsce przeznaczenia ( Nazwisko lub nazwa, adres, kraj, data )<br>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td colspan="2" style="border:2px solid black; border-bottom:none;border-top:none;">
+                        <table class="noBorder">
+                            <tr class="noBorder">
+                                <td class="noBorder numWidth">
+                                    <span class="num">17</span>
+                                </td>
+                                <td class="noBorder">
+                                    Nachfolgende Frachtführer (Name, Anschrift, Land)<br>
+                                    Successive carriers (name, address, country)<br>
+                                    Transporteurs successifs (nom, adresse, pays)<br>
+                                    Kolejni przewoźnicy ( Nazwisko lub nazwa, adres, kraj )<br>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="height:60px;border:1px solid black;">
+                        <table class="noBorder">
+                            <tr class="noBorder">
+                                <td class="noBorder numWidth">
+                                    <span class="num">4</span>
+                                </td>
+                                <td class="noBorder">
+                                    Ort und Tag der Übernahme das Gutes (Ort, Land, Datum)<br>
+                                    Place and date taking over the goods (place, country, date)<br>
+                                    Lieu et date de la prise en charge de la marchandise (lieu, pays, date)<br>
+                                    Miejsce i data załadowania ( Miejscowość, kraj, data )<br>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td colspan="2" style="border:2px solid black;border-top:none;">
+                        <table class="noBorder">
+                            <tr class="noBorder">
+                                <td class="noBorder numWidth">
+                                    <span class="num">18</span>
+                                </td>
+                                <td class="noBorder">
+                                    Vorbehalte und Bemerkungen der Frachtführer<br>
+                                    Carrier’s reservations and observations<br>
+                                    Rèserves et observations des transporteurs<br>
+                                    Zastrzeżenia i uwagi przewoźnika<br>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="border:1px solid black; height:35px;border-right:none">
+                        <table class="noBorder">
+                            <tr class="noBorder">
+                                <td class="noBorder numWidth">
+                                    <span class="num">5</span>
+                                </td>
+                                <td class="noBorder">
+                                    Beigefügte Dokumente<br>
+                                    Annexed documents<br>
+                                    Documents annexés<br>
+                                    Załączone dokumenty<br>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td colspan="2" style="border:2px solid black;border-top:none;">
+
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="height:0px;border:none;">
+                        <table style="width:100%;border:none;">
+                            <tr style="border: 2px none black;border-bottom-style: solid;">
+                                <td style="height:50px;width:22%">
+                                    <table class="noBorder">
+                                        <tr class="noBorder">
+                                            <td class="noBorder numWidth">
+                                                <span class="num">6</span>
+                                            </td>
+                                            <td class="noBorder tablepack">
+                                                Kennzeichen und Nummern<br>
+                                                Marks and Nos<br>
+                                                Marques et numèros<br>
+                                                Cechy i numery<br>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td style="width:13%">
+                                    <table class="noBorder">
+                                        <tr class="noBorder">
+                                            <td class="noBorder numWidth">
+                                                <span class="num">7</span>
+                                            </td>
+                                            <td class="noBorder tablepack">
+                                                Anzahl der Packstücke<br>
+                                                Number of packages<br>
+                                                Nombre des colis<br>
+                                                Ilość sztuk<br>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td style="width:13%">
+                                    <table class="noBorder">
+                                        <tr class="noBorder">
+                                            <td class="noBorder numWidth">
+                                                <span class="num">8</span>
+                                            </td>
+                                            <td class="noBorder tablepack">
+                                                Art der Verpackung<br>
+                                                Method of packing <br>
+                                                Mode d’emballage<br>
+                                                Sposób opakowania<br>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td style="width:13%">
+                                    <table class="noBorder">
+                                        <tr class="noBorder">
+                                            <td class="noBorder numWidth">
+                                                <span class="num">9</span>
+                                            </td>
+                                            <td class="noBorder tablepack">
+                                                Bezeichnung des Gutes<br>
+                                                Nature of the goods<br>
+                                                Nature de la marchandise<br>
+                                                Rodzaj towaru<br>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td
+                                        style="width:13%">
+                                    <table class="noBorder">
+                                        <tr class="noBorder">
+                                            <td class="noBorder numWidth">
+                                                <span class="num">10</span>
+                                            </td>
+                                            <td class="noBorder tablepack">
+                                                Statistiknummer<br>
+                                                Statistical number<br>
+                                                No statistique<br>
+                                                Numer statystyczny<br>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td
+                                        style="width:13%">
+                                    <table class="noBorder">
+                                        <tr class="noBorder">
+                                            <td class="noBorder numWidth">
+                                                <span class="num">11</span>
+                                            </td>
+                                            <td class="noBorder tablepack">
+                                                Bruttogewicht in kg<br>
+                                                Groos weight in kg<br>
+                                                Poids brut, kg<br>
+                                                Waga brutto w kg<br>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td
+                                        style="width:13%">
+                                    <table class="noBorder">
+                                        <tr class="noBorder">
+                                            <td class="noBorder numWidth">
+                                                <span class="num">12</span>
+                                            </td>
+                                            <td class="noBorder tablepack">
+                                                Umfang m³<br>
+                                                Volume in m³<br>
+                                                Cubage m³<br>
+                                                Objętość w m³<br>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <!--Packages-->
+
+                            <tr *ngFor="let entry of this.order.packageItems" class="tr-filledValues">
+                                <td class="package-td" style="width:22%">
+                      <span class="noBorder filledValues">
+                        {{entry.id}}
+                      </span>
+                                </td>
+                                <td class="package-td" style="width:13%">
+                      <span class="noBorder filledValues">
+                        1
+                      </span>
+                                </td>
+                                <td class="package-td" style="width:13%">
+                   <span class="noBorder filledValues">
+                        {{entry.packageClass!.name}}
+                      </span>
+                                </td>
+                                <td class="package-td" style="width:13%">
+
+                                </td>
+                                <td class="package-td" style="width:13%">
+
+                                </td>
+                                <td class="package-td" style="width:13%">
+                 <span class="noBorder filledValues">
+                        {{entry.weightKg}}kg
+                      </span>
+                                </td>
+                                <td class="package-td" style="width:12.5%">
+                    <span
+                            class="noBorder filledValues"> {{ ((entry.heightCm! * entry.widthCm! * entry.deepCm!) / 1000000) | number:'1.6-6' }}
+                        m³
+               </span>
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td class="package-td"></td>
+                                <td class="package-td"></td>
+                                <td class="package-td"></td>
+                                <td class="package-td"></td>
+                                <td class="package-td"></td>
+                                <td class="package-td"></td>
+                                <td class="package-td"></td>
+                            </tr>
+                            <tr style="border: none">
+                                <td colspan="4" style="border:none;">
+                                    <table style="width:100%;border:none;">
+                                        <tr style="border: none">
+                                            <td style="border:none;width:20%;height:30px;">
+                                                Nummer UN<br>
+                                                Number UN<br>
+                                                Chiffre UN<br>
+                                                Numer UN<br>
+                                            </td>
+                                            <td style="border:1px solid black;border-bottom:none;border-top:none;width:20%;">
+                                                Bez.s.Nr.9<br>
+                                                Look point 9<br>
+                                                Voir le point 9<br>
+                                                Patrz punkt 9<br>
+                                            </td>
+                                            <td style="border:1px solid black;border-bottom:none;border-top:none;width:20%;">
+                                                Klasse<br>
+                                                Class<br>
+                                                Classe<br>
+                                                Klasa<br>
+                                            </td>
+                                            <td style="border:1px solid black;border-bottom:none;border-top:none;width:20%;">
+                                                Verpackungsgruppe<br>
+                                                The packing group<br>
+                                                Groupe d'emballage<br>
+                                                Grupa pakowania<br>
+                                            </td>
+                                            <td
+                                                    style="border:1px solid black;border-bottom:none;border-top:none;width:20%;border-right:none;">
+                                                (
+                                                ADR* )
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td style="border:1px solid black;border-top:none;border-bottom:none;"></td>
+                                <td style="border:1px solid black;border-top:none;border-bottom:none;"></td>
+                                <td style="border:1px solid black;border-top:none;border-right:none;border-bottom:none;"></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="width:400px;">
+                        <table style="width:100%;border:none;">
+                            <tr>
+                                <td style="height:180px;border:1px solid black;border-top:none;border-left:none;border-right:none;">
+                                    <table class="noBorder">
+                                        <tr class="noBorder">
+                                            <td class="noBorder numWidth">
+                                                <span class="num">13</span>
+                                            </td>
+                                            <td class="noBorder">
+                                                Anweisungen des Absenders (Zoll- und sonstige amtliche Behandlung)<br>
+                                                Sender´s instructions (Customs and other formalities)<br>
+                                                Instructions de l’expediteur (formalitès douanieres et autres)<br>
+                                                Instrukcje nadawcy<br>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:1px solid black;border-top:none;border-left:none;border-right:none;height:65px;">
+                                    <table class="noBorder">
+                                        <tr class="noBorder">
+                                            <td class="noBorder numWidth">
+                                                <span class="num">14</span>
+                                            </td>
+                                            <td class="noBorder">
+                                                Frachtzahlungsanweisungen<br>
+                                                Directions as to freight payment<br>
+                                                Prescription d'affranchissement<br>
+                                                Postanowienia odnośnie przewoźnego<br>
+                                            </td>
+                                        </tr>
+                                        <tr class="noBorder">
+                                            <td class="noBorder" colspan="2" style="word-spacing: 0.25em;">
+                                                frei / Freight paid/ / Franco / Przewoźne zapłacone <br>
+                                                Unfrei / Freight to be paid / Non Franco / Przewoźne nieopłacone<br>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:1px solid black;border-bottom:none;border-left:none;border-right:none;height:45px;">
+                                    <table class="noBorder">
+                                        <tr class="noBorder">
+                                            <td class="noBorder">
+                                                <span class="num">21</span>
+                                            </td>
+                                        </tr>
+                                        <tr class="noBorder">
+                                            <td class="noBorder">
+                                                <br>
+                                                <p style="margin-right:160px;" class="cell21">Ausgefertigt</p>
+                                                <p style="float:none;">am</p><br>
+                                                <p style="margin-right:157px;" class="cell21">Established in</p>
+                                                <p style="float:none;">on</p><br>
+                                                <p style="margin-right:168px;" class="cell21">Etablie á</p>
+                                                <p style="float:none;">le</p><br>
+                                                <p style="margin-right:159px;" class="cell21">Wystawiono</p>
+                                                <p style="float:none;">dnia</p><br>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td colspan="2">
+                        <table style="width:100%;border:none;">
+                            <tr>
+                                <td style="height:40px;border:none;">
+                                    <table class="noBorder">
+                                        <tr class="noBorder">
+                                            <td class="noBorder numWidth">
+                                                <span class="num">19</span>
+                                            </td>
+                                            <td class="noBorder">
+                                                Besondere Vereinbarungen<br>
+                                                Special agreements<br>
+                                                Conventions particulieres <br>
+                                                Postanowienia specjalne<br>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:160px;border:none;">
+                                    <table style="border:2px solid black;width:100%;">
+                                        <tr>
+                                            <td style="height:20px;width:22%;border:1px solid black;">
+                                                <table class="noBorder">
+                                                    <tr class="noBorder">
+                                                        <td class="noBorder numWidth">
+                                                <span
+                                                        class="num">20</span>
+                                                        </td>
+                                                        <td class="noBorder">
+                                                            Zu zahlen vom<br>
+                                                            To be paid by<br>
+                                                            A payer par<br>
+                                                            Do zapłacenia<br>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td colspan="2" style="height:20px;width:26%;border:1px solid black;">
+                                                Absender<br>
+                                                Sender<br>
+                                                L'exéditeur<br>
+                                                Nadawca<br>
+                                            </td>
+                                            <td colspan="2" style="height:20px;width:26%;border:1px solid black;">
+                                                Währung / <br>
+                                                Currency / <br>
+                                                Monnaie / <br>
+                                                Waluta <br>
+                                            </td>
+                                            <td colspan="2" style="height:20px;width:26%;border:1px solid black;">
+                                                Empfänger<br>
+                                                Consignee<br>
+                                                Le Destinataire<br>
+                                                Odbiorca<br>
+                                            </td>
+                                        </tr>
+                                        <tr style="border-top:none;border-bottom:none;">
+                                            <td style="height:20px;">
+                                                Fracht / <br>
+                                                Carriage charges / <br>
+                                                Prix de transport / <br>
+                                                Przewoźne <br>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr style="border-top:none;border-bottom:none;">
+                                            <td style="height:20px;">
+                                                Ermässigungen /<br>
+                                                Reductions / <br>
+                                                Réductions / <br>
+                                                Bonifikaty <br>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr style="border-top:none;border-bottom:none;">
+                                            <td style="height:20px;">
+                                                Zuschläge /<br>
+                                                Supplem. Charges / <br>
+                                                Suppléments / <br>
+                                                Saldoo <br>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr style="border-top:none;border-bottom:none;">
+                                            <td style="height:20px;">
+                                                Nebengebühren/<br>
+                                                Other charges /<br>
+                                                Fraise accessoires / <br>
+                                                Dopłaty <br>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr style="border-top:none;border-bottom:none;">
+                                            <td style="height:20px;"> Sonstiges / <br>
+                                                Miscellaneous / <br>
+                                                Divers / <br>
+                                                Koszty dodatkowe
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr style="border-top:none;border-bottom:none;">
+                                            <td style="height:20px;">
+                                                Versicherung / <br>
+                                                Insurance / <br>
+                                                Assurance / <br>
+                                                Ubezpieczenie <br>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr style="border-top:none;border-bottom:none;">
+                                            <td style="height:20px;">
+                                                Gesamtsumme / <br>
+                                                Total to be paid / <br>
+                                                Total á payer / <br>
+                                                Razemm <br>
+
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr style="height:65px; border:none">
+                                <td style="height:50px;border:none;">
+                                    <table class="noBorder">
+                                        <tr class="noBorder">
+                                            <td class="noBorder numWidth">
+                                                <span class="num">15</span>
+                                            </td>
+                                            <td class="noBorder">
+                                                Rückerstattuung <br>
+                                                Reimbursement <br>
+                                                Remboursement <br>
+                                                Zapłata <br>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <table style="width:100%;border:none;">
+                            <tr>
+                                <td style="border:1px solid black;border-top:none;border-bottom:none;border-left:none;height:115px;">
+                                    <span class="num">22</span>
+                                </td>
+                                <td style="border:none;">
+                                    <span class="num">23</span>
+                                </td>
+                                <td style="border:1px solid black;border-top:none;border-bottom:none;border-right:none;">
+                                    <table class="noBorder">
+                                        <tr class="noBorder">
+                                            <td class="noBorder numWidth">
+                                                <span class="num">24</span>
+                                            </td>
+                                            <td class="noBorder">
+                                                Gut empfangen <br>
+                                                Goods received <br>
+                                                Réception des marchandises<br>
+                                                Przesyłkę otrzymano <br>
+                                            </td>
+                                        </tr>
+                                        <tr class="noBorder">
+                                            <td class="noBorder" colspan="2">
+                                                <p style="margin-right:85px;" class="cell21">Ort</p>
+                                                <p>am</p><br>
+                                                <br>
+                                                <p style="margin-right:80px;" class="cell21">Place</p>
+                                                <p>on</p><br>
+                                                <br>
+                                                <p style="margin-right:85px;" class="cell21">lieu</p>
+                                                <p>le</p><br>
+                                                <br>
+                                                <p style="margin-right:65px;" class="cell21">Miejscowość</p>
+                                                <p>dnia</p><br>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:1px solid black;border-top:none;border-bottom:none;border-left:none;height:15px;">
+                                    Unterschrift und Stempel des Absenders<br>
+                                    Signature and stamp of the sender<br>
+                                    Signature et timbre de l’expèditeur<br>
+                                    Podpis i stempel nadawcy<br>
+                                </td>
+                                <td style="border:none;">
+                                    Unterschrift und Stempel des Frachtführers<br>
+                                    Signature and stamp of the carrier<br>
+                                    Signature et timbre du transporteur<br>
+                                    Podpis i stempel przewośnika<br>
+                                </td>
+                                <td style="border:1px solid black;border-top:none;border-bottom:none;border-right:none;">
+                                    Unterschrift und Stempel des Empfängers<br>
+                                    Signature and stamp of the consignee<br>
+                                    Signature et timbre du destinataire<br>
+                                    Podpis i stempel odbiorcy<br>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </mat-card>
+
+</div>

@@ -1,0 +1,509 @@
+<div class="row w-100 h-100 position-relative" *ngIf="this.sendingData">
+  <div class="col">
+    <app-loading class="h-100 w-100" [showText]="'Rechte werden gesetzt'"></app-loading>
+  </div>
+</div>
+
+
+<div class="mt-4">
+  <div class=" " *ngIf="!sendingData && !this.sendDirectly">
+
+    <div class="row p-2">
+      <div class="col">
+
+
+        <div class="row">
+          <div class="col">
+            <h1>Auftrag abgeben - Anfragen versenden</h1>
+
+          </div>
+        </div>
+
+        <div class="row pb-2 pt-2">
+          <div class="col">
+            Hier können alle Angaben geprüft werden
+          </div>
+        </div>
+
+
+        <div class="row w-100 h-100 position-relative" *ngIf="!this.hideLoader">
+          <div class="col">
+            <app-loading class="h-100 w-100" [showText]="'Laden...'"></app-loading>
+          </div>
+        </div>
+
+        <div *ngIf="this.hideLoader">
+          <div class="row w-100">
+            <div class="col">
+
+              <div class="row w-100 ps-1 pe-2">
+                <div class="col p-3 ">
+                  <button class="float-start" mat-button mat-raised-button color="accent" (click)="routeBack()">
+                    <mat-icon mat-list-icon>arrow_back</mat-icon>
+                    zurück
+                  </button>
+                </div>
+
+                <div class="col p-3 text-end">
+                  <b>Legende</b><br>
+                  <span class="toggle-caption pe-2">teilen</span>
+                  <mat-slide-toggle checked disabled color="primary" class="disabled-show">
+                  </mat-slide-toggle>
+                  <br>
+                  <span class="toggle-caption pe-2">nicht teilen</span>
+                  <mat-slide-toggle disabled color="primary" class="disabled-show">
+                  </mat-slide-toggle>
+
+                </div>
+              </div>
+
+
+              <div class="row w-100">
+                <div class="col">
+
+
+                  <mat-card class="pt-2">
+                    <mat-tab-group>
+                      <!-- Tab 1 -->
+                      <mat-tab label="Für alle Unternehmen" *ngIf="this.companyDefined.length>1">
+
+                        <div class="row p-4 w-100">
+                          <div class="col">
+
+                            <h2>Auftrag Einstellungen</h2>
+                            <mat-slide-toggle checked (change)="changePreDefinedOutsourceSelection($event)"
+                                              color="primary">
+                            </mat-slide-toggle>
+
+                            <span class="toggle-caption ps-2">alles teilen</span>
+                          </div>
+
+                        </div>
+
+
+                        <div class="row ps-4 w-100">
+                          <div class="col-6">
+                            <button mat-stroked-button (click)="expandPreDefinedOutsource(true)">alle erweitern</button>
+                            <button mat-stroked-button (click)="expandPreDefinedOutsource(false)">alle einklappen
+                            </button>
+                          </div>
+
+                          <div class="col-6 text-end">
+
+                            <div class="row w-100">
+                              <div class="col float-end">
+                                Einstellungen für alle Unternehmen übernehmen
+                              </div>
+                            </div>
+                            <div class="row w-100 ">
+                              <div class="col float-end">
+                                <button mat-raised-button color="primary" (click)="overwriteCompanyDefinedProperties()">
+                                  Übernehmen
+                                </button>
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+
+
+                        <div class="row w-100 p-4">
+                          <div class="col">
+
+
+                            <mat-accordion multi>
+                              <mat-expansion-panel *ngFor="let item of this.preDefinedOutsource; let i = index"
+                                                   [(expanded)]="item.valuesExpanded" class="expandedColor">
+                                <mat-expansion-panel-header>
+                                  <mat-panel-title><b>
+                                    {{item.name}}
+                                  </b></mat-panel-title>
+                                </mat-expansion-panel-header>
+
+                                <div class="text-end">
+
+
+                                </div>
+
+
+                                <table class="mat-table">
+                                  <thead>
+                                  <tr>
+                                    <th width="33%">Name</th>
+                                    <th width="33%">Wert</th>
+                                    <th width="33%">Teilen</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                                  <tr *ngFor="let itemReadProperty of item.readProperties; let iP = index">
+
+                                    <td>{{itemReadProperty.description}}</td>
+
+                                    <td>
+                                    <span
+                                      *ngIf="this.isObject(itemReadProperty.value)">{{itemReadProperty.value}}</span>
+                                    </td>
+
+                                    <td>
+
+
+                                      <span
+                                        *ngIf="itemReadProperty.alwaysShared || itemReadProperty.neverShared">{{itemReadProperty.displayShareText}}</span>
+
+                                      <mat-slide-toggle [(ngModel)]="itemReadProperty.selected"
+                                                        *ngIf="!itemReadProperty.neverShared && !itemReadProperty.alwaysShared"
+                                                        color="primary"></mat-slide-toggle>
+                                    </td>
+
+
+                                  </tr>
+                                  </tbody>
+                                </table>
+                              </mat-expansion-panel>
+
+
+                              <mat-expansion-panel [(expanded)]="preDefinedOutsourceExpanded" class="expandedColor">
+                                <mat-expansion-panel-header>
+                                  <mat-panel-title><b>
+                                    Sendungen
+                                  </b></mat-panel-title>
+
+
+                                </mat-expansion-panel-header>
+                                <mat-tab-group>
+                                  <!-- Tab 1 -->
+                                  <mat-tab label="Sendung {{i}}"
+                                           *ngFor="let item of this.preDefinedPackageOutsource; let i = index">
+
+
+                                    <div class="row w-100 p-4">
+                                      <div class="col">
+
+                                        <div class="pt-1 pb-3">
+                                          {{item.name}}
+                                        </div>
+
+                                        <mat-accordion multi>
+                                          <mat-expansion-panel [(expanded)]="item.valuesExpanded"
+                                                               class="expandedColorDark">
+                                            <mat-expansion-panel-header>
+                                              <mat-panel-title><b>
+                                                Sendungsdaten
+                                              </b></mat-panel-title>
+                                              <mat-panel-description></mat-panel-description>
+                                            </mat-expansion-panel-header>
+                                            <div class="row w-100">
+                                              <div class="col">
+
+                                                <table class="mat-table">
+                                                  <thead>
+                                                  <tr>
+                                                    <th width="33%">Name</th>
+                                                    <th width="33%">Wert</th>
+                                                    <th width="33%">Teilen</th>
+                                                  </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                  <tr
+                                                    *ngFor="let itemReadProperty of item.readProperties; let iP = index">
+                                                    <td>{{itemReadProperty.description}}</td>
+                                                    <td>{{itemReadProperty.value}}</td>
+                                                    <td>
+                                                      <mat-slide-toggle [(ngModel)]="itemReadProperty.selected"
+                                                                        color="primary"></mat-slide-toggle>
+                                                    </td>
+                                                  </tr>
+
+                                                  </tbody>
+                                                </table>
+                                              </div>
+                                            </div>
+
+                                          </mat-expansion-panel>
+                                          <mat-expansion-panel [(expanded)]="item.valuesExpanded"
+                                                               class="expandedColorDark">
+                                            <mat-expansion-panel-header>
+                                              <mat-panel-title><b>
+                                                Sendungseigenschaften
+                                              </b></mat-panel-title>
+                                              <mat-panel-description></mat-panel-description>
+                                            </mat-expansion-panel-header>
+                                            <div class="row w-100">
+                                              <div class="col">
+                                                <table class="mat-table">
+                                                  <thead>
+                                                  <tr>
+                                                    <th width="33%">Name</th>
+                                                    <th width="33%">Wert</th>
+                                                    <th width="33%">Teilen</th>
+                                                  </tr>
+                                                  </thead>
+                                                  <tbody>
+
+
+                                                  <tr
+                                                    *ngFor="let itemReadProperty of findMatchingPackageProperties(this.preDefinedPackagePropertiesOutsource,item.entityId); let iP = index">
+                                                    <td>{{itemReadProperty.readProperties[0].name}}</td>
+                                                    <td>{{itemReadProperty.readProperties[0].value}}</td>
+                                                    <td>
+                                                      <mat-slide-toggle
+                                                        [(ngModel)]="itemReadProperty.readProperties[0].selected"
+                                                        color="primary"></mat-slide-toggle>
+                                                    </td>
+                                                  </tr>
+
+
+                                                  </tbody>
+                                                </table>
+
+                                              </div>
+                                            </div>
+                                          </mat-expansion-panel>
+                                        </mat-accordion>
+                                      </div>
+                                    </div>
+
+                                  </mat-tab>
+                                </mat-tab-group>
+
+                              </mat-expansion-panel>
+                            </mat-accordion>
+
+                          </div>
+                        </div>
+                      </mat-tab>
+
+                      <mat-tab label="{{item.companyName}}"
+                               *ngFor="let item of this.companyDefined; let i = index">
+
+
+                        <div class="row p-4 w-100">
+                          <div class="col">
+                            <h2>Outsource Einstellungen</h2>
+                            <h3>{{item.companyName}} <br/>#{{item.companyId}}
+                            </h3>
+
+                            <mat-slide-toggle [(ngModel)]="this.item.valuesAllTrue" checked
+                                              (change)="changeCompanyDefinedOutsourceSelection($event,item.companyId)"
+                                              color="primary">
+                            </mat-slide-toggle>
+                            <span class="toggle-caption ps-2">alles teilen</span>
+                          </div>
+                        </div>
+
+
+                        <div class="row ps-4 pe-4 w-100">
+                          <div class="col">
+                            <button mat-stroked-button (click)="expandCompanyDefinedOutsource(item.companyId, true)">
+                              alle
+                              erweitern
+                            </button>
+                            <button mat-stroked-button (click)="expandCompanyDefinedOutsource(item.companyId, false)">
+                              alle
+                              einklappen
+                            </button>
+                          </div>
+                          <div class="col">
+                            <button class="float-end" mat-raised-button color="warn" [disabled]="this.sendingData"
+                                    (click)="revokeCompany(item.companyId)">Firma nicht anfragen
+                            </button>
+                          </div>
+                        </div>
+
+
+                        <div class="row w-100 p-4">
+                          <div class="col">
+
+                            <mat-accordion multi id="">
+
+                              <mat-expansion-panel *ngFor="let cDP of item.companyDefinedProperties; let i = index"
+                                                   [(expanded)]="cDP.valuesExpanded" class="expandedColor">
+                                <mat-expansion-panel-header>
+                                  <mat-panel-title><b>
+                                    {{cDP.name}}
+                                  </b></mat-panel-title>
+                                </mat-expansion-panel-header>
+
+                                <div class="row p-3">
+                                  <div class="col text-end">
+                                    <button mat-button color="primary" (click)="changeValuesSection(false, item, cDP, false)">alles abwählen</button>
+                                    <button mat-button color="primary" (click)="changeValuesSection(true, item, cDP, false)">alles auswählen</button>
+                                  </div>
+                                </div>
+
+                                <table class="mat-table">
+                                  <thead>
+                                  <tr>
+                                    <th width="33%">Name</th>
+                                    <th width="33%">Wert</th>
+                                    <th width="33%">Teilen</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                                  <tr *ngFor="let itemReadProperty of cDP.readProperties; let iP = index">
+
+
+                                    <td>{{itemReadProperty.description}}</td>
+                                    <td>
+                                    <span
+                                      *ngIf="this.isObject(itemReadProperty.value)">{{itemReadProperty.value}}</span>
+                                    </td>
+                                    <td>
+
+
+                                      <span
+                                        *ngIf="itemReadProperty.alwaysShared || itemReadProperty.neverShared">{{itemReadProperty.displayShareText}}</span>
+
+                                      <mat-slide-toggle [(ngModel)]="itemReadProperty.selected"
+                                                        *ngIf="!itemReadProperty.neverShared && !itemReadProperty.alwaysShared"
+                                                        color="primary"></mat-slide-toggle>
+                                    </td>
+
+
+                                  </tr>
+                                  </tbody>
+                                </table>
+                              </mat-expansion-panel>
+
+
+                              <mat-expansion-panel [(expanded)]="item.valuesExpanded">
+                                <mat-expansion-panel-header>
+                                  <mat-panel-title><b>
+                                    Sendungen
+                                  </b></mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <mat-tab-group>
+                                  <!-- Tab 1 -->
+                                  <mat-tab label="Sendung {{i}}"
+                                           *ngFor="let cDPP of item.companyDefinedPackageProperties; let i = index">
+                                    <div class="row w-100 p-4">
+                                      <div class="col">
+
+                                        <mat-accordion multi>
+                                          <mat-expansion-panel [(expanded)]="cDPP.valuesExpanded" class="expandedColor">
+                                            <mat-expansion-panel-header>
+                                              <mat-panel-title><b>
+                                                Sendungsdaten
+                                              </b></mat-panel-title>
+                                              <mat-panel-description></mat-panel-description>
+                                            </mat-expansion-panel-header>
+                                            <div class="row w-100">
+                                              <div class="col">
+                                                <div class="pt-1 pb-3">
+                                                  {{cDPP.name}}
+                                                </div>
+
+                                              </div>
+                                            </div>
+                                            <div class="row w-100">
+                                              <div class="col">
+                                                <div class="row p-3">
+                                                  <div class="col text-end">
+                                                    <button mat-button color="primary" (click)="changeValuesSection(false, item, cDPP, true)">alles abwählen</button>
+                                                    <button mat-button color="primary" (click)="changeValuesSection(true, item, cDPP, true)">alles auswählen</button>
+                                                  </div>
+                                                </div>
+
+                                                <table class="mat-table">
+                                                  <thead>
+                                                  <tr>
+                                                    <th width="33%">Name</th>
+                                                    <th width="33%">Wert</th>
+                                                    <th width="33%">Teilen</th>
+                                                  </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                  <tr
+                                                    *ngFor="let itemReadProperty of cDPP.readProperties; let iP = index">
+                                                    <td>{{itemReadProperty.description}}</td>
+                                                    <td>{{itemReadProperty.value}}</td>
+                                                    <td>
+                                                      <mat-slide-toggle [(ngModel)]="itemReadProperty.selected"
+                                                                        color="primary"></mat-slide-toggle>
+                                                    </td>
+                                                  </tr>
+
+                                                  </tbody>
+                                                </table>
+
+                                              </div>
+                                            </div>
+                                          </mat-expansion-panel>
+                                          <mat-expansion-panel [(expanded)]="cDPP.valuesExpanded" class="expandedColor">
+                                            <mat-expansion-panel-header>
+                                              <mat-panel-title><b>
+                                                Sendungseigenschaften
+                                              </b></mat-panel-title>
+                                              <mat-panel-description></mat-panel-description>
+                                            </mat-expansion-panel-header>
+                                            <div class="row w-100">
+                                              <div class="col">
+                                                <div class="pt-1 pb-3">
+                                                  {{cDPP.name}}
+                                                </div>
+
+                                                <table class="mat-table">
+                                                  <thead>
+                                                  <tr>
+                                                    <th width="33%">Name</th>
+                                                    <th width="33%">Wert</th>
+                                                    <th width="33%">Teilen</th>
+                                                  </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                  <tr
+                                                    *ngFor="let itemReadProperty of cDPP.subDefinedOutsourceProperties; let iP = index">
+                                                    <td>{{itemReadProperty.readProperties[0].description}}</td>
+                                                    <td>{{itemReadProperty.readProperties[0].value}}</td>
+                                                    <td>
+                                                      <mat-slide-toggle
+                                                        [(ngModel)]="itemReadProperty.readProperties[0].selected"
+                                                        color="primary">
+                                                      </mat-slide-toggle>
+                                                    </td>
+                                                  </tr>
+
+
+                                                  </tbody>
+                                                </table>
+
+                                              </div>
+                                            </div>
+                                          </mat-expansion-panel>
+                                        </mat-accordion>
+                                      </div>
+                                    </div>
+
+                                  </mat-tab>
+                                </mat-tab-group>
+
+                              </mat-expansion-panel>
+                            </mat-accordion>
+
+                          </div>
+                        </div>
+
+                      </mat-tab>
+
+                    </mat-tab-group>
+                  </mat-card>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row pt-2 pb-2 mt-1">
+            <div class="col">
+              <button class="" mat-button mat-raised-button color="primary" (click)="sentOrder()"
+                      [disabled]="this.sendingData">
+                <mat-icon mat-list-icon>send</mat-icon>
+                Anfragen absenden
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,129 @@
+<div class="tcard bg-white p-4">
+
+  <div class="row">
+    <div class="col">
+      <h4 class=""><b>Sub-Aufträge ({{this.order.subOrders.length}})</b></h4>
+
+      <div class="tcard-btn-div p-3 px-2" *ngIf="this.order.orderRightsGlobal!.edit.revoke && this.order.subOrders.length>0">
+        <button class="" mat-button color="warn" (click)="revokeRequestsClick()">
+          <mat-icon mat-list-icon>cancel_schedule_send</mat-icon>
+          Alle ablehnen
+        </button>
+      </div>
+
+      <div class="tcard-btn-div p-3 px-2" *ngIf="this.order.orderRightsGlobal!.can.resetOutsource && this.order.subOrders.length>0 && this.outsourcedOrderRevoked">
+        <button class="" mat-button color="primary" (click)="resetOutsourceClick()">
+          <mat-icon mat-list-icon>restart_alt</mat-icon>
+          widerrufene Anfragen erneut anfragen
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <app-loading-placeholder *ngIf="this.loading"></app-loading-placeholder>
+
+  <div class="tcard-suborders px-1 pb-1 pt-0" *ngIf="this.order.subOrders.length>0 && !this.loading">
+    <div class="tcard p-2 mt-2" *ngFor="let item of this.order.subOrders; let i = index">
+
+      <div class="row p-1">
+        <div class="col-11 ">
+          <div class="mat-header-cell">#{{item.id}}
+          </div>
+       <div class="mt-1">
+          <app-order-status-chip [small]="true" [orderStatus]="item.orderStatus"></app-order-status-chip>
+       </div>
+
+        </div>
+
+        <div class="col">
+          <div class="tcard-btn-div p-2">
+
+            <button *ngIf="(item.orderStatus=='ACCEPTED' && this.order.orderStatus=='OPEN')" mat-icon-button color="green" [matTooltip]="'Auftrag zuweisen'" (click)="acceptRequestClick(item)">
+              <mat-icon>check_circle</mat-icon>
+            </button>
+
+            <button *ngIf="(item.orderStatus=='ACCEPTED' || item.orderStatus=='REQUESTED')" mat-icon-button color="warn" [matTooltip]="'Anfrage widerrufen'" (click)="revokeRequestClick(item)">
+              <mat-icon>cancel</mat-icon>
+            </button>
+
+
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" [matTooltip]="'weitere Aktionen anzeigen'">
+              <mat-icon>expand_circle_down</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item color="" (click)="openChatBox(item)">
+                <mat-icon mat-list-icon>chat</mat-icon>
+                <span>Chat öffnen</span>
+              </button>
+
+
+              <button mat-menu-item color="" (click)="openEntityRightsDialog(item)">
+                <mat-icon mat-list-icon>security</mat-icon>
+                <span>Rechte anzeigen</span>
+              </button>
+            <!--  <button mat-menu-item color="primary" (click)="acceptRequestClick(item)"
+                      *ngIf="(item.orderStatus=='ACCEPTED' && this.order.orderStatus=='OPEN')">
+                <mat-icon mat-list-icon>check_circle</mat-icon>
+                <span>Auftrag zuweisen</span>
+              </button>
+              <button mat-menu-item color="warn" (click)="revokeRequestClick(item)"
+                      *ngIf="this.order.orderRightsGlobal!.edit.revoke">
+                <mat-icon mat-list-icon>cancel</mat-icon>
+                <span>Anfrage widerrufen</span>
+              </button>-->
+            </mat-menu>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col py-1 px-3">
+          <mat-divider></mat-divider>
+        </div>
+      </div>
+
+      <div class="row p-2">
+        <div class="col-6" *ngIf="item.companyId">
+
+          <div class="row">
+            <div class="col">
+              <div class="m-auto" *ngIf="item.price !== null && item.price !== undefined">
+                <label style="font-weight: bold;color: #000000de;" class="mat-header-cell">
+                  {{ item.price | number : '1.2-2' }}€
+                </label>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <b>{{item.companyId.name}}</b>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="item.companyId.companyAddresses">
+            <div class="col">
+              {{item.companyId.companyAddresses[0].street}}<br/>
+              {{item.companyId.companyAddresses[0].zip}}&nbsp;{{item.companyId.companyAddresses[0].city}}
+            </div>
+          </div>
+        </div>
+        <div class="col-6" *ngIf="item.contactPerson">
+          <div class="row">
+            <div class="col">
+              <b class="fst-italic">Ansprechpartner</b>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              {{item.contactPerson.name}}<br/>{{item.contactPerson.email}}<br/>{{item.contactPerson.phone}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

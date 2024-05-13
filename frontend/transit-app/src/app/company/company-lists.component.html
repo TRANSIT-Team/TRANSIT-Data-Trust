@@ -1,0 +1,67 @@
+
+<app-loading *ngIf="this.dataSending" showText="Daten senden..." class="pre-loader"></app-loading>
+
+
+
+<mat-tab-group class="bg-white">
+  <mat-tab label="Neue Liste">
+    <form [formGroup]="createForm" (ngSubmit)='submitNew()' class="p-3">
+      <div class="row p-3">
+        <div class="col">
+          <mat-form-field appearance="fill">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" id="name" type="text">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row p-3">
+        <div class="col">
+              <button mat-raised-button color="primary" type="submit" [disabled]="!createForm.valid">
+                Speichern
+              </button>
+        </div>
+      </div>
+    </form>
+  </mat-tab>
+  <mat-tab label="Liste auswählen">
+
+    <form [formGroup]="editForm" (ngSubmit)='submitEdit()' class="p-3">
+      <div class="row p-3">
+        <div class="col">
+          <mat-form-field appearance="fill" style="width:250px">
+            <mat-label>Liste</mat-label>
+            <mat-select [(value)]="selectedList" formControlName="name">
+              <mat-option *ngFor="let p of this.companyLists" [value]="p.id">
+                {{p.name}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="editForm.controls['name'].hasError('required')">Name
+              ist ein Pflichtfeld
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row p-3">
+        <div class="col">
+          <button mat-raised-button color="primary" type="submit" [disabled]="!editForm.valid">
+            Speichern
+          </button>
+        </div>
+      </div>
+
+    </form>
+
+
+
+  </mat-tab>
+
+</mat-tab-group>
+
+
+
+
+
+
+

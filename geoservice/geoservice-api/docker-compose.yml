@@ -1,0 +1,26 @@
+version: '2'
+services:
+  geoservice-app:
+    image: devdocker.wifa.uni-leipzig.de:5000/transit/spring-geoservice:latest
+    restart: unless-stopped 
+    command: "/bin/sh start.sh"
+    environment:
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.spatial.dialect.postgis.PostgisPG9Dialect
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+      SPRING_DATASOURCE_URL:  jdbc:postgresql://db:5432/geoservice?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&createDatabaseIfNotExist=true
+      SPRING_JPA_HIBERNATE_DDL_AUTO: none       
+      #none
+      SERVER_SERVLET_CONTEXT_PATH: /geoservice/v1
+      SERVER_FORWARD_HEADERS_STRATEGY: FRAMEWORK
+    depends_on:
+      - db
+    labels:
+      io.rancher.scheduler.affinity:host_label: role=worker
+      project: transit
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+    external_links:
+      - transit-geoservice-db/db:db 
+#docker-compose up -d  
+#rancher up -s transit-geoservice-api -f docker-compose.yml -u -c -d 
+

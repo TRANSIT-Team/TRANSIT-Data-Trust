@@ -1,0 +1,48 @@
+<dx-chart id="chart" [dataSource]="chartData" title="{{this.chartTitle}}">
+
+
+  <dxi-series valueField="ordersOpen" name="offen" ></dxi-series>
+  <dxi-series valueField="ordersProgress" name="in Bearbeitung"></dxi-series>
+  <dxi-series valueField="ordersCanceled" name="abgebrochen"></dxi-series>
+  <dxi-series valueField="ordersCreated" name="angelegt"></dxi-series>
+  <dxi-series valueField="ordersComplete" name="erledigt"></dxi-series>
+
+
+
+  <dxo-legend
+    verticalAlignment="bottom"
+    horizontalAlignment="center"
+    itemTextPosition="top">
+  </dxo-legend>
+
+
+  <dxo-common-series-settings
+    argumentField="orderDate" type="stackedBar"
+    hoverMode="onlyPoint"
+    selectionMode="onlyPoint"
+  >
+
+    <dxo-label [visible]="false" backgroundColor="none">
+      <dxo-font [size]="12"></dxo-font>
+    </dxo-label>
+
+    <dxo-label
+      [visible]="true"
+
+      [format]="{
+        type: 'fixedPoint',
+        precision: 0
+      }"
+    >
+    </dxo-label>
+  </dxo-common-series-settings>
+
+  <dxo-label wordWrap="none"></dxo-label>
+  <dxo-export [enabled]="true"></dxo-export>
+
+
+  <dxo-tooltip [enabled]="true" [customizeTooltip]="customizeTooltip"   [location]="'center'" [zIndex]="1" >
+  </dxo-tooltip>
+
+
+</dx-chart>

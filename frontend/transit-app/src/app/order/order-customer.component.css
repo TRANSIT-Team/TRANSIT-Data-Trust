@@ -1,0 +1,17 @@
+
+
+.tcard-btn-div{
+  position: absolute;
+  right:0;
+  top:0;
+}
+
+.text-tilt {
+  /* color: #6c757d!important; */
+  font-weight: 700;
+  font-style: italic;
+  color: #000;
+}
+h1,h2,h3,h4,h5{
+  font-weight: 700;
+}

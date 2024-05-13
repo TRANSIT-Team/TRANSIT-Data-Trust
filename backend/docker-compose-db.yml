@@ -1,0 +1,48 @@
+version: '2'
+volumes:
+  backend-db-store-1:
+    driver: local
+services:
+  backend-db:
+    image: postgis/postgis:14-3.2
+    restart: unless-stopped
+    environment:
+      PGDATA: /var/lib/postgresql/data/order-data-storage
+      POSTGRES_DB: order-data-storage
+      POSTGRES_USER_FILE: /run/secrets/TRANSIT_BACKEND_DB_USER_NAME
+      POSTGRES_PASSWORD_FILE: /run/secrets/TRANSIT_BACKEND_DB_USER_PASSWORD
+    volumes_from:
+    - backend-db-volume
+    labels:
+      io.rancher.scheduler.affinity:host_label: role=worker
+      project: transit
+      io.rancher.sidekicks: backend-db-volume
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+    secrets:
+      - TRANSIT_BACKEND_DB_USER_NAME
+      - TRANSIT_BACKEND_DB_USER_PASSWORD
+  backend-db-volume:
+    image: rawmind/alpine-volume:0.0.2-4
+    environment:
+      SERVICE_GID: '999'
+      SERVICE_UID: '999'
+      SERVICE_VOLUME: /var/lib/postgresql/data
+    network_mode: none
+    volumes:
+    - backend-db-store-1:/var/lib/postgresql/data
+    labels:
+      io.rancher.container.start_once: 'true'
+      project: transit
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+
+secrets:
+  TRANSIT_BACKEND_DB_USER_NAME:
+    file: ./secrets/transit_backend_db_user_name.txt
+  TRANSIT_BACKEND_DB_USER_PASSWORD:
+    file: ./secrets/transit_backend_db_user_password.txt
+
+#docker-compose up -d  
+#rancher up -s transit-backend-db -f docker-compose-db.yml -u -c -d 
+

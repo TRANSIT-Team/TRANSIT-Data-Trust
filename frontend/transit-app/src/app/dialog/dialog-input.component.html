@@ -1,0 +1,25 @@
+<h2 mat-dialog-title> {{title}}</h2>
+
+<mat-dialog-content>
+  <div class="row">
+    <div class="col">
+      <div>{{text}}</div>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col">
+      <mat-form-field appearance="fill">
+        <mat-label>{{inputLabel}}</mat-label>
+        <textarea matInput [(ngModel)]="this.dialogInput" type="text">
+        </textarea>
+      </mat-form-field>
+    </div>
+  </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button class=" me-3" (click)="close()">Abbrechen</button>
+  <button mat-raised-button class="{{btnActionClass}}" color="primary" (click)="action()">{{btnActionText}}</button>
+</mat-dialog-actions>

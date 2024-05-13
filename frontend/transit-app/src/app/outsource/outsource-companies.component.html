@@ -1,0 +1,211 @@
+<app-loading *ngIf="this.loading" showText="Daten werden geladen..." class="pre-loader"></app-loading>
+<app-loading *ngIf="this.dataSending" showText="Daten senden..." class="pre-loader"></app-loading>
+
+
+<div class="row w-100" *ngIf="!this.loading">
+  <div class="col py-1">
+
+    <mat-tab-group class="bg-white mat-card">
+      <mat-tab label="Alle">
+        <div class="row mb-3 mt-3 w-100">
+          <div class="col">
+            <button color="primary" mat-button (click)="selectListForCompanies()" class="float-end"
+                    [matTooltip]="'Liste auswählen'">
+              <mat-icon>checklist_rtl</mat-icon>
+              Ausgewählte Firmen einer Liste zuweisen
+            </button>
+          </div>
+        </div>
+
+        <div class="row mb-3 mt-3 w-100">
+          <div class="col">
+            <span class="mat-header-cell">Auf eine Zeile klicken, um eine Firma auszuwählen</span>
+
+            <dx-data-grid class="grid-hover txt-small" [hoverStateEnabled]="true" [wordWrapEnabled]="true"
+                          id="gridContainer"
+                          [dataSource]="this.dataSource" [columnHidingEnabled]="false"
+                          keyExpr="id"
+                          [allowColumnReordering]="true"
+                          [showColumnLines]="false"
+                          [showRowLines]="true"
+                          [showBorders]="true"
+                          [rowAlternationEnabled]="false" (onRowClick)="onFocusedRowChanging($event)">
+              <dxo-selection mode="multiple" [deferred]="true"></dxo-selection>
+              <dxo-pager
+                [visible]="true"
+                [allowedPageSizes]="[5, 10, 50,200,500]"
+                [showPageSizeSelector]="true"
+                [showInfo]="true"
+                [showNavigationButtons]="true">
+              </dxo-pager>
+
+              <dxo-search-panel
+                [visible]="false"
+                [width]="240"
+                placeholder="Search..."
+              ></dxo-search-panel>
+
+              <dxo-filter-row [visible]="true"></dxo-filter-row>
+              <dxo-header-filter [visible]="true"></dxo-header-filter>
+              <dxo-paging [pageSize]="5"></dxo-paging>
+
+              <dxo-paging [enabled]="true"></dxo-paging>
+              <dxo-editing mode="row" [allowUpdating]="false" [allowDeleting]="false" [allowAdding]="false"
+                           [useIcons]="true">
+                <dxo-texts confirmDeleteTitle="Löschen?" confirmDeleteMessage="Datensatz löschen?"></dxo-texts>
+              </dxo-editing>
+
+
+              <dxi-column caption="Logistiker" cssClass="font-weight-bold" class="fs-12px"
+                          dataField="name"
+                          [allowFiltering]="true"
+                          [allowSorting]="true" [allowHeaderFiltering]="false"
+
+              ></dxi-column>
+
+              <dxi-column caption="Straße" cssClass="" class="fs-12px"
+                          dataField="companyAddresses[0].street"
+                          [allowFiltering]="true"
+                          [allowSorting]="true" [allowHeaderFiltering]="false"
+              ></dxi-column>
+              <dxi-column caption="PLZ" cssClass="" class="fs-12px"
+                          dataField="companyAddresses[0].zip"
+                          [allowFiltering]="true"
+                          [allowSorting]="true" [allowHeaderFiltering]="false"
+              ></dxi-column>
+
+              <dxi-column caption="Ort" cssClass="" class="fs-12px"
+                          dataField="companyAddresses[0].city"
+                          [allowFiltering]="true"
+                          [allowSorting]="true"
+              ></dxi-column>
+
+              <dxi-column
+                dataField="favorite" caption="Liste"
+                [allowFiltering]="true"
+                [allowHeaderFiltering]="false"
+                [allowSorting]="true">
+              </dxi-column>
+
+              <!--   <dxi-column dataField="id" caption="" cellTemplate="editTemplate" [allowFiltering]="false" width="100"
+                             [allowSorting]="false">
+                   <div *dxTemplate="let data of 'editTemplate'">
+                     <button color="primary" mat-button aria-label="bearbeiten" (click)="openEditDialog(data.value)"
+                             [matTooltip]="'Liste bearbeiten'">
+                       <mat-icon>edit</mat-icon>
+                     </button>
+                   </div>
+                 </dxi-column>-->
+            </dx-data-grid>
+
+          </div>
+        </div>
+
+      </mat-tab>
+      <mat-tab label="{{item.name}}" *ngFor="let item of this.companyLists" class="p-3">
+
+        <div class="row p-3 w-100">
+          <div class="col">
+
+
+            <button color="warn" mat-button (click)="deleteList(item)" class="float-end"
+                    [matTooltip]="'Liste löschen'">
+              <mat-icon>delete</mat-icon>
+              Liste löschen
+            </button>
+
+            <button color="primary" mat-button (click)="selectList(item)" class="float-end"
+                    [matTooltip]="'Liste auswählen'">
+              <mat-icon>done</mat-icon>
+              Liste auswählen
+            </button>
+
+          </div>
+        </div>
+        <div class="row w-100 mb-3">
+          <div class="col">
+            <span class="mat-header-cell">Auf eine Zeile klicken, um eine Firma auszuwählen</span>
+            <dx-data-grid class="grid-hover txt-small" [hoverStateEnabled]="true" [wordWrapEnabled]="true"
+                          id="gridContainerDynamic"
+                          [dataSource]="item.companies" [columnHidingEnabled]="false"
+                          keyExpr="id"
+                          [allowColumnReordering]="true"
+                          [showColumnLines]="false"
+                          [showRowLines]="true"
+                          [showBorders]="true"
+                          [rowAlternationEnabled]="false" (onRowClick)="onFocusedRowChanging($event)">
+              <dxo-pager
+                [visible]="true"
+                [allowedPageSizes]="[5, 10, 50,200,500]"
+                [showPageSizeSelector]="true"
+                [showInfo]="true"
+                [showNavigationButtons]="true">
+              </dxo-pager>
+
+              <dxo-search-panel
+                [visible]="false"
+                [width]="240"
+                placeholder="Search..."
+              ></dxo-search-panel>
+
+              <dxo-filter-row [visible]="true"></dxo-filter-row>
+              <dxo-header-filter [visible]="true"></dxo-header-filter>
+              <dxo-paging [pageSize]="5"></dxo-paging>
+
+              <dxo-paging [enabled]="true"></dxo-paging>
+              <dxo-editing mode="row" [allowUpdating]="false" [allowDeleting]="false" [allowAdding]="false"
+                           [useIcons]="true">
+                <dxo-texts confirmDeleteTitle="Löschen?" confirmDeleteMessage="Datensatz löschen?"></dxo-texts>
+              </dxo-editing>
+
+
+              <dxi-column caption="Logistiker" cssClass="font-weight-bold" class="fs-12px"
+                          dataField="name"
+                          [allowFiltering]="true"
+                          [allowSorting]="true" [allowHeaderFiltering]="false"
+
+              ></dxi-column>
+
+              <dxi-column caption="Straße" cssClass="" class="fs-12px"
+                          dataField="companyAddresses[0].street"
+                          [allowFiltering]="true"
+                          [allowSorting]="true" [allowHeaderFiltering]="false"
+              ></dxi-column>
+              <dxi-column caption="PLZ" cssClass="" class="fs-12px"
+                          dataField="companyAddresses[0].zip"
+                          [allowFiltering]="true"
+                          [allowSorting]="true" [allowHeaderFiltering]="false"
+              ></dxi-column>
+
+              <dxi-column caption="Ort" cssClass="" class="fs-12px"
+                          dataField="companyAddresses[0].city"
+                          [allowFiltering]="true"
+                          [allowSorting]="true"
+              ></dxi-column>
+
+
+              <dxi-column dataField="id" caption="" cellTemplate="editTemplate" [allowFiltering]="false"
+                          [allowSorting]="false">
+                <div *dxTemplate="let data of 'editTemplate'" class="d-flex">
+                  <button color="primary" mat-button aria-label="bearbeiten" (click)="openEditDialog(data.value, item.id)"
+                          [matTooltip]="'Liste bearbeiten'">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+
+                  <button color="warn" mat-button aria-label="bearbeiten"
+                          (click)="deleteCompanyFromList(data.value, item.id)"
+                          [matTooltip]="'Aus Liste entfernen'">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+              </dxi-column>
+            </dx-data-grid>
+
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+
+
+  </div>
+</div>

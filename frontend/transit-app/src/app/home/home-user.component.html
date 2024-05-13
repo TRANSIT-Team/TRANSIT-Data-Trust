@@ -1,0 +1,21 @@
+<div class="row p-3" *ngIf="this.showAlertDeliveryArea">
+  <div class="col px-4">
+    <mat-card class="alert alert-warn">
+      <div class="row p-1">
+        <div class="col-lg-6 col-sm-12">
+          <h3 class="mb-0 mt-1">Es ist aktuell kein Liefergebiet gesetzt.</h3>
+        </div>
+        <div class="col-lg-6 col-sm-12">
+          <button class="float-end" mat-button mat-raised-button
+                  (click)="forwardDeliveryArea()">
+            Liefergebiet eintragen
+          </button>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>
+
+
+<app-orders></app-orders>
+

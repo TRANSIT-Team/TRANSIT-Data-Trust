@@ -1,0 +1,34 @@
+<dx-chart
+        id="chart"
+        title="Auftragsstatusübersicht"
+        [dataSource]="dataOrders"
+
+>
+
+    <dxi-series valueField="revoked" name="Widerrufen"></dxi-series>
+    <dxi-series valueField="processing" name="In Bearbeitung"></dxi-series>
+    <dxi-series valueField="rejected" name="Abgelehnt"></dxi-series>
+    <dxi-series valueField="open" name="Offen"></dxi-series>
+    <dxi-series valueField="complete" name="Abgeschlossen"></dxi-series>
+    <dxi-series valueField="requested" name="Angefragt"></dxi-series>
+    <dxi-series valueField="canceled" name="Abgebrochen"></dxi-series>
+    <dxi-series valueField="created" name="Erstellt"></dxi-series>
+    <dxo-common-series-settings
+            argumentField="category"
+            type="bar"
+            hoverMode="allArgumentPoints"
+            selectionMode="allArgumentPoints"
+    >
+        <dxo-label
+                [visible]="true"
+                [format]="{
+        type: 'fixedPoint',
+        precision: 0
+      }"
+        >
+        </dxo-label>
+    </dxo-common-series-settings>
+    <dxo-legend verticalAlignment="bottom" horizontalAlignment="center">
+    </dxo-legend>
+    <dxo-export [enabled]="false"></dxo-export>
+</dx-chart>

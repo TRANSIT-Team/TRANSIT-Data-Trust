@@ -1,0 +1,680 @@
+{
+  "style": {
+    "font-family": "sans-serif",
+    "background-color": "#FAFCFF",
+    "background-image": "",
+    "background-size": "100%",
+    "node-color": "#4C8EDA",
+    "border-width": 2,
+    "border-color": "#2870c2",
+    "radius": 25,
+    "node-padding": 5,
+    "node-margin": 2,
+    "outside-position": "auto",
+    "node-icon-image": "",
+    "node-background-image": "",
+    "icon-position": "inside",
+    "icon-size": 64,
+    "caption-position": "inside",
+    "caption-max-width": 200,
+    "caption-color": "#ffffff",
+    "caption-font-size": 10,
+    "caption-font-weight": "normal",
+    "label-position": "outside",
+    "label-display": "bare",
+    "label-color": "#ffffff",
+    "label-background-color": "#4C8EDA",
+    "label-border-color": "#4C8EDA",
+    "label-border-width": 0,
+    "label-font-size": 10,
+    "label-padding": 2,
+    "label-margin": 2,
+    "directionality": "directed",
+    "detail-position": "inline",
+    "detail-orientation": "parallel",
+    "arrow-width": 1,
+    "arrow-color": "#A5ABB6",
+    "margin-start": 0,
+    "margin-end": 0,
+    "margin-peer": 20,
+    "attachment-start": "normal",
+    "attachment-end": "normal",
+    "relationship-icon-image": "",
+    "type-color": "#000000",
+    "type-background-color": "#ffffff",
+    "type-border-color": "#000000",
+    "type-border-width": 0,
+    "type-font-size": 10,
+    "type-padding": 2,
+    "property-position": "outside",
+    "property-alignment": "colon",
+    "property-color": "#000000",
+    "property-font-size": 10,
+    "property-font-weight": "normal"
+  },
+  "nodes": [
+    {
+      "id": "n23",
+      "position": {
+        "x": 1858.025302713869,
+        "y": -543.7438006252933
+      },
+      "caption": "Fox",
+      "labels": [],
+      "properties": {
+        "groupid": "50"
+      },
+      "style": {
+        "radius": 30,
+        "node-color": "#16a5a5"
+      }
+    },
+    {
+      "id": "n24",
+      "position": {
+        "x": 2054.802935161172,
+        "y": -187.8140947605595
+      },
+      "caption": "MaxGMBH",
+      "labels": [],
+      "properties": {
+        "groupid": "55"
+      },
+      "style": {
+        "radius": 30,
+        "node-color": "#16a5a5"
+      }
+    },
+    {
+      "id": "n25",
+      "position": {
+        "x": 2034.0593103042274,
+        "y": -555.2438006252933
+      },
+      "caption": "OAOrder#1Fox",
+      "labels": [],
+      "properties": {
+        "groupid": "50",
+        "readRights": "all",
+        "writeRights": "all"
+      },
+      "style": {
+        "node-color": "#f44e3b",
+        "radius": 30,
+        "node-margin": 2,
+        "outside-position": "top"
+      }
+    },
+    {
+      "id": "n26",
+      "position": {
+        "x": 1974.191114583597,
+        "y": -342.53871236443695
+      },
+      "caption": "OASubOrderFox",
+      "labels": [],
+      "properties": {},
+      "style": {
+        "node-color": "#f44e3b",
+        "radius": 30
+      }
+    },
+    {
+      "id": "n27",
+      "position": {
+        "x": 1968.8631313491255,
+        "y": -241.40105808792688
+      },
+      "caption": "OASubOrderMAXGMBH",
+      "labels": [],
+      "properties": {},
+      "style": {
+        "node-color": "#f44e3b",
+        "radius": 30
+      }
+    },
+    {
+      "id": "n28",
+      "position": {
+        "x": 2142.390713043798,
+        "y": -555.2438006252933
+      },
+      "caption": "Order#1",
+      "labels": [],
+      "properties": {
+        "type": "order"
+      },
+      "style": {
+        "radius": 35
+      }
+    },
+    {
+      "id": "n29",
+      "position": {
+        "x": 2204.0302391053688,
+        "y": -405.1006985717095
+      },
+      "caption": "Order#2",
+      "labels": [],
+      "properties": {
+        "suborder": "true",
+        "type": "order"
+      },
+      "style": {
+        "radius": 35
+      }
+    },
+    {
+      "id": "n30",
+      "position": {
+        "x": 2305.6998754633833,
+        "y": -332.32029308934995
+      },
+      "caption": "Order#3",
+      "labels": [],
+      "properties": {
+        "suborder": "true"
+      },
+      "style": {
+        "radius": 35
+      }
+    },
+    {
+      "id": "n31",
+      "position": {
+        "x": 2499.9039848898815,
+        "y": -298.76523869025846
+      },
+      "caption": "OASubOrderMAXGMBH",
+      "labels": [],
+      "properties": {},
+      "style": {
+        "node-color": "#f44e3b",
+        "radius": 30
+      }
+    },
+    {
+      "id": "n32",
+      "position": {
+        "x": 2324.5948629921477,
+        "y": -208.72141839530016
+      },
+      "caption": "OASubOrderMoritzGMBH",
+      "labels": [],
+      "properties": {},
+      "style": {
+        "node-color": "#f44e3b",
+        "radius": 30
+      }
+    },
+    {
+      "id": "n33",
+      "position": {
+        "x": 2499.9039848898815,
+        "y": -187.8140947605595
+      },
+      "caption": "MoritzGMBH",
+      "labels": [],
+      "properties": {
+        "groupid": "60"
+      },
+      "style": {
+        "node-color": "#16a5a5",
+        "radius": 30
+      }
+    },
+    {
+      "id": "n34",
+      "position": {
+        "x": 2034.0593103042274,
+        "y": -460.51961288933694
+      },
+      "caption": "Order#2.2",
+      "labels": [],
+      "properties": {
+        "suborder": "true"
+      },
+      "style": {
+        "radius": 35
+      }
+    },
+    {
+      "id": "n35",
+      "position": {
+        "x": 1954.0136780123116,
+        "y": -488.3248863076626
+      },
+      "caption": "OASubOrderFox",
+      "labels": [],
+      "properties": {},
+      "style": {
+        "node-color": "#f44e3b",
+        "radius": 30
+      }
+    },
+    {
+      "id": "n36",
+      "position": {
+        "x": 1938.0709350057905,
+        "y": -405.1006985717095
+      },
+      "caption": "OASubOrderMichaGMBH",
+      "labels": [],
+      "properties": {},
+      "style": {
+        "node-color": "#f44e3b",
+        "radius": 30
+      }
+    },
+    {
+      "id": "n37",
+      "position": {
+        "x": 1858.025302713869,
+        "y": -377.2954251533874
+      },
+      "caption": "MichaGMBH",
+      "labels": [],
+      "properties": {
+        "groupid": "65"
+      },
+      "style": {
+        "radius": 30,
+        "node-color": "#16a5a5"
+      }
+    },
+    {
+      "id": "n38",
+      "position": {
+        "x": 2558.128971917136,
+        "y": -478.0602998782181
+      },
+      "caption": "Package#1",
+      "labels": [],
+      "properties": {
+        "type": "package",
+        "id": "1"
+      },
+      "style": {
+        "radius": 50
+      }
+    },
+    {
+      "id": "n39",
+      "position": {
+        "x": 2106.8903830132117,
+        "y": -687.4261217280166
+      },
+      "caption": "OAPackage#1Fox",
+      "labels": [],
+      "properties": {
+        "groupid": "50",
+        "readRights": "all",
+        "writeRights": "all"
+      },
+      "style": {
+        "node-color": "#f44e3b",
+        "radius": 30
+      }
+    },
+    {
+      "id": "n40",
+      "position": {
+        "x": 2558.128971917136,
+        "y": -651.1084892164455
+      },
+      "caption": "PackageProperty#1",
+      "labels": [],
+      "properties": {
+        "type": "packageproperty",
+        "id": "1"
+      },
+      "style": {
+        "radius": 35
+      }
+    },
+    {
+      "id": "n41",
+      "position": {
+        "x": 2366.91829473847,
+        "y": -734.9488888861496
+      },
+      "caption": "OAPackage#1Fox",
+      "labels": [],
+      "properties": {
+        "groupid": "50",
+        "readRights": "all",
+        "writeRights": "all"
+      },
+      "style": {
+        "node-color": "#f44e3b",
+        "radius": 30
+      }
+    },
+    {
+      "id": "n42",
+      "position": {
+        "x": 2636.372396949223,
+        "y": -342.53871236443695
+      },
+      "caption": "OAPackage#1Fox",
+      "labels": [],
+      "properties": {
+        "groupid": "60",
+        "readRights": "[weight]",
+        "writeRights": "[]"
+      },
+      "style": {
+        "node-color": "#f44e3b",
+        "radius": 30
+      }
+    },
+    {
+      "id": "n43",
+      "position": {
+        "x": 2499.9039848898815,
+        "y": -377.2954251533874
+      },
+      "caption": "OAPackage#1Fox",
+      "labels": [],
+      "properties": {
+        "groupid": "55",
+        "readRights": "[weight]",
+        "writeRights": "[]"
+      },
+      "style": {
+        "node-color": "#f44e3b",
+        "radius": 30
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "id": "n30",
+      "fromId": "n23",
+      "toId": "n25",
+      "type": "",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n31",
+      "fromId": "n23",
+      "toId": "n26",
+      "type": "",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n32",
+      "fromId": "n23",
+      "toId": "n27",
+      "type": "",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n33",
+      "fromId": "n27",
+      "toId": "n26",
+      "type": "",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n34",
+      "fromId": "n24",
+      "toId": "n27",
+      "type": "",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n35",
+      "fromId": "n28",
+      "toId": "n25",
+      "type": "",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n36",
+      "fromId": "n29",
+      "toId": "n26",
+      "type": "",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n37",
+      "fromId": "n29",
+      "toId": "n27",
+      "type": "",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n38",
+      "fromId": "n30",
+      "toId": "n31",
+      "type": "",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n39",
+      "fromId": "n30",
+      "toId": "n32",
+      "type": "",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n40",
+      "fromId": "n33",
+      "toId": "n32",
+      "type": "",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n41",
+      "fromId": "n32",
+      "toId": "n31",
+      "type": "",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n42",
+      "fromId": "n29",
+      "toId": "n28",
+      "type": "",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n43",
+      "fromId": "n30",
+      "toId": "n29",
+      "type": "",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n44",
+      "fromId": "n24",
+      "toId": "n31",
+      "type": "",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n45",
+      "fromId": "n24",
+      "toId": "n32",
+      "type": "",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n46",
+      "fromId": "n34",
+      "toId": "n28",
+      "type": "",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n47",
+      "fromId": "n23",
+      "toId": "n35",
+      "type": "",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n48",
+      "fromId": "n34",
+      "toId": "n35",
+      "type": "",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n49",
+      "fromId": "n36",
+      "toId": "n35",
+      "type": "",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n50",
+      "fromId": "n34",
+      "toId": "n36",
+      "type": "",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n51",
+      "fromId": "n37",
+      "toId": "n36",
+      "type": "",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n52",
+      "fromId": "n23",
+      "toId": "n36",
+      "type": "",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n53",
+      "type": "",
+      "style": {},
+      "properties": {},
+      "fromId": "n38",
+      "toId": "n39"
+    },
+    {
+      "id": "n54",
+      "type": "",
+      "style": {},
+      "properties": {},
+      "fromId": "n23",
+      "toId": "n39"
+    },
+    {
+      "id": "n55",
+      "type": "",
+      "style": {},
+      "properties": {},
+      "fromId": "n38",
+      "toId": "n28"
+    },
+    {
+      "id": "n56",
+      "type": "",
+      "style": {},
+      "properties": {},
+      "fromId": "n40",
+      "toId": "n41"
+    },
+    {
+      "id": "n57",
+      "type": "",
+      "style": {},
+      "properties": {},
+      "fromId": "n40",
+      "toId": "n38"
+    },
+    {
+      "id": "n58",
+      "type": "",
+      "style": {},
+      "properties": {},
+      "fromId": "n23",
+      "toId": "n41"
+    },
+    {
+      "id": "n59",
+      "type": "",
+      "style": {},
+      "properties": {},
+      "fromId": "n38",
+      "toId": "n29"
+    },
+    {
+      "id": "n60",
+      "type": "",
+      "style": {},
+      "properties": {},
+      "fromId": "n38",
+      "toId": "n34"
+    },
+    {
+      "id": "n61",
+      "type": "",
+      "style": {},
+      "properties": {},
+      "fromId": "n38",
+      "toId": "n30"
+    },
+    {
+      "id": "n62",
+      "type": "",
+      "style": {},
+      "properties": {},
+      "fromId": "n38",
+      "toId": "n42"
+    },
+    {
+      "id": "n63",
+      "type": "",
+      "style": {},
+      "properties": {},
+      "fromId": "n33",
+      "toId": "n42"
+    },
+    {
+      "id": "n64",
+      "type": "",
+      "style": {},
+      "properties": {},
+      "fromId": "n38",
+      "toId": "n43"
+    },
+    {
+      "id": "n65",
+      "type": "",
+      "style": {},
+      "properties": {},
+      "fromId": "n24",
+      "toId": "n43"
+    }
+  ]
+}

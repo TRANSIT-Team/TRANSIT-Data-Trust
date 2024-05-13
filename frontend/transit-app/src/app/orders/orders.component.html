@@ -1,0 +1,81 @@
+<div class="row px-3 w-100 m-auto">
+  <div class="col">
+
+    <div class="row">
+      <div class="col">
+        <h2>Meine Aufträge</h2>
+      </div>
+    </div>
+    <div class="row">
+
+      <div class="col-lg-2 col-md-3 col-sm-12 mt-lg-0 mt-md-3 mt-sm-3">
+        <app-orders-info-card [orderSummary]="this.orderSummary.created" [orderStatusFilter]="'CREATED'"
+                              [extraFilter]="this.extraFilter" (click)="filterOverview('CREATED')"
+                              [loading]="this.loadingOrder"></app-orders-info-card>
+      </div>
+
+
+
+
+      <div class="col-lg-2 col-md-3 col-sm-12 mt-lg-0 mt-md-3 mt-sm-3">
+        <app-orders-info-card [orderSummary]="this.orderSummary.open" [orderStatusFilter]="'OPEN'"
+                              [extraFilter]="this.extraFilter" (click)="filterOverview('OPEN')"
+                              [loading]="this.loadingOrder"></app-orders-info-card>
+      </div>
+
+      <div class="col-lg-4 col-md-3 col-sm-12 mt-lg-0 mt-md-3 mt-sm-3">
+        <app-orders-info-card [orderSummary]="this.orderSummary.processing"
+                              [orderStatusFilter]="'PROCESSING'" [loading]="this.loadingOrder"
+                              [extraFilter]="this.extraFilter" (click)="filterOverview('PROCESSING')"
+        ></app-orders-info-card>
+      </div>
+
+      <div class="col-lg-2 col-md-3 col-sm-12 mt-lg-0 mt-md-3 mt-sm-3">
+        <app-orders-info-card [orderSummary]="this.orderSummary.complete" [orderStatusFilter]="'COMPLETE'"
+                              [extraFilter]="this.extraFilter" (click)="filterOverview('COMPLETE')"
+                              [loading]="this.loadingOrder"></app-orders-info-card>
+      </div>
+
+      <div class="col-lg-2 col-md-3 col-sm-12 mt-lg-0 mt-md-3 mt-sm-3">
+        <app-orders-info-card [orderSummary]="this.orderSummary.canceled" [orderStatusFilter]="'CANCELED'"
+                              [extraFilter]="this.extraFilter" (click)="filterOverview('CANCELED')"
+                              [loading]="this.loadingOrder"></app-orders-info-card>
+      </div>
+
+
+
+
+    </div>
+
+    <div class="row mt-3">
+      <div class="col">
+        <h2>Outsource</h2>
+      </div>
+    </div>
+    <div class="row">
+
+      <div class="col-lg-6 col-md-6 col-sm-12 mt-lg-0 mt-md-3 mt-sm-3">
+        <app-orders-info-card [orderSummary]="this.orderSummary.requested"
+                              [orderStatusFilter]="'REQUESTED'" [loading]="this.loadingOrder"
+                              [extraFilter]="this.extraFilter"
+                              (click)="filterOverview('REQUESTED')"></app-orders-info-card>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-12 mt-lg-0 mt-md-3 mt-sm-3">
+        <app-orders-info-card [orderSummary]="this.orderSummary.accepted"
+                              [orderStatusFilter]="'ACCEPTED'" [loading]="this.loadingOrder"
+                              [extraFilter]="this.extraFilter"
+                              (click)="filterOverview('ACCEPTED')"></app-orders-info-card>
+      </div>
+
+
+    </div>
+    <div class="row mt-4">
+      <div class="col">
+        <mat-card>
+          <app-orders-table [orderStatusFilter]="this.extraFilter" *ngIf="this.showTable"></app-orders-table>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
+

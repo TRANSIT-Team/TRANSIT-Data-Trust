@@ -1,0 +1,280 @@
+
+<app-loading *ngIf="this.sendingData" showText="Daten senden..." class="pre-loader"></app-loading>
+
+
+
+
+
+<div class="row">
+  <div class="col">
+
+
+    <div>
+      <div *ngIf="!this.isDialog"><h2 *ngIf="!editPackage">Sendung anlegen</h2>
+        <h2 *ngIf="editPackage">Sendung #{{editPackage.id}} bearbeiten</h2></div>
+      <div>
+
+
+        <form [formGroup]="createPackageForm" (ngSubmit)='onSubmit()'>
+          <div>
+
+            <div class="row">
+              <div class="col-lg-12 col-sm-12 px-3">
+                <h3><b>Abmessungen</b></h3>
+              </div>
+            </div>
+
+            <div class="row">
+
+
+              <div class="col-lg-3 col-sm-12 p-3">
+                <mat-form-field appearance="fill">
+                  <mat-label>Länge (cm)</mat-label>
+                  <input matInput formControlName="deepCm" id="deepCm" type="number" pattern="[0-9]+([.,][0-9]+)?" (keypress)="preventNonNumericalInput($event)">
+                  <mat-hint>Min 0.1cm</mat-hint>
+                  <mat-error *ngIf="createPackageForm.controls['deepCm'].hasError('required')">Tiefe ist ein
+                    Pflichtfeld und muss eine Zahl sein
+                  </mat-error>
+                  <mat-error *ngIf="createPackageForm.controls['deepCm'].hasError('min')">Min 0.1cm
+                  </mat-error>
+                  <mat-error *ngIf="createPackageForm.controls['deepCm'].hasError('max')">Max 999cm, wir
+                    machen keine Übergrößen
+                  </mat-error>
+                  <mat-error *ngIf="createPackageForm.controls['deepCm'].hasError('pattern')">Bitte geben Sie eine Zahl ein</mat-error>
+
+                </mat-form-field>
+              </div>
+
+              <div class="col-lg-3 col-sm-12 p-3">
+                <mat-form-field appearance="fill">
+                  <mat-label>Breite (cm)</mat-label>
+                  <input matInput formControlName="widthCm" id="widthCm" type="number" pattern="[0-9]+([.,][0-9]+)?" (keypress)="preventNonNumericalInput($event)">
+                  <mat-hint>Min 0.1cm</mat-hint>
+                  <mat-error *ngIf="createPackageForm.controls['widthCm'].hasError('required')">Tiefe ist ein
+                    Pflichtfeld und muss eine Zahl sein
+                  </mat-error>
+                  <mat-error *ngIf="createPackageForm.controls['widthCm'].hasError('min')">Min 0.1cm
+                  </mat-error>
+                  <mat-error *ngIf="createPackageForm.controls['widthCm'].hasError('max')">Max 999cm, wir
+                    machen keine Übergrößen
+                  </mat-error>
+                  <mat-error *ngIf="createPackageForm.controls['widthCm'].hasError('pattern')">Bitte geben Sie eine Zahl ein</mat-error>
+
+                </mat-form-field>
+              </div>
+
+              <div class="col-lg-3 col-sm-12 p-3">
+                <mat-form-field appearance="fill">
+                  <mat-label>Höhe (cm)</mat-label>
+                  <input matInput formControlName="heightCm" id="heightCm" type="number" pattern="[0-9]+([.,][0-9]+)?" (keypress)="preventNonNumericalInput($event)">
+                  <mat-hint>Min 0.1cm</mat-hint>
+
+                  <mat-error *ngIf="createPackageForm.controls['heightCm'].hasError('min')">Min 0.1cm
+                  </mat-error>
+                  <mat-error *ngIf="createPackageForm.controls['heightCm'].hasError('max')">Max 999cm, wir
+                    machen keine Übergrößen
+                  </mat-error>
+                  <mat-error *ngIf="createPackageForm.controls['heightCm'].hasError('pattern')">Bitte geben Sie eine Zahl ein</mat-error>
+                  <mat-error *ngIf="createPackageForm.controls['heightCm'].hasError('required')">Höhe ist ein
+                    Pflichtfeld und muss eine Zahl sein
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="col-lg-3 col-sm-12 p-3">
+                <mat-form-field appearance="fill">
+                  <mat-label>Gewicht (kg)</mat-label>
+                  <input matInput formControlName="weightKg" id="weightKg" type="number" pattern="[0-9]+([.,][0-9]+)?" (keypress)="preventNonNumericalInput($event)">
+                  <mat-hint>Min 0.1kg</mat-hint>
+                  <mat-error *ngIf="createPackageForm.controls['weightKg'].hasError('required')">Gewicht ist ein
+                    Pflichtfeld und muss eine Zahl sein
+                  </mat-error>
+                  <mat-error *ngIf="createPackageForm.controls['weightKg'].hasError('min')">Min 0.1cm
+                  </mat-error>
+                  <mat-error *ngIf="createPackageForm.controls['weightKg'].hasError('max')">Max 999kg, wir
+                    machen keine Schwertransporte!
+                  </mat-error>
+
+                  <mat-error *ngIf="createPackageForm.controls['weightKg'].hasError('pattern')">Bitte geben Sie eine Zahl ein</mat-error>
+
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <mat-divider></mat-divider>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-12 col-sm-12 p-3 pb-1">
+              <h3><b>Eigenschaften</b></h3>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6 col-sm-12 px-3">
+              <mat-form-field appearance="fill">
+                <mat-label>Sendungsklasse</mat-label>
+                <mat-select [(value)]="selectedPackageClass" formControlName="packageClass">
+                  <mat-option *ngFor="let p of packageClasses" [value]="p.id">
+                    {{p.name}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="createPackageForm.controls['packageClass'].hasError('required')">Sendungsklasse
+                  ist ein Pflichtfeld
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-6 col-sm-12 px-3">
+
+
+              <mat-form-field appearance="fill" floatLabel="always" class="mat-input-inline">
+                <mat-label>Warenwert</mat-label>
+                <input matInput formControlName="packagePrice" id="packagePrice" type="text" pattern="[0-9]+([.,][0-9]+)?" (keypress)="preventNonNumericalInput($event)">
+
+                <mat-error *ngIf="createPackageForm.controls['packagePrice'].hasError('pattern')">Bitte geben Sie eine Zahl ein</mat-error>
+
+                <span matTextPrefix>€&nbsp;</span>
+              </mat-form-field>
+
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <mat-divider></mat-divider>
+            </div>
+          </div>
+          <div class="row">
+
+            <div class="col-lg-12 col-sm-12 p-3 pb-1">
+              <h3><b>Sendungseigenschaften</b>
+                <button type="button" mat-button class="txt-nav" href="#" color="primary"
+                        (click)="opePackagePropertiesDialog()">Bearbeiten</button>
+
+              </h3>
+
+              <div *ngIf="this.packagePropertiesForSelection.length==0">Es sind noch keine Eigenschaften hinterlegt. Klicken Sie auf <b>Bearbeiten</b>, um Eigenschaften zu erstellen.</div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-9 col-sm-12 p-3 pt-0">
+              <div class="row">
+                <div class="col">
+                  <div formArrayName="packageProperties">
+                    <div *ngFor="let packageProperty of packageProperties().controls; let empIndex=index">
+                      <div [formGroupName]="empIndex">
+                        <div class="row pt-1">
+                          <div class="col-12">
+                            <h4 class="text-decoration-underline">Eigenschaft {{empIndex + 1}}</h4>
+                          </div>
+                        </div>
+
+                        <div class="row">
+
+                          <div class="col-6">
+                            <mat-form-field appearance="fill">
+                              <mat-label>Sendungseigenschaft</mat-label>
+                              <mat-select #selectProperty formControlName="key" id="propertyKey{{empIndex}}"
+                                          (openedChange)="onMatSelectOpen(selectProperty.value)"
+                                          (selectionChange)="changePackagePropertiesForSelection(selectProperty.value, empIndex)">
+                                <ng-container *ngFor="let p of packagePropertiesForSelection">
+                                  <mat-option [value]="p.id"
+                                              *ngIf="selectProperty.value === p.id || !isPropertySelected(p.id)">
+                                    {{p.key}}
+                                  </mat-option>
+                                </ng-container>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+
+                          <div class="col-3">
+                            <mat-form-field appearance="fill">
+                              <mat-label>Wert</mat-label>
+
+                              <input matInput formControlName="value" type="text" id="propertyValue{{empIndex}}">
+
+                            </mat-form-field>
+                          </div>
+
+                          <div class="col-3">
+                            <button type="button" mat-mini-fab color="warn" class="mt-1" *ngIf="this.packagePropertyIsAlreadyStores(packageProperty)"
+                                    (click)='removePackageProperty(empIndex, selectProperty.value)'
+                                    aria-label='Sendungseigenschaft entfernen'>
+                              <mat-icon>close</mat-icon>
+                            </button>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col">
+                  <button mat-raised-button color="" type="button" (click)="addPackageProperty()">
+                    <mat-icon>add</mat-icon>
+                    <span>Neue Sendungseigenschaft</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <mat-divider></mat-divider>
+          <div class="row mt-4 w-100">
+            <div class="col d-inline float-end">
+              <div class="float-right d-inline" *ngIf="!this.isDialog">
+
+
+                <button *ngIf="false" type="button" mat-raised-button color="" (click)="goBack()"
+                        [disabled]="this.sendingData">Zurück
+                </button>
+                <button *ngIf="false" type="button" mat-raised-button color="" (click)="cancel()"
+                        [disabled]="this.sendingData">
+                  Abbrechen
+                </button>
+
+
+              </div>
+              <div class="float-right d-inline" *ngIf="!this.isDialog">
+                <button mat-raised-button color="primary" type="submit"
+                        [disabled]="!createPackageForm.valid || this.sendingData">
+                  Speichern
+                </button>
+              </div>
+
+              <div class="d-inline" *ngIf="this.isDialog">
+                <button mat-raised-button color="primary" type="submit"
+                        [disabled]="!createPackageForm.valid || this.sendingData">
+                  Speichern & Schließen
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,27 @@
+.sidecol{
+  /* min-height: calc(100vh - 64px);*/
+}
+
+.btn-yellow{
+
+  color:#d7aa00;
+}
+
+.col-action-btn{
+  justify-content: end;
+  display: flex;
+}
+
+.col-flex{
+  display: flex;
+  align-items: center;
+
+}
+
+.d-contents{
+  display: contents;
+}
+
+.order{
+  margin-bottom: 100px;
+}

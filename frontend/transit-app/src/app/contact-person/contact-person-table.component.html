@@ -1,0 +1,60 @@
+
+<dx-data-grid class="mat-table my-3"
+              id="gridContainer"
+              [dataSource]="dataSource" [columnHidingEnabled]="true"
+              keyExpr="id"
+              [allowColumnReordering]="true"
+              [showColumnLines]="false"
+              [showRowLines]="true"
+              [showBorders]="true"
+              [rowAlternationEnabled]="false"
+              (onRowInserting)="insertRow($event)"
+              (onRowUpdating)="updateRow($event)"
+              (onRowRemoving)="deleteRow($event)" (onExporting)="onExporting($event)">
+  <dxo-pager
+    [visible]="true"
+    [allowedPageSizes]="allowedPageSizes"
+    [showPageSizeSelector]="true"
+    [showInfo]="true"
+    [showNavigationButtons]="true">
+  </dxo-pager>
+  <dxo-search-panel
+    [visible]="true"
+    [width]="240"
+    placeholder="Search..."
+  ></dxo-search-panel>
+  <dxo-filter-row [visible]="true"></dxo-filter-row>
+  <dxo-paging [pageSize]="5"></dxo-paging>
+
+  <dxo-header-filter [visible]="true"></dxo-header-filter>
+  <dxo-paging [enabled]="true"></dxo-paging>
+  <dxo-editing mode="row" [allowUpdating]="true" [allowDeleting]="true" [allowAdding]="true" [useIcons]="true">
+    <dxo-texts confirmDeleteTitle="Löschen?" confirmDeleteMessage="Datensatz löschen?"></dxo-texts>
+  </dxo-editing>
+  <dxo-export
+    [enabled]="true"
+    [formats]="['pdf']"
+    [allowExportSelectedData]="true"
+  ></dxo-export>
+  <dxi-column dataField="name" caption="Ansprechperson">
+    <dxi-validation-rule
+      type="stringLength"
+      [min]="3"
+      message="Der Name muss mind. 3 Buchstaben besitzen."
+    ></dxi-validation-rule>
+  </dxi-column>
+  <dxi-column dataField="email" caption="E-Mail">
+    <dxi-validation-rule
+      type="stringLength"
+      [min]="3"
+      message="Die E-Mail muss mind. 3 Buchstaben besitzen."
+    ></dxi-validation-rule>
+  </dxi-column>
+  <dxi-column dataField="phone" caption="Telefon">
+    <dxi-validation-rule
+      type="stringLength"
+      [min]="3"
+      message="Die Telefonnummer muss mind. 3 Buchstaben besitzen."
+    ></dxi-validation-rule>
+  </dxi-column>
+</dx-data-grid>

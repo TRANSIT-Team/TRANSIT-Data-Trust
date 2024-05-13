@@ -1,0 +1,42 @@
+<div class="row" style="top:0;">
+  <div class="col">
+    <h2>Adresse auswählen</h2>
+  </div>
+  <div class="col text-end">
+    <button (click)="close()" mat-icon-button aria-label="private dialogRef: MatDialogRef<DialogInputComponent>">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>
+
+
+<div class="row" style=";">
+  <div class="col-1" *ngIf="!this.addAddress">
+    <button color="primary" mat-raised-button aria-label="Clear"
+            (click)="this.addAddress=true;">
+      <mat-icon>add</mat-icon>
+      neue Adresse anlegen
+    </button>
+  </div>
+
+  <div class="col-1" *ngIf="this.addAddress">
+    <button color="warn" mat-raised-button aria-label="Clear"
+            (click)="this.addAddress=false;">
+      <mat-icon>cancel</mat-icon>
+      abbrechen
+    </button>
+  </div>
+</div>
+
+<div class="">
+  <div class="row" style=";" *ngIf="this.addAddress">
+    <app-add-address [dialogComponent]="true" (externButtonClick)="chooseItem($event)"></app-add-address>
+  </div>
+
+  <div class="row mt-2" style=";" *ngIf="!this.addAddress">
+    <div class="col">
+      <app-address-table [dialogComponent]="true" (externButtonClick)="chooseItem($event)"></app-address-table>
+
+    </div>
+  </div>
+</div>

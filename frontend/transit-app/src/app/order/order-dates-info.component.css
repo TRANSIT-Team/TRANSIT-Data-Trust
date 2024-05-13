@@ -1,0 +1,19 @@
+.tcard{
+  position: relative;
+  min-height:149px;
+}
+
+h1,h2,h3,h4,h5{
+  font-weight: 700;
+}
+
+@media screen and (max-width: 1560px) {
+  .tcard{
+    min-height:229px;
+  }
+}
+
+
+.mat-form-field-appearance-outline .mat-form-field-outline-start, .mat-form-field-appearance-outline .mat-form-field-outline-end {
+  border: 1px solid currentColor;
+}

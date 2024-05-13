@@ -1,0 +1,5 @@
+Jenkinsfile
+transit-app/.angular
+transit-app/.vscode
+transit-app/dist
+transit-app/node_modules

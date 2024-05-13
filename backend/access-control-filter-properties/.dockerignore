@@ -1,0 +1,14 @@
+Jenkinsfile
+property-level-access-control-filter/.gradle
+property-level-access-control-filter/.idea
+property-level-access-control-filter/build
+property-level-access-control-filter/gradle
+property-level-access-control-filter/.gitignore
+property-level-access-control-filter/.run
+property-level-access-control-filter/bin
+property-level-access-control-filter/native_config
+docker-compose.yml
+docker-compose-api.yml
+docker-compose-db.yml
+application-local-security.properties
+property-level-access-control-filter/src/main/resources/application-local-security.properties

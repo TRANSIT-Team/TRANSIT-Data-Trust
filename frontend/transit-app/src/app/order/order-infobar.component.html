@@ -1,0 +1,55 @@
+<div class="tcard bg-white p-4 pb-2">
+
+  <app-loading-confetti *ngIf="this.showFinish"></app-loading-confetti>
+  <div class="row" *ngIf="this.loading">
+    <div class="col">
+      <h4>Auftrag</h4>
+    </div>
+  </div>
+  <app-loading-placeholder *ngIf="this.loading"></app-loading-placeholder>
+
+  <div *ngIf="!this.loading">
+    <div class="row">
+      <div class="col d-inline-flex">
+        <h4>Auftrag</h4>
+
+        <div class="tcard-btn-div p-3 px-2"
+             *ngIf="this.order.orderRightsGlobal!.edit.orderStatus || this.order.orderRightsGlobal!.edit.contactPerson">
+          <button color="primary" mat-icon-button
+                  aria-label="speichern" (click)="saveInformations()">
+            <mat-icon>save</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="outline" class="input-field" color="primary">
+          <mat-label>Status</mat-label>
+          <mat-select [(value)]="orderStatusTmp" [disabled]="!this.order.orderRightsGlobal!.edit.orderStatus || this.order.isOutsourced" class="material-small">
+            <mat-option *ngFor="let s of order.orderStatusSelectionFlow" [value]="s" [disabled]="s === 'COMPLETE' && (this.order.suborderType && !this.order.isOutsourced)" [matTooltip]="this.getCompleteDisabledTooltip(s)">
+              {{ this.orderService.getOrderStatusDescription(s) }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="outline" class="input-field" color="primary" floatLabel="auto"
+                        class="material-small">
+          <mat-label>Ansprechpartner</mat-label>
+          <mat-select [(ngModel)]="this.selectedContactPerson" [(value)]="selectedContactPerson">
+            <mat-option *ngFor="let p of contactPersons" [value]="p.id">
+              {{p.name}} ({{p.email}})
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+</div>
+

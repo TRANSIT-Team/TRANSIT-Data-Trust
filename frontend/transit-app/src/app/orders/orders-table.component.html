@@ -1,0 +1,161 @@
+<button mat-raised-button color="primary" class="mb-2" routerLink="/orders/add">
+  <mat-icon>add_circle</mat-icon>
+  Neuer Auftrag
+</button>
+
+<div class="row row-vertical-scroll">
+  <div class="col">
+
+
+    <dx-data-grid class="mat-table-compact mw-1600"
+                  id="gridContainer"
+                  [dataSource]="dataSource"
+                  keyExpr="name"
+                  [allowColumnReordering]="true" [cacheEnabled]="true"
+                  [showColumnLines]="false"
+                  [showRowLines]="true"
+                  [showBorders]="true"
+                  [rowAlternationEnabled]="false">
+      <dxo-paging [enabled]="true" [pageSize]="this.currentPageSize" [pageIndex]="this.currentPage"></dxo-paging>
+      <dxo-remote-operations [paging]="true" [filtering]="true" [sorting]="true"></dxo-remote-operations>
+      <dxo-scrolling mode=""></dxo-scrolling>
+
+      <dxo-pager
+        [visible]="true"
+        [allowedPageSizes]="allowedPageSizes"
+        [showPageSizeSelector]="true"
+        [showInfo]="true"
+        [showNavigationButtons]="true">
+      </dxo-pager>
+      <dxo-search-panel
+        [visible]="false"
+        [width]="240"
+        placeholder="Search..."
+      ></dxo-search-panel>
+
+      <dxo-paging [pageSize]="10" [enabled]="true">
+      </dxo-paging>
+      <dxo-header-filter [visible]="true"></dxo-header-filter>
+      <dxo-filter-row
+        [visible]="true"
+      ></dxo-filter-row>
+      <dxo-paging [enabled]="true"></dxo-paging>
+      <dxo-editing mode="row" [allowUpdating]="false" [allowDeleting]="false" [allowAdding]="false" [useIcons]="true">
+        <dxo-texts confirmDeleteTitle="Löschen?" confirmDeleteMessage="Datensatz löschen?"></dxo-texts>
+      </dxo-editing>
+      <dxo-export
+        [enabled]="false"
+        [formats]="['pdf']"
+        [allowExportSelectedData]="true"
+      ></dxo-export>
+
+      <dxi-column width="65" name="idshow"
+                  dataField="id" caption=""
+                  [allowFiltering]="false"
+                  [allowSorting]="false"
+                  cellTemplate="cellTemplateId"
+      ></dxi-column>
+      <div *dxTemplate="let data of 'cellTemplateId'" class="d-grid">
+        <div style="max-width: 150px;">
+          <button class="float-end shadow-none" mat-button mat-mini-fab mat-flat-button
+                  color="primary"
+                  routerLink="/orders/order/{{data.value}}">
+            <mat-icon mat-list-icon>visibility</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <dxi-column dataField="shortId" caption="AuftragID" width="120" [allowSorting]="false"></dxi-column>
+
+
+      <dxi-column dataField="pickUpDate" caption="Abholdatum-von" [width]="180" [allowFiltering]="true"
+                  dataType="datetime" width="100"
+                  format="dd.MM.yyyy, HH:mm">
+      </dxi-column>
+
+      <dxi-column dataField="destinationDate" caption="Lieferdatum-von" [width]="180" [allowFiltering]="true"
+                  dataType="datetime" width="100"
+                  format="dd.MM.yyyy, HH:mm">
+      </dxi-column>
+
+      <dxi-column width="120"
+                  dataField="addressFrom.zip" caption="Abs. PLZ"
+                  [allowFiltering]="true"
+                  [allowSorting]="true"
+      ></dxi-column>
+
+      <dxi-column
+        dataField="addressFrom.city" caption="Abs. Stadt"
+        [allowFiltering]="true"
+        [allowSorting]="true"
+      ></dxi-column>
+
+      <dxi-column width="120"
+                  dataField="addressTo.zip" caption="Empf. PLZ"
+                  [allowFiltering]="true"
+                  [allowSorting]="true"
+      ></dxi-column>
+
+      <dxi-column
+        dataField="addressTo.city" caption="Empf. Stadt"
+        [allowFiltering]="true"
+        [allowSorting]="true"
+      ></dxi-column>
+
+      <dxi-column alignment="left" dataField="packageItemIds.length" caption="Sendungen" [allowSorting]="false"
+                  width="120"
+                  [allowFiltering]="false"
+                  cellTemplate="cellTemplatePackages"></dxi-column>
+
+      <div *dxTemplate="let data of 'cellTemplatePackages'" class="">
+        <mat-chip-list class="">
+          <mat-chip>
+            {{data.value}}
+          </mat-chip>
+        </mat-chip-list>
+      </div>
+
+
+      <dxi-column
+        dataField="orderStatus" caption="Status"
+        [allowFiltering]="false"
+        [allowHeaderFiltering]="true"
+        [allowSorting]="true"
+        cellTemplate="cellTemplateStatus">
+        <dxo-filter-row
+          [visible]="false"
+        ></dxo-filter-row>
+        <dxo-header-filter
+          [dataSource]="orderStatusFilterData"
+        ></dxo-header-filter>
+      </dxi-column>
+
+
+      <div *dxTemplate="let data of 'cellTemplateStatus'" class="">
+        <app-order-status-chip [small]="true" [orderStatus]="data.value"></app-order-status-chip>
+      </div>
+
+
+      <dxi-column
+        dataField="notableSuborderStatus" caption="Sub-Auftrag Status"
+        [allowFiltering]="false"
+        [allowHeaderFiltering]="true"
+        [allowSorting]="true"
+        cellTemplate="cellTemplateSubStatus">
+        <dxo-filter-row
+          [visible]="false"
+        ></dxo-filter-row>
+        <dxo-header-filter
+          [dataSource]="orderStatusFilterData"
+        ></dxo-header-filter>
+      </dxi-column>
+
+      <div *dxTemplate="let data of 'cellTemplateSubStatus'" class="">
+        <app-order-status-chip [small]="true" [orderStatus]="data.value"></app-order-status-chip>
+      </div>
+
+
+    </dx-data-grid>
+
+  </div>
+</div>

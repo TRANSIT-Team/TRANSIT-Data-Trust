@@ -1,0 +1,45 @@
+<div class="map" id="map-div"></div>
+
+
+<div class="marker-box p-2">
+  <mat-card>
+
+    <div class="row">
+      <div mat-subheader><b>Route Optionen</b></div>
+      <mat-list role="list">
+        <mat-list-item>
+          <mat-checkbox class=""
+                        [(ngModel)]="optimizedRoute"
+                        color="primary" (change)="reloadLayers()">Optimierte Route
+          </mat-checkbox>
+        </mat-list-item>
+        <mat-list-item *ngIf="optimizedRoute">
+          <mat-checkbox class=""
+                        [(ngModel)]="roundTripRoute"
+                        color="primary" (change)="reloadLayers()">Roundtrip
+          </mat-checkbox>
+        </mat-list-item>
+
+
+        <mat-list-item mat-subheader>
+          Distanz: {{distanceRoute | number: '1.0-1'}}km
+        </mat-list-item>
+
+        <mat-list-item mat-subheader>
+          Dauer: {{durationRoute | number: '1.0-2'}}h
+        </mat-list-item>
+
+
+        <mat-list-item role="listitem" *ngFor="let f of points; let i = index">
+
+          <mat-icon mat-list-icon>pin_drop</mat-icon>
+          <div mat-line>{{f.properties ? f.properties['name'] : null}}</div>
+          <div mat-line> {{f.geometry.type == "Point" ? f.geometry.coordinates[0] : null}}
+            | {{f.geometry.type == "Point" ? f.geometry.coordinates[1] : null}}</div>
+
+          <button mat-mini-fab aria-label="" color="warn" class="ml-2" (click)="deleteMarker(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-list-item>
+      </mat-list>
+    </div>

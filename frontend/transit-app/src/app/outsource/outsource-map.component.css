@@ -1,0 +1,146 @@
+.h-100vh, .fullheight {
+  height: calc(100vh - 64px);
+  height: 100%;
+}
+
+.map, .companies {
+  height: calc(96vh - 120px);
+  width: 100%;
+  position: relative;
+  left: 0;
+  top: 0;
+}
+
+.autoscroll {
+  overflow-y: auto;
+  direction: ltr;
+}
+
+/* width */
+.autoscroll::-webkit-scrollbar {
+  width: 5px;
+  direction: rtl;
+}
+
+.side-tool {
+  max-height: calc(100vh - 70px);
+  transition-duration: 0.2s;
+  background: #e5e5f7;
+  background: transparent;
+  z-index: 1;
+  -webkit-transition: all 0.2s linear;
+  -moz-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+}
+
+.left-side-tool {
+  left: 10px;
+  top: 5px;
+  position: fixed;
+  min-width: 25vw;
+  z-index: 10;
+}
+
+.right-side-tool {
+  right: 10px;
+  top: 5px;
+  position: fixed;
+  min-width: 350px;
+  width: 25vw;
+  z-index: 10;
+}
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.2) !important;
+  /* box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1) !important;*/
+  backdrop-filter: blur(5px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255, 255, 255, 1) !important;
+}
+
+.map-loader {
+  width: 350px;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  margin-left: -175px;
+}
+
+.ms-1rem {
+  margin-left: -1rem;
+}
+
+
+
+.mat-list-base .mat-list-item, .mat-list-base .mat-list-option {
+
+  height: 29px;
+
+}
+
+.mat-list-base .mat-list-item {
+  font-size: 14px;
+}
+
+tr.expand-detail-row {
+  height: 0;
+}
+
+tr.expand-detail-element-row:not(.expand-expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.expand-detail-element-row:not(.expand-expanded-row):active {
+  background: #efefef;
+}
+
+.expand-detail-element-row td {
+  border-bottom-width: 0;
+}
+
+.expand-detail-element-detail {
+  overflow: hidden;
+  display: grid;
+}
+
+.pre-loader {
+  width: 350px;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  margin-left: -175px;
+  z-index: 100;
+}
+
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #fff; /* or any other color you prefer */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb); /* or any other color you prefer */
+  border-radius: 10px;
+  border: 3px solid #fff; /* or the same background-color as the track */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-hover); /* darker color on hover */
+}
+
+.row.row-vertical-scroll {
+  position: relative;
+  display: flex;
+  height: 90%;
+  overflow-y: auto;
+}
+@media screen and (max-width: 970px) {
+  .map, .companies {
+    height: 100%;
+    min-height: 45vh;
+  }
+}

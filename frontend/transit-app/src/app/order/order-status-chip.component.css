@@ -1,0 +1,30 @@
+.mat-chip-status .mat-chip {
+  min-width: 115px;
+  text-align: center;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mat-chip-width.mat-chip{
+  min-width: 140px !important;
+}
+
+.mat-chip-status-small .mat-standard-chip{
+  font-size: 11px;
+  padding: 12px 11px;
+  border-radius: 18px;
+  align-items: center;
+  cursor: default;
+  min-height: 22px;
+  height: 1px;
+}
+
+.mat-chip-status-small .material-icons {
+  font-size: 17px;
+}
+
+.mat-chip-status-small .mat-icon {
+  height: 17px;
+  width: 17px;
+}

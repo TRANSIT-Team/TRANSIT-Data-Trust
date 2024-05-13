@@ -1,0 +1,19 @@
+<mat-chip-list class="mat-chip-status" [ngClass]="{'mat-chip-status-small': this.small}" *ngIf="this.orderStatus!=''">
+  <mat-chip
+    [ngClass]="{'mat-chip-info': (this.orderStatus === 'RECREATED' || this.orderStatus === 'OUTSOURCED'), 'mat-chip-green': this.orderStatus === 'COMPLETE' || this.orderStatus === 'ACCEPTED','mat-chip-yellow mat-chip-width' : (this.orderStatus === 'PROCESSING'), 'mat-chip-orange' : (this.orderStatus === 'REQUESTED' ), 'mat-chip-red' : (this.orderStatus === 'CANCELED' || this.orderStatus === 'REJECTED' || this.orderStatus === 'REVOKED') }">
+    <mat-icon *ngIf="this.orderStatus=='COMPLETE'">done</mat-icon>
+    <mat-icon *ngIf="this.orderStatus=='PROCESSING'">hourglass_bottom</mat-icon>
+    <mat-icon *ngIf="this.orderStatus=='OPEN'">hourglass_empty</mat-icon>
+    <mat-icon *ngIf="this.orderStatus=='REJECTED'">cancel</mat-icon>
+    <mat-icon *ngIf="this.orderStatus=='REQUESTED'">not_listed_location</mat-icon>
+    <mat-icon *ngIf="this.orderStatus=='REVOKED'">cancel</mat-icon>
+    <mat-icon *ngIf="this.orderStatus=='ACCEPTED'">task</mat-icon>
+    <mat-icon *ngIf="this.orderStatus=='RECREATED'">restore_page</mat-icon>
+    <mat-icon *ngIf="this.orderStatus=='OUTSOURCED'">local_shipping</mat-icon>
+    &nbsp;{{this.orderStatusDescription}}
+  </mat-chip>
+</mat-chip-list>
+
+
+
+

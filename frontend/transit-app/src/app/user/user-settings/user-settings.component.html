@@ -1,0 +1,213 @@
+<div class="container pb-5">
+  <section>
+    <div class="mt-4 mw-100 m-auto" style="max-width: 750px !important;">
+      <div class="col">
+        <mat-card class="m-auto">
+          <div class="container p-4 m-auto">
+
+            <div class="row">
+
+              <div class="col-lg-12 col-sm-12 m-auto">
+                <h2>Benutzerdaten ändern</h2>
+                <div>
+                  <mat-divider></mat-divider>
+                  <div class="row">
+                    <div class="col-lg-12 col-sm-12 p-3">
+                      <h3>Angaben zur Person</h3>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-12 col-sm-12 ">
+                      <mat-form-field appearance="fill" id="firstName" type="text">
+                        <mat-label>Keycloak UserId</mat-label>
+                        <input matInput disabled class="disabled-show" value="{{this.keycloakInstance.id}}">
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6 col-sm-12 ">
+                    <mat-form-field appearance="fill">
+                      <mat-label>E-Mail</mat-label>
+                      <input matInput disabled class="disabled-show" value="{{this.keycloakInstance.email}}">
+                    </mat-form-field>
+                  </div>
+
+                  <div class="row">
+                    <div class="col ">
+                      <mat-form-field appearance="fill" id="firstName" type="text">
+                        <mat-label>TRANSIT UserId</mat-label>
+                        <input matInput disabled class="disabled-show" value="{{this.currentUser.id}}">
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-6 col-sm-12 ">
+                      <mat-form-field appearance="fill" id="firstName" type="text">
+                        <mat-label>Vorname</mat-label>
+                        <input matInput disabled class="disabled-show" value="{{this.keycloakInstance.firstName}}">
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-6 col-sm-12 ">
+                      <mat-form-field appearance="fill">
+                        <mat-label>Nachname</mat-label>
+                        <input matInput disabled class="disabled-show" value="{{this.keycloakInstance.lastName}}">
+                      </mat-form-field>
+                    </div>
+
+                    <form [formGroup]="dataItemForm" (ngSubmit)='onSubmit()'>
+                      <div class="col-lg-6 col-sm-12 ">
+                        <mat-form-field appearance="fill">
+                          <mat-label>Geschlecht</mat-label>
+                          <mat-select [(ngModel)]="selectedGender" formControlName="userGender">
+                            <mat-option *ngFor="let g of genders; let i = index;" [value]="g.key">
+                              {{g.value}}
+                            </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="dataItemForm.controls['userGender'].hasError('required')">Pflichtfeld
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-lg-12 col-sm-12 ">
+                        <mat-form-field appearance="fill">
+                          <mat-label>Jobposition</mat-label>
+                          <input matInput formControlName="userJobPostion" id="userJobPostion" type="text">
+                          <mat-error *ngIf="dataItemForm.controls['userJobPostion'].hasError('required')">Pflichtfeld
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="row mt-3">
+                        <div class="col">
+                          <mat-divider></mat-divider>
+                        </div>
+                      </div>
+
+
+                      <div class="row">
+                        <div class="col p-3 pb-2">
+                          <h3>Meine Rollen</h3>
+                        </div>
+                      </div>
+
+
+                      <div class="row">
+                        <div class="col">
+                          <mat-chip-list>
+                            <mat-chip style="background-color: #304ffe;color:#ffffff"
+                                      *ngFor="let item of this.currentUser.realmRoles">{{item}}</mat-chip>
+                          </mat-chip-list>
+                        </div>
+                      </div>
+
+
+                      <div *ngIf="this.realmRolesToAdd.length>0 && this.userIsCompanyOwner">
+                        <div class="row pt-3">
+                          <div class="col">
+                            Rollen hinzufügen
+                          </div>
+                        </div>
+
+
+                        <div class="row p-3">
+                          <div class="col">
+
+                            <mat-chip-list>
+                              <mat-chip *ngFor="let item of this.realmRolesToAdd">
+                                {{item}}
+                                <button matChipRemove (click)="addRealmRole(item)">
+                                  <mat-icon>add</mat-icon>
+                                </button>
+                              </mat-chip>
+                            </mat-chip-list>
+                          </div>
+                        </div>
+
+
+                      </div>
+
+
+                      <div class="row mb-5">
+                        <div class="col">
+
+                        </div>
+                      </div>
+
+                      <div *ngIf="alertDisplay" class="">
+                        <mat-divider></mat-divider>
+                        <div class="alert alert-danger mt-3">
+                          <mat-icon class="text-white">warning</mat-icon>
+                          <span>   {{alertMessage}}</span>
+                        </div>
+                      </div>
+
+                      <mat-divider></mat-divider>
+                      <div class="row mt-4 w-100">
+                        <div class="col d-inline float-start">
+                          <div class="float-end d-inline ms-3">
+                            <button mat-raised-button color="primary" type="submit" [disabled]="!dataItemForm.valid">
+                              Speichern
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+
+                    </form>
+
+                  </div>
+
+
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+        </mat-card>
+
+
+        <div class="row mt-4 w-100">
+          <div class="col d-inline p-0">
+            <div class="float-end d-inline">
+              <button mat-raised-button (click)="downloadProfil()" style="width:200px;">
+                Profildaten herunterladen
+              </button>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row mt-4 w-100">
+          <div class="col d-inline p-0">
+            <div class="float-end d-inline">
+              <button mat-raised-button color="warn" (click)="deleteAccount()" style="width:200px;">
+                Account löschen
+              </button>
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+    </div>
+  </section>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+

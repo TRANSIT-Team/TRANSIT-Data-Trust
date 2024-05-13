@@ -1,0 +1,74 @@
+
+run manually
+------------
+MATCH (a) -[r] -> () delete a, r;
+MATCH (A) DELETE A;
+
+CREATE (:PC {id: "47466ea1-1035-11ee-be56-0242ac120002", type:"PC", name: 'Super PC' });
+CREATE (:OA {id: "47466ea2-1035-11ee-be56-0242ac120002", type:"OA", name: 'PM',  namespace: ''});
+CREATE (:UA {id: "47466ea3-1035-11ee-be56-0242ac120002", type:"UA", name: 'Super'});
+CREATE (:U {id: "47466ea4-1035-11ee-be56-0242ac120002", type:"U", name: 'super', password: 'super', namespace:''});
+
+MATCH (childNode), (parentNode)
+WHERE childNode.id = "47466ea2-1035-11ee-be56-0242ac120002" AND parentNode.id = "47466ea1-1035-11ee-be56-0242ac120002"
+CREATE (childNode)-[:assigned_to]->(parentNode);
+
+MATCH (childNode), (parentNode)
+WHERE childNode.id = "47466ea3-1035-11ee-be56-0242ac120002" AND parentNode.id = "47466ea1-1035-11ee-be56-0242ac120002"
+CREATE (childNode)-[:assigned_to]->(parentNode);
+
+MATCH (childNode), (parentNode)
+WHERE childNode.id = "47466ea4-1035-11ee-be56-0242ac120002" AND parentNode.id = "47466ea3-1035-11ee-be56-0242ac120002"
+CREATE (childNode)-[:assigned_to]->(parentNode);
+
+MATCH (uaNode), (targetNode)
+WHERE uaNode.id = "47466ea3-1035-11ee-be56-0242ac120002" AND targetNode.id = "47466ea2-1035-11ee-be56-0242ac120002"
+CREATE (uaNode)-[:association {operations: ['*'], inherit: true,label:'ar'}]->(targetNode);
+
+
+
+CREATE (:O {id: "45466ea1-1035-11ee-be56-0242ac120002", type: 'O', entityType:"Order", name: 'Auftrag#223'});
+
+CREATE (:UA {id: "41466ea2-1035-11ee-be56-0242ac120002",type:'UA', entityType:"Group", name: 'FOXCourier',  namespace: ''});
+CREATE (:OA {id: "42466ea3-1035-11ee-be56-0242ac120002", type:'OA',  name: 'Order#45466ea1-1035-11ee-be56-0242ac120002#Group#41466ea2-1035-11ee-be56-0242ac120002',
+ readProperties: ["startOrt", "zielOrt", "startzeit", "endzeit"],  writeProperties: ["startOrt", "zielOrt", "startzeit", "endzeit"]
+ });
+
+ CREATE (:U {id: "45466ea4-1035-11ee-be56-0242ac120002", type:"U", entityType: "User", name: 'FoxCourierUser', password: "12345678"});
+
+  CREATE (:PC {id: "45466ea5-1035-11ee-be56-0242ac120002", type:"PC",  name: 'OrderGroupPC',  namespace: ''});
+
+
+MATCH (childNode), (parentNode)
+WHERE childNode.id = "45466ea4-1035-11ee-be56-0242ac120002" AND parentNode.id = "41466ea2-1035-11ee-be56-0242ac120002"
+CREATE (childNode)-[:assigned_to]->(parentNode);
+
+MATCH (childNode), (parentNode)
+WHERE childNode.id = "45466ea1-1035-11ee-be56-0242ac120002" AND parentNode.id = "42466ea3-1035-11ee-be56-0242ac120002"
+CREATE (childNode)-[:assigned_to]->(parentNode);
+
+
+MATCH (uaNode), (targetNode)
+WHERE uaNode.id = "41466ea2-1035-11ee-be56-0242ac120002" AND targetNode.id = "42466ea3-1035-11ee-be56-0242ac120002"
+CREATE (uaNode)-[:association {operations: ['r,w'], inherit: true,label:'ar'}]->(targetNode);
+
+
+MATCH (childNode), (parentNode)
+WHERE childNode.id = "42466ea3-1035-11ee-be56-0242ac120002" AND parentNode.id = "45466ea5-1035-11ee-be56-0242ac120002"
+CREATE (childNode)-[:assigned_to]->(parentNode);
+
+
+
+
+
+----------------------------------------------------------------------
+CREATE (`Package#123`)<-[:assigned_with]-()-[:assigned_with]->(n8 {readProperties: "[1,2]"})-[:_RELATED]->(`Group-PC`)<-[:_RELATED]-(n4 {readProperties: "[1,2,packageProperties]"})<-[:assigned_with]-(`Package#123`)-[:assigned_with]->(`Order#122`),
+(`Order#122`)-[:assigned_with]->(n0 {readProperties: "[1,2,3,packages]"})-[:_RELATED]->(`Group-PC`),
+(n4)<-[:association {operations: "[r,w,c]"}]-(FoxCourierGroup)-[:association {operations: "[r,w,c]"}]->(n0),
+()-[:assigned_with]->(FoxCourierGroup)-[:association {operations: "[r,w,c]"}]->(n8)
+
+
+
+
+
+

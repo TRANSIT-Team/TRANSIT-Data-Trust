@@ -1,0 +1,23 @@
+
+<div class="row">
+  <div class="col">
+    <h2 mat-dialog-title>Globale Paketeigenschaften</h2>
+  </div>
+  <div class="col-1 text-end">
+    <button (click)="close()" mat-icon-button aria-label="Schließen">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>
+
+<mat-dialog-content>
+  <app-package-properties-devextreme></app-package-properties-devextreme>
+</mat-dialog-content>
+
+
+<mat-dialog-actions align="end">
+  <button type="button" mat-raised-button class="mat-raised-button me-3" (click)="close()">Abbrechen</button>
+  <button mat-raised-button color="primary" (click)="ok()">
+    Ok
+  </button>
+</mat-dialog-actions>

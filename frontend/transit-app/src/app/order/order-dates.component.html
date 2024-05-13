@@ -1,0 +1,58 @@
+<div class="tcard bg-white p-4">
+
+  <div class="row" *ngIf="this.loading">
+    <div class="col">
+      <h4>Lieferzeitraum</h4>
+    </div>
+  </div>
+  <app-loading-placeholder *ngIf="this.loading" [small]="true"></app-loading-placeholder>
+
+  <div *ngIf="!this.loading">
+    <form [formGroup]="editForm" (ngSubmit)='saveInformations()'>
+      <div class="row">
+        <div class="col">
+          <h4>{{labelText}}</h4>
+          <div class="tcard-btn-div p-3 px-2"
+               *ngIf="this.order.orderRightsGlobal!.edit.pickUpDate || this.order.orderRightsGlobal!.edit.deliveryDate">
+            <button color="primary" mat-icon-button type="submit"
+                    aria-label="speichern">
+              <mat-icon>save</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-6 col-md-12 col-sm-12">
+
+          <dx-date-box appearance="outline" formControlName="fromDate" stylingMode="outlined" label="{{labelText}}-von"
+                       (ngModelChange)="onDateTimeChangeFrom($event)" class="material-small"
+                       displayFormat="dd.MM.yyyy HH:mm"
+                       id="fromDate"
+                       type="datetime"
+                       [min]="minDateFrom"
+                       [max]="maxDateFrom">
+          </dx-date-box>
+
+        </div>
+
+        <div class="col-lg-6 col-md-12 col-sm-12 mt-lg-0 mt-md-3 mt-sm-3">
+
+        <dx-date-box appearance="outline" formControlName="toDate" stylingMode="outlined" label="{{labelText}}-bis"
+                       (ngModelChange)="onDateTimeChangeTo($event)" class="material-small"
+                       displayFormat="dd.MM.yyyy HH:mm"
+                       id="toDate"
+                       type="datetime"
+                       [min]="minDateTo"
+                       [max]="maxDateTo">
+          </dx-date-box>
+
+
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+

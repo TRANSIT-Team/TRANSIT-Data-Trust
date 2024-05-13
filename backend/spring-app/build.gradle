@@ -1,0 +1,380 @@
+import org.springframework.boot.gradle.tasks.run.BootRun
+
+plugins {
+    id 'org.springframework.boot' version '2.7.5'
+    id 'io.spring.dependency-management' version '1.1.0'
+    id 'java'
+    // id "gae.piaz.layer3gen" version "1.7"
+    id "io.freefair.lombok" version "6.4.3"
+    id 'application'
+    id "org.gradle.test-retry" version "1.4.1"
+    id "org.panteleyev.jpackageplugin" version "1.5.0"
+    id "com.adarshr.test-logger" version "3.2.0"
+    id "org.hibernate.orm"
+    // id 'org.graalvm.buildtools.native' version '0.9.28'
+}
+
+jar {
+
+    enabled = false
+}
+
+
+group = 'com.transit'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+}
+
+def querydslVersion = '5.0.0'
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    localH2Implementation.extendsFrom implementation
+    localH2RuntimeOnly.extendsFrom runtimeOnly
+
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://plugins.gradle.org/m2/"
+    }
+
+    maven { url 'https://jitpack.io' }
+//    maven { url = uri("https://repo.spring.io/release") }
+//    maven { url = uri("https://repo.spring.io/milestone/") }
+}
+
+sourceSets {
+    localH2 {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+
+    test {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+}
+
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-parent:2.7.5'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-hateoas'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-web-services'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    //Ergänzt da Webflux dependencies von Intellij nicht gefunden
+    implementation platform('io.projectreactor:reactor-bom:Dysprosium-SR1')
+    implementation 'io.projectreactor:reactor-core'
+
+    implementation 'org.projectlombok:lombok:1.18.24'
+    implementation 'org.jetbrains:annotations:23.0.0'
+    testImplementation 'org.testng:testng:7.6.1'
+
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    runtimeOnly 'org.postgresql:postgresql:42.5.0'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    implementation 'org.mapstruct:mapstruct:1.5.3.Final'
+    implementation 'org.mapstruct:mapstruct-processor:1.5.3.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
+    implementation 'org.hibernate:hibernate-spatial:5.6.14.Final'
+    implementation 'org.hibernate:hibernate-envers:5.6.14.Final'
+    implementation 'org.hibernate:hibernate-core:5.6.14.Final'
+
+
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-hibernate5:2.14.1'
+    implementation 'org.hibernate:hibernate-gradle-plugin:5.6.14.Final'
+    //   annotationProcessor 'org.hibernate.orm:hibernate-gradle-plugin:6.1.5.Final'
+    //   implementation 'org.hibernate:hibernate-gradle-plugin:5.6.14.Final'
+    annotationProcessor 'org.hibernate:hibernate-gradle-plugin:5.6.14.Final'
+//    implementation 'org.hibernate.orm.tooling:hibernate-enhance-maven-plugin:5.6.14.Final'
+//    annotationProcessor 'org.hibernate.orm.tooling:hibernate-enhance-maven-plugin:5.6.14.Final'
+
+    localH2RuntimeOnly 'org.springframework.boot:spring-boot-devtools'
+    //localH2RuntimeOnly 'com.h2database:h2:1.4.200'
+//    testImplementation 'com.h2database:h2:1.4.200'
+//    testRuntimeOnly 'com.h2database:h2:1.4.200'
+    testImplementation 'org.postgresql:postgresql:42.5.0'
+    testRuntimeOnly 'org.postgresql:postgresql:42.5.0'
+
+    localH2RuntimeOnly 'org.postgresql:postgresql:42.5.0'
+    //testImplementation 'org.postgresql:postgresql:42.5.0'
+    localH2RuntimeOnly 'org.springdoc:springdoc-openapi-ui:1.6.11'
+
+    implementation 'com.google.guava:guava:31.1-jre'
+
+    implementation 'com.github.java-json-tools:json-patch:1.13'
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
+    implementation 'io.quarkus:quarkus-hibernate-validator:2.13.3.Final'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
+    testImplementation 'org.mockito:mockito-junit-jupiter:4.8.0'
+    implementation 'com.jayway.jsonpath:json-path:2.7.0'
+    implementation 'org.apache.httpcomponents:httpclient:4.5.13'
+
+    implementation 'io.github.perplexhub:rsql-querydsl-spring-boot-starter:5.1.1'
+    implementation group: 'com.querydsl', name: 'querydsl-jpa', version: querydslVersion
+    implementation group: 'com.querydsl', name: 'querydsl-apt', version: querydslVersion
+    implementation group: 'com.querydsl', name: 'querydsl-core', version: querydslVersion
+
+    testImplementation 'io.github.perplexhub:rsql-querydsl-spring-boot-starter:5.0.26'
+    testImplementation group: 'com.querydsl', name: 'querydsl-jpa', version: querydslVersion
+    testImplementation group: 'com.querydsl', name: 'querydsl-apt', version: querydslVersion
+    testImplementation group: 'com.querydsl', name: 'querydsl-core', version: querydslVersion
+
+    annotationProcessor group: 'com.querydsl', 'name': 'querydsl-apt', version: querydslVersion, classifier: 'jpa'
+    annotationProcessor group: 'javax.annotation', name: 'javax.annotation-api', version: '1.3.2'
+    annotationProcessor group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.1-api', version: '1.0.2.Final'
+
+    implementation 'org.keycloak:keycloak-admin-client:18.0.0'
+    testImplementation 'org.keycloak:keycloak-admin-client:18.0.0'
+    localH2RuntimeOnly 'org.keycloak:keycloak-admin-client:18.0.0'
+
+
+    implementation 'org.n52.jackson:jackson-datatype-jts:1.2.10'
+    localH2RuntimeOnly 'org.n52.jackson:jackson-datatype-jts:1.2.10'
+    implementation 'com.github.durimkryeziu:zip-code-util:master'
+
+    ext['junit-jupiter.version'] = '5.9.0'
+    testImplementation 'org.junit.vintage:junit-vintage-engine:5.9.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
+
+
+    testImplementation(platform("org.junit:junit-bom:5.9.0"))
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher") {
+        because("Only needed to run tests in a version of IntelliJ IDEA that bundles older versions")
+    }
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+    testRuntimeOnly("org.junit.vintage:junit-vintage-engine")
+
+
+    implementation 'org.apache.commons:commons-collections4:4.4'
+    //implementation 'commons-io:commons-io:2.11.0'
+
+
+    testImplementation 'de.cronn:test-utils:0.5.0'
+    localH2Implementation 'de.cronn:test-utils:0.5.0'
+
+    testRuntimeOnly 'de.cronn:test-utils:0.5.0'
+
+    implementation 'dev.nicklasw:squiggly-filter-jackson:2.0.0'
+
+
+    //compileOnly 'org.redisson:redisson-spring-boot-starter:3.23.4'
+    //compileOnly 'org.redisson:redisson-spring-data-27:3.23.4'
+    //compileOnly 'org.redisson:redisson-hibernate:3.23.4'
+    //implementation 'org.redisson:redisson-spring-boot-starter:3.23.4'
+    //implementation 'org.redisson:redisson-spring-data-27:3.23.4'
+    implementation 'org.redisson:redisson-hibernate-53:3.23.4'
+    // implementation 'org.redisson:redisson-hibernate:3.23.4'
+    //compileOnly 'org.redisson:redisson-hibernate-52:3.23.4'
+
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+    implementation 'io.rocketbase.mail:email-template-builder:2.4.0'
+
+
+    implementation 'org.apache.xmlgraphics:batik-transcoder:1.17'
+    implementation 'org.apache.xmlgraphics:batik-codec:1.17'
+
+}
+
+
+configurations.implementation {
+    exclude group: 'org.jboss.slf4j', module: 'slf4j-jboss-logmanager'
+}
+
+
+configurations.testImplementation {
+    // exclude group: 'org.postgresql', module: 'postgresql'
+}
+
+
+task localH2(type: BootRun) {
+
+    mainClass = "com.transit.backend.BackendApplication"
+    classpath = sourceSets.localH2.runtimeClasspath
+    jvmArgs = ['-Dspring.profiles.active=localH2', '-Dspring.config.additional-location=classpath:application-local.properties']
+    //,classpath:application-local-security.properties
+}
+
+
+tasks.named('test') {
+    useJUnitPlatform()
+    systemProperty "spring.profiles.active", "test"
+
+    minHeapSize = "1024m" // initial heap size
+    maxHeapSize = "10240m" // maximum heap size
+    jvmArgs '-XX:MaxPermSize=256m' // mem argument for the test JVM
+
+    jvmArgs = ['-Dspring.profiles.active=test', '-Dspring.config.additional-location=classpath:application-test.properties']
+    retry {
+        maxRetries = 3
+        maxFailures = 50
+        failOnPassedAfterRetry = false
+    }
+}
+
+
+// tasks.named('testLocal',Test) {
+
+//     useJUnitPlatform()
+
+//     systemProperty "spring.profiles.active", "test"
+
+
+//   minHeapSize = "1024m" // initial heap size
+
+//    maxHeapSize = "10240m" // maximum heap size
+
+//    jvmArgs '-XX:MaxPermSize=256m' // mem argument for the test JVM
+
+
+//    jvmArgs = ['-Dspring.profiles.active=test', '-Dspring.config.additional-location=classpath:application-test.properties']
+//ile:/run/secrets/TRANSIT-TEST-SECURITY-CONFIG-BACKEND.properties
+
+//   retry {
+
+//         maxRetries = 3
+
+//        maxFailures = 50
+
+
+//         failOnPassedAfterRetry = false
+
+//     }
+
+// }
+
+
+//task generateQueryDSL (type: JavaCompile) {
+//   source = sourceSets.main.java.srcDirs
+//    classpath = sourceSets.main.compileClasspath
+//    destinationDir = file('src/main/java')
+//   options.annotationProcessorPath = configurations.annotationProcessor
+//   options.compilerArgs = ['-proc:only', '-processor', 'com.querydsl.apt.jpa.JPAAnnotationProcessor', '-Aquerydsl.packageSuffix=.querydsl']
+//}
+//compileJava.dependsOn generateQueryDSL
+
+
+tasks.register("copyDependencies", Copy) {
+    from(configurations.runtimeClasspath).into("$buildDir/jmods")
+}
+
+tasks.register("copyJar", Copy) {
+    from(tasks.jar).into("$buildDir/jmods")
+}
+
+tasks.jpackage {
+    dependsOn("build", "copyDependencies", "copyJar")
+
+    appName = "transit-backend-bat"
+    appVersion = project.version.toString()
+    vendor = "transit-project.com"
+    copyright = "Copyright (c) 2022 Transit-Project"
+    runtimeImage = System.getProperty("java.home")
+    module = "com.transit.backend/com.transit.backend.BackendApplication"
+    modulePaths = [new File("$buildDir/jmods")]
+    destination = "$buildDir/dist"
+    javaOptions = ["-Dfile.encoding=UTF-8"]
+
+    mac {
+        icon = "icons/icons.icns"
+    }
+
+    windows {
+        icon = "icons/icons.ico"
+        winMenu = true
+        winDirChooser = true
+    }
+
+
+    testlogger {
+        // pick a theme - mocha, standard, plain, mocha-parallel, standard-parallel or plain-parallel
+        theme 'standard'
+
+        // set to false to disable detailed failure logs
+        showExceptions true
+
+        // set to false to hide stack traces
+        showStackTraces true
+
+        // set to true to remove any filtering applied to stack traces
+        showFullStackTraces false
+
+        // set to false to hide exception causes
+        showCauses true
+
+        // set threshold in milliseconds to highlight slow tests
+        slowThreshold 2000
+
+        // displays a breakdown of passes, failures and skips along with total duration
+        showSummary true
+
+        // set to true to see simple class names
+        showSimpleNames false
+
+        // set to false to hide passed tests
+        showPassed true
+
+        // set to false to hide skipped tests
+        showSkipped true
+
+        // set to false to hide failed tests
+        showFailed true
+
+        // enable to see standard out and error streams inline with the test results
+        showStandardStreams false
+
+        // set to false to hide passed standard out and error streams
+        showPassedStandardStreams true
+
+        // set to false to hide skipped standard out and error streams
+        showSkippedStandardStreams true
+
+        // set to false to hide failed standard out and error streams
+        showFailedStandardStreams true
+    }
+}
+
+hibernate {
+    enhance {
+        enableLazyInitialization = true
+        enableDirtyTracking = false
+        enableAssociationManagement = false
+        enableExtendedEnhancement = false
+    }
+}
+
+//application {
+//    mainClass = 'com.transit.backend.BackendApplication'
+//}
+
+//graalvmNative {
+//    binaries.all {
+//        resources.autodetect()
+//    }
+//    toolchainDetection = false
+//}
+
+
+
+
+
+
+
+
+

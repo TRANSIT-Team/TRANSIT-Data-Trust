@@ -1,0 +1,10 @@
+<h2 mat-dialog-title> {{title}}</h2>
+
+<mat-dialog-content>
+    {{text}}
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-raised-button class="me-3" (click)="close()">Abbrechen</button>
+    <button mat-raised-button class="{{btnActionClass}}" color="primary" (click)="action()">{{btnActionText}}</button>
+</mat-dialog-actions>

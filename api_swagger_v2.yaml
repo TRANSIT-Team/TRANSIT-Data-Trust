@@ -1,0 +1,172 @@
+openapi: 3.0.0
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/transit8/Transit/1.0.0
+  - description: TRANSIT Project API Description
+    url: https://lllhub.wifa.uni-leipzig.de:8800/api/1.0.0
+info:
+  description: TRANSIT Project API
+  version: 1.0.0
+  title: TRANSIT Project API
+  contact:
+    url: https://transit-project.de
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+tags:
+  - name: developers
+    description: Operations available to regular developers
+paths:
+  /packages:
+    get:
+      tags:
+        - developers
+      summary: searches packages
+      operationId: searchPackages
+      description: |
+        By passing in the appropriate options, you can search for
+        available packages in the system
+      parameters:
+        - in: query
+          name: searchString
+          description: pass an optional search string for looking up packages
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: page
+          description: number of page
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+        - in: query
+          name: size
+          description: pagesize
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+            default: Integer.MAX-VALUE
+        - in: query
+          name: limit
+          description: maximum number of records to return
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            maximum: 50
+      responses:
+        '200':
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PackageItem'
+        '400':
+          description: bad input parameter
+    post:
+      tags:
+        - developers
+      summary: adds an inventory item
+      operationId: addInventory
+      description: Adds an item to the system
+      responses:
+        '201':
+          description: item created
+        '400':
+          description: invalid input, object invalid
+        '409':
+          description: an existing item already exists
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PackageItem'
+        description: Package item to add
+components:
+  schemas:
+    PackageItem:
+      type: object
+      required:
+        - id
+        - packageClass
+        - deliveryMethod
+        - properties
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        weight_kg:
+          type: number
+          example: 1.2
+        height_cm:
+          type: number
+          example: 15.5
+        width_cm:
+          type: number
+          example: 20
+        deep_cm:
+          type: number
+          example: 5.3
+        properties:
+          $ref: '#/components/schemas/PackageProperties'
+        packageClass:
+          $ref: '#/components/schemas/PackageClass'
+        deliveryMethod:
+          $ref: '#/components/schemas/DeliveryMethod'
+          
+    DeliveryMethod:
+      required:
+        - id
+        - DeliveryMethodName
+      properties:  
+        id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        DeliveryMethodName:
+          type: string
+          example: Express    
+    
+    PackageClass:
+      required:
+        - id
+        - className
+      properties:  
+        id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        className:
+          type: string
+          example: cooled
+    PackageProperties:
+      required:
+        - id
+        - key
+        - value
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uuid
+          key:
+            type: string
+          value:
+            type: string
+      example:
+        - id: d290f1ee-6c54-4b01-90e6-d701748f0851
+          key: besonderes Label
+          value: Vorsicht Glas - zerbrechlich
+        - id: d290f1ee-6c54-4b01-90e6-d701748f0851
+          key: Anlieferbedigungen
+          value: Anlieferung bis 15:30
+        - id: d290f1ee-6c54-4b01-90e6-d701748f0851p
+          key: Stapelbar
+          value: nein

@@ -1,0 +1,427 @@
+{
+  "entityRights": [
+    {
+      "entity": "order",
+      "description": "Auftrag",
+      "properties": [
+        {
+          "property": "pickUpDate",
+          "description": "Abholung-von",
+          "displayShareText": "",
+          "hideSelector": false,
+          "alwaysWriteAble": false,
+          "alwaysShared": false,
+          "neverShared": false
+        },
+        {
+          "property": "pickUpDateTo",
+          "description": "Abholung-bis",
+          "displayShareText": "",
+          "hideSelector": false,
+          "alwaysWriteAble": false,
+          "alwaysShared": false,
+          "neverShared": false
+        },
+        {
+          "property": "destinationDate",
+          "description": "Lieferung-von",
+          "displayShareText": "",
+          "hideSelector": false,
+          "alwaysWriteAble": false,
+          "alwaysShared": false,
+          "neverShared": false
+        },
+        {
+          "property": "destinationDateTo",
+          "description": "Lieferung-bis",
+          "displayShareText": "",
+          "hideSelector": false,
+          "alwaysWriteAble": false,
+          "alwaysShared": false,
+          "neverShared": false
+        },
+        {
+          "property": "internalComment",
+          "description": "interne Bemerkung",
+          "displayShareText": "",
+          "hideSelector": false,
+          "alwaysWriteAble": true,
+          "alwaysShared": false,
+          "neverShared": false
+        },
+        {
+          "property": "reasonForCancel",
+          "description": "Grund bei Abbruch des Auftrages",
+          "displayShareText": "Daten werden nie geteilt",
+          "hideSelector": true,
+          "alwaysWriteAble": false,
+          "alwaysShared": true,
+          "neverShared": false
+        },
+        {
+          "property": "customerId",
+          "description": "Kunde",
+          "displayShareText": "Daten werden nie geteilt",
+          "hideSelector": true,
+          "alwaysWriteAble": true,
+          "alwaysShared": true,
+          "neverShared": false
+        },
+        {
+          "property": "addressFrom",
+          "description": "Absender",
+          "displayShareText": "Details - siehe Abschnitt 'Absender'",
+          "hideSelector": true,
+          "alwaysWriteAble": false,
+          "alwaysShared": true,
+          "neverShared": false
+        },
+        {
+          "property": "addressTo",
+          "description": "Empfänger",
+          "displayShareText": "Details - siehe Abschnitt 'Empfänger'",
+          "hideSelector": true,
+          "alwaysWriteAble": false,
+          "alwaysShared": true,
+          "neverShared": false
+        },
+        {
+          "property": "contactPerson",
+          "description": "Ansprechpartner",
+          "displayShareText": "Details - siehe Abschnitt 'Ansprechpartner'",
+          "hideSelector": true,
+          "alwaysWriteAble": true,
+          "alwaysShared": true,
+          "neverShared": false
+        },
+        {
+          "property": "pickUpTimestamp",
+          "description": "Abgabezeitpunkt",
+          "displayShareText": "Daten werden nur empfangen",
+          "hideSelector": true,
+          "alwaysWriteAble": true,
+          "alwaysShared": false,
+          "neverShared": true
+        },
+        {
+          "property": "pickUpTimestampArrive",
+          "description": "Abholzeitpunkt Ankunft",
+          "displayShareText": "Daten werden nur empfangen",
+          "hideSelector": true,
+          "alwaysWriteAble": true,
+          "alwaysShared": false,
+          "neverShared": true
+        },
+        {
+          "property": "pickUpTimestampLeave",
+          "description": "Abholzeitpunkt Übergabe",
+          "displayShareText": "Daten werden nur empfangen",
+          "hideSelector": true,
+          "alwaysWriteAble": true,
+          "alwaysShared": false,
+          "neverShared": true
+        },
+        {
+          "property": "pickUpPerson",
+          "description": "Abholung bei Person",
+          "displayShareText": "Daten werden nur empfangen",
+          "hideSelector": true,
+          "alwaysWriteAble": true,
+          "alwaysShared": false,
+          "neverShared": true
+        },
+        {
+          "property": "deliveryTimestampArrive",
+          "description": "Abgabezeitpunkt Ankunft",
+          "displayShareText": "Daten werden nur empfangen",
+          "hideSelector": true,
+          "alwaysWriteAble": true,
+          "alwaysShared": false,
+          "neverShared": true
+        },
+        {
+          "property": "deliveryTimestampLeave",
+          "description": "Abgabezeitpunkt Übergabe",
+          "displayShareText": "Daten werden nur empfangen",
+          "hideSelector": true,
+          "alwaysWriteAble": true,
+          "alwaysShared": false,
+          "neverShared": true
+        },
+        {
+          "property": "deliveryPerson",
+          "description": "Abgabe bei Person",
+          "displayShareText": "Daten werden nur empfangen",
+          "hideSelector": true,
+          "alwaysWriteAble": true,
+          "alwaysShared": false,
+          "neverShared": true
+        },
+        {
+          "property": "price",
+          "description": "Preis",
+          "displayShareText": "Daten werden nie geteilt",
+          "hideSelector": true,
+          "alwaysWriteAble": true,
+          "alwaysShared": false,
+          "neverShared": true
+        },
+        {
+          "property": "orderAltPrice",
+          "description": "Freitextwert",
+          "displayShareText": "Daten werden nie geteilt",
+          "hideSelector": true,
+          "alwaysWriteAble": true,
+          "alwaysShared": false,
+          "neverShared": true
+        },
+        {
+          "property": "outsourceCost",
+          "description": "Kosten Outsource",
+          "displayShareText": "Daten werden nie geteilt",
+          "hideSelector": true,
+          "alwaysWriteAble": true,
+          "alwaysShared": false,
+          "neverShared": true
+        },
+        {
+          "property": "packagesPrice",
+          "description": "Auftragwarenwert",
+          "displayShareText": "Daten werden nie geteilt",
+          "hideSelector": true,
+          "alwaysWriteAble": true,
+          "alwaysShared": false,
+          "neverShared": true
+        }
+      ]
+    },
+    {
+      "entity": "contactPerson",
+      "description": "Kontakt",
+      "properties": [
+        {
+          "property": "name",
+          "description": "Name",
+          "displayShareText": "Daten werden immer geteilt",
+          "hideSelector": true,
+          "alwaysWriteAble": true,
+          "alwaysShared": true,
+          "neverShared": false
+        },
+        {
+          "property": "email",
+          "description": "E-Mail",
+          "displayShareText": "Daten werden immer geteilt",
+          "hideSelector": true,
+          "alwaysWriteAble": false,
+          "alwaysShared": true,
+          "neverShared": false
+        },
+        {
+          "property": "phone",
+          "description": "Telefon",
+          "displayShareText": "Daten werden immer geteilt",
+          "hideSelector": true,
+          "alwaysWriteAble": false,
+          "alwaysShared": true,
+          "neverShared": false
+        }
+      ]
+    },
+    {
+      "entity": "address",
+      "description": "Adresse",
+      "properties": [
+        {
+          "property": "companyName",
+          "description": "Firma",
+          "displayShareText": "",
+          "hideSelector": false,
+          "alwaysWriteAble": false,
+          "alwaysShared": false,
+          "neverShared": false
+        },
+        {
+          "property": "clientName",
+          "description": "Kunde",
+          "displayShareText": "",
+          "hideSelector": false,
+          "alwaysWriteAble": false,
+          "alwaysShared": false,
+          "neverShared": false
+        },
+        {
+          "property": "street",
+          "description": "Straße",
+          "displayShareText": "",
+          "hideSelector": false,
+          "alwaysWriteAble": false,
+          "alwaysShared": false,
+          "neverShared": false
+        },
+        {
+          "property": "zip",
+          "description": "Postleitzahl",
+          "displayShareText": "",
+          "hideSelector": false,
+          "alwaysWriteAble": false,
+          "alwaysShared": false,
+          "neverShared": false
+        },
+        {
+          "property": "city",
+          "description": "Stadt",
+          "displayShareText": "",
+          "hideSelector": false,
+          "alwaysWriteAble": false,
+          "alwaysShared": false,
+          "neverShared": false
+        },
+        {
+          "property": "state",
+          "description": "Bundesland",
+          "displayShareText": "",
+          "hideSelector": false,
+          "alwaysWriteAble": false,
+          "alwaysShared": false,
+          "neverShared": false
+        },
+        {
+          "property": "country",
+          "description": "Land",
+          "displayShareText": "",
+          "hideSelector": false,
+          "alwaysWriteAble": false,
+          "alwaysShared": false,
+          "neverShared": false
+        },
+        {
+          "property": "addressExtra",
+          "description": "Bemerkung",
+          "displayShareText": "",
+          "hideSelector": false,
+          "alwaysWriteAble": false,
+          "alwaysShared": false,
+          "neverShared": false
+        }
+      ]
+    },
+    {
+      "entity": "package",
+      "description": "Sendung",
+      "properties": [
+        {
+          "property": "heightCm",
+          "description": "Höhe",
+          "displayShareText": "",
+          "hideSelector": false,
+          "alwaysWriteAble": false,
+          "alwaysShared": false,
+          "neverShared": false
+        },
+        {
+          "property": "widthCm",
+          "description": "Breite",
+          "displayShareText": "",
+          "hideSelector": false,
+          "alwaysWriteAble": false,
+          "alwaysShared": false,
+          "neverShared": false
+        },
+        {
+          "property": "deepCm",
+          "description": "Tiefe",
+          "displayShareText": "",
+          "hideSelector": false,
+          "alwaysWriteAble": false,
+          "alwaysShared": false,
+          "neverShared": false
+        },
+        {
+          "property": "weightKg",
+          "description": "Gewicht",
+          "displayShareText": "",
+          "hideSelector": false,
+          "alwaysWriteAble": false,
+          "alwaysShared": false,
+          "neverShared": false
+        },
+        {
+          "property": "packageClass",
+          "description": "Sendungsklasse",
+          "displayShareText": "",
+          "hideSelector": false,
+          "alwaysWriteAble": false,
+          "alwaysShared": false,
+          "neverShared": false
+        },
+        {
+          "property": "packagePrice",
+          "description": "Warenwert",
+          "displayShareText": "",
+          "hideSelector": false,
+          "alwaysWriteAble": false,
+          "alwaysShared": false,
+          "neverShared": false
+        }
+      ]
+    },
+    {
+      "entity": "packageProperty",
+      "description": "Sendungseigenschaften",
+      "properties": [
+        {
+          "property": "key",
+          "description": "Name",
+          "displayShareText": "",
+          "hideSelector": false,
+          "alwaysWriteAble": false,
+          "alwaysShared": false,
+          "neverShared": false
+        },
+        {
+          "property": "value",
+          "description": "Wert",
+          "displayShareText": "",
+          "hideSelector": false,
+          "alwaysWriteAble": false,
+          "alwaysShared": false,
+          "neverShared": false
+        }
+      ]
+    },
+    {
+      "entity": "orderProperty",
+      "description": "Auftragseigenschaften",
+      "properties": [
+        {
+          "property": "key",
+          "description": "Name",
+          "displayShareText": "",
+          "hideSelector": false,
+          "alwaysWriteAble": false,
+          "alwaysShared": false,
+          "neverShared": false
+        },
+        {
+          "property": "value",
+          "description": "Wert",
+          "displayShareText": "",
+          "hideSelector": false,
+          "alwaysWriteAble": false,
+          "alwaysShared": false,
+          "neverShared": false
+        },
+        {
+          "property": "type",
+          "description": "Typ",
+          "displayShareText": "",
+          "hideSelector": false,
+          "alwaysWriteAble": false,
+          "alwaysShared": false,
+          "neverShared": false
+        }
+      ]
+    }
+  ]
+}

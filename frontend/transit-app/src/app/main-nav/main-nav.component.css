@@ -1,0 +1,95 @@
+.site-title{
+  font-weight: 300;
+  text-transform: uppercase;
+}
+
+
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+  transition-duration: 0.2s;
+  z-index:100;
+}
+
+.mini .sidenav {
+  width: 65px;
+
+}
+
+.nav-footer{
+  position: absolute;
+  bottom: 15px;
+}
+
+.sidenav a, .sidenav span {
+
+  font-size: 14px;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+}
+
+.account-button-container {
+  position: absolute;
+  right: 35px;
+}
+
+.menu-button {
+  transition: 300ms ease-in-out;
+  transform: rotate(0deg);
+}
+
+.menu-button.rotated {
+  transform: rotate(180deg);
+}
+
+.submenu {
+  overflow: hidden;
+  transition: transform 300ms ease;
+  transform: scaleY(0);
+  transform-origin: top;
+  padding-left: 5px;
+  display: none;
+}
+
+.submenu.expanded {
+  transform: scaleY(1);
+  display: block;
+  height: auto;
+}
+
+.scroll-top-button {
+  cursor: pointer;
+  position: fixed;
+  transition-duration: 0.5s;
+  opacity: 0;
+  right: 15px;
+  bottom: 35px;
+}
+
+
+
+.scroll-top-button.show {
+  opacity: 1 !important;
+  transition: all 0.5s ease-in-out;
+}
+
+@media screen and (max-width: 600px) {
+
+  .account-button-container {
+
+    right: 15px;
+  }
+
+}
+

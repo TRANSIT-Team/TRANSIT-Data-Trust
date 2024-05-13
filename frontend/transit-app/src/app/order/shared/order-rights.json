@@ -1,0 +1,1087 @@
+{
+  "orderRights": [
+    {
+      "type": "Default",
+      "orderStatus": [
+        {
+          "status": "ALL",
+          "subStatus": "ALL",
+          "can": {
+            "commentPublic": false,
+            "outsource": false,
+            "reject": false,
+            "accept": false,
+            "resetOutsource": false
+          },
+          "edit": {
+            "orderStatus": false,
+            "contactPerson": false,
+            "pickUpDate": false,
+            "deliveryDate": false,
+            "deliveryTimestamp": false,
+            "pickupTimestamp": false,
+            "deliveryPerson": false,
+            "comment": false,
+            "finance": false,
+            "price": false,
+            "package": false,
+            "packageProperty": false,
+            "addressFrom": false,
+            "addressTo": false,
+            "revoke": false,
+            "rights": false
+          },
+          "delete": {
+            "order": false
+          },
+          "add": {
+            "commentPublic": false,
+            "price": false,
+            "package": false,
+            "packageProperty": false
+          }
+        }
+      ]
+    },
+    {
+      "type": "MainOrder_without_subOrders",
+      "orderStatus": [
+        {
+          "status": "CREATED",
+          "subStatus": "",
+          "can": {
+            "commentPublic": true,
+            "outsource": false,
+            "reject": false,
+            "accept": false,
+            "resetOutsource": false
+          },
+          "edit": {
+            "orderStatus": true,
+            "contactPerson": true,
+            "pickUpDate": true,
+            "deliveryDate": true,
+            "deliveryTimestamp": false,
+            "pickupTimestamp": false,
+            "deliveryPerson": false,
+            "comment": true,
+            "finance": true,
+            "price": true,
+            "package": true,
+            "packageProperty": true,
+            "addressFrom": true,
+            "addressTo": true,
+            "revoke": false,
+            "rights": false
+          },
+          "delete": {
+            "order": true
+          },
+          "add": {
+            "commentPublic": true,
+            "price": false,
+            "package": true,
+            "packageProperty": true
+          }
+        },
+        {
+          "status": "OPEN",
+          "subStatus": "",
+          "can": {
+            "commentPublic": true,
+            "outsource": true,
+            "reject": false,
+            "accept": false,
+            "resetOutsource": false
+          },
+          "edit": {
+            "orderStatus": true,
+            "contactPerson": true,
+            "pickUpDate": true,
+            "deliveryDate": true,
+            "deliveryTimestamp": false,
+            "pickupTimestamp": false,
+            "deliveryPerson": false,
+            "comment": true,
+            "finance": true,
+            "price": true,
+            "package": true,
+            "packageProperty": true,
+            "addressFrom": true,
+            "addressTo": true,
+            "revoke": false,
+            "rights": false
+          },
+          "delete": {
+            "order": false
+          },
+          "add": {
+            "commentPublic": true,
+            "price": false,
+            "package": true,
+            "packageProperty": true
+          }
+        },
+        {
+          "status": "PROCESSING",
+          "subStatus": "",
+          "can": {
+            "commentPublic": true,
+            "outsource": false,
+            "reject": false,
+            "accept": false,
+            "resetOutsource": false
+          },
+          "edit": {
+            "orderStatus": true,
+            "contactPerson": true,
+            "pickUpDate": false,
+            "deliveryDate": false,
+            "deliveryTimestamp": true,
+            "pickupTimestamp": true,
+            "deliveryPerson": true,
+            "comment": true,
+            "finance": true,
+            "price": true,
+            "package": false,
+            "packageProperty": false,
+            "addressFrom": false,
+            "addressTo": false,
+            "revoke": false,
+            "rights": false
+          },
+          "delete": {
+            "order": false
+          },
+          "add": {
+            "commentPublic": true,
+            "price": false,
+            "package": false,
+            "packageProperty": false
+          }
+        },
+        {
+          "status": "CANCELED",
+          "subStatus": "",
+          "can": {
+            "commentPublic": true,
+            "outsource": false,
+            "reject": false,
+            "accept": false,
+            "resetOutsource": false
+          },
+          "edit": {
+            "orderStatus": false,
+            "contactPerson": false,
+            "pickUpDate": false,
+            "deliveryDate": false,
+            "deliveryTimestamp": false,
+            "pickupTimestamp": false,
+            "deliveryPerson": false,
+            "comment": true,
+            "finance": true,
+            "price": true,
+            "package": false,
+            "packageProperty": false,
+            "addressFrom": false,
+            "addressTo": false,
+            "revoke": false,
+            "rights": false
+          },
+          "delete": {
+            "order": false
+          },
+          "add": {
+            "commentPublic": true,
+            "price": false,
+            "package": false,
+            "packageProperty": false
+          }
+        },
+        {
+          "status": "COMPLETE",
+          "subStatus": "",
+          "can": {
+            "commentPublic": true,
+            "outsource": false,
+            "reject": false,
+            "accept": false,
+            "resetOutsource": false
+          },
+          "edit": {
+            "orderStatus": false,
+            "contactPerson": false,
+            "pickUpDate": false,
+            "deliveryDate": false,
+            "deliveryTimestamp": true,
+            "pickupTimestamp": false,
+            "deliveryPerson": true,
+            "comment": true,
+            "finance": true,
+            "price": true,
+            "package": false,
+            "packageProperty": false,
+            "addressFrom": false,
+            "addressTo": false,
+            "revoke": false,
+            "rights": false
+          },
+          "delete": {
+            "order": false
+          },
+          "add": {
+            "commentPublic": true,
+            "price": false,
+            "package": false,
+            "packageProperty": false
+          }
+        }
+      ]
+    },
+    {
+      "type": "MainSubOrder_without_subOrders",
+      "orderStatus": [
+        {
+          "status": "REQUESTED",
+          "subStatus": "",
+          "can": {
+            "commentPublic": true,
+            "outsource": false,
+            "reject": true,
+            "accept": true
+          },
+          "edit": {
+            "orderStatus": false,
+            "contactPerson": false,
+            "pickUpDate": false,
+            "deliveryDate": false,
+            "deliveryTimestamp": false,
+            "pickupTimestamp": false,
+            "deliveryPerson": false,
+            "comment": true,
+            "finance": true,
+            "price": false,
+            "package": false,
+            "packageProperty": false,
+            "addressFrom": false,
+            "addressTo": false,
+            "revoke": false,
+            "rights": false
+          },
+          "delete": {
+            "order": false
+          },
+          "add": {
+            "commentPublic": false,
+            "price": false,
+            "package": false,
+            "packageProperty": false
+          }
+        },
+        {
+          "status": "ACCEPTED",
+          "subStatus": "",
+          "can": {
+            "commentPublic": true,
+            "outsource": false,
+            "reject": false,
+            "accept": false,
+            "resetOutsource": false
+          },
+          "edit": {
+            "orderStatus": false,
+            "contactPerson": true,
+            "pickUpDate": false,
+            "deliveryDate": false,
+            "deliveryTimestamp": false,
+            "pickupTimestamp": false,
+            "deliveryPerson": false,
+            "comment": true,
+            "finance": true,
+            "price": false,
+            "package": false,
+            "packageProperty": false,
+            "addressFrom": false,
+            "addressTo": false,
+            "revoke": false,
+            "rights": false
+          },
+          "delete": {
+            "order": false
+          },
+          "add": {
+            "commentPublic": false,
+            "price": false,
+            "package": false,
+            "packageProperty": false
+          }
+        },
+        {
+          "status": "REJECTED",
+          "subStatus": "",
+          "can": {
+            "commentPublic": false,
+            "outsource": false,
+            "reject": false,
+            "accept": false,
+            "resetOutsource": false
+          },
+          "edit": {
+            "orderStatus": false,
+            "contactPerson": false,
+            "pickUpDate": false,
+            "deliveryDate": false,
+            "deliveryTimestamp": false,
+            "pickupTimestamp": false,
+            "deliveryPerson": false,
+            "comment": false,
+            "finance": false,
+            "price": false,
+            "package": false,
+            "packageProperty": false,
+            "addressFrom": false,
+            "addressTo": false,
+            "revoke": false,
+            "rights": false
+          },
+          "delete": {
+            "order": false
+          },
+          "add": {
+            "commentPublic": false,
+            "price": false,
+            "package": false,
+            "packageProperty": false
+          }
+        },
+        {
+          "status": "REVOKED",
+          "subStatus": "",
+          "can": {
+            "commentPublic": false,
+            "outsource": false,
+            "reject": false,
+            "accept": false,
+            "resetOutsource": false
+          },
+          "edit": {
+            "orderStatus": false,
+            "contactPerson": false,
+            "pickUpDate": false,
+            "deliveryDate": false,
+            "deliveryTimestamp": false,
+            "pickupTimestamp": false,
+            "deliveryPerson": false,
+            "comment": false,
+            "finance": false,
+            "price": false,
+            "package": false,
+            "packageProperty": false,
+            "addressFrom": false,
+            "addressTo": false,
+            "revoke": false,
+            "rights": false
+          },
+          "delete": {
+            "order": false
+          },
+          "add": {
+            "commentPublic": false,
+            "price": false,
+            "package": false,
+            "packageProperty": false
+          }
+        },
+        {
+          "status": "OPEN",
+          "subStatus": "",
+          "can": {
+            "commentPublic": true,
+            "outsource": true,
+            "reject": false,
+            "accept": false,
+            "resetOutsource": false
+          },
+          "edit": {
+            "orderStatus": true,
+            "contactPerson": true,
+            "pickUpDate": false,
+            "deliveryDate": false,
+            "deliveryTimestamp": false,
+            "pickupTimestamp": false,
+            "deliveryPerson": false,
+            "comment": true,
+            "finance": true,
+            "price": false,
+            "package": false,
+            "packageProperty": true,
+            "addressFrom": false,
+            "addressTo": false,
+            "revoke": false,
+            "rights": false
+          },
+          "delete": {
+            "order": false
+          },
+          "add": {
+            "commentPublic": true,
+            "price": false,
+            "package": false,
+            "rights": false
+          }
+        },
+        {
+          "status": "PROCESSING",
+          "subStatus": "",
+          "can": {
+            "commentPublic": true,
+            "outsource": false,
+            "reject": false,
+            "accept": false,
+            "resetOutsource": false
+          },
+          "edit": {
+            "orderStatus": true,
+            "contactPerson": true,
+            "pickUpDate": false,
+            "deliveryDate": false,
+            "deliveryTimestamp": true,
+            "pickupTimestamp": true,
+            "deliveryPerson": true,
+            "comment": true,
+            "finance": true,
+            "price": false,
+            "package": false,
+            "packageProperty": false,
+            "addressFrom": false,
+            "addressTo": false,
+            "revoke": false,
+            "rights": false
+          },
+          "delete": {
+            "order": false
+          },
+          "add": {
+            "commentPublic": true,
+            "price": false,
+            "package": false,
+            "packageProperty": false
+          }
+        },
+        {
+          "status": "CANCELED",
+          "subStatus": "",
+          "can": {
+            "commentPublic": true,
+            "outsource": false,
+            "reject": false,
+            "accept": false,
+            "resetOutsource": false
+          },
+          "edit": {
+            "orderStatus": true,
+            "contactPerson": false,
+            "pickUpDate": false,
+            "deliveryDate": false,
+            "deliveryTimestamp": false,
+            "pickupTimestamp": false,
+            "deliveryPerson": false,
+            "comment": true,
+            "finance": true,
+            "price": false,
+            "package": false,
+            "packageProperty": false,
+            "addressFrom": false,
+            "addressTo": false,
+            "revoke": false,
+            "rights": false
+          },
+          "delete": {
+            "order": false
+          },
+          "add": {
+            "commentPublic": true,
+            "price": false,
+            "package": false,
+            "packageProperty": false
+          }
+        },
+        {
+          "status": "COMPLETE",
+          "subStatus": "",
+          "can": {
+            "commentPublic": true,
+            "outsource": false,
+            "reject": false,
+            "accept": false,
+            "resetOutsource": false
+          },
+          "edit": {
+            "orderStatus": true,
+            "contactPerson": false,
+            "pickUpDate": false,
+            "deliveryDate": false,
+            "deliveryTimestamp": false,
+            "pickupTimestamp": false,
+            "deliveryPerson": false,
+            "comment": true,
+            "finance": true,
+            "price": false,
+            "package": false,
+            "packageProperty": false,
+            "addressFrom": false,
+            "addressTo": false,
+            "revoke": false,
+            "rights": false
+          },
+          "delete": {
+            "order": false
+          },
+          "add": {
+            "commentPublic": true,
+            "price": false,
+            "package": false,
+            "packageProperty": false
+          }
+        }
+      ]
+    },
+    {
+      "type": "MainOrder_with_subOrders",
+      "orderStatus": [
+        {
+          "status": "OPEN",
+          "subStatus": "REQUESTED",
+          "can": {
+            "commentPublic": true,
+            "outsource": true,
+            "reject": false,
+            "accept": false,
+            "resetOutsource": false
+          },
+          "edit": {
+            "orderStatus": false,
+            "contactPerson": true,
+            "pickUpDate": false,
+            "deliveryDate": false,
+            "deliveryTimestamp": false,
+            "pickupTimestamp": false,
+            "deliveryPerson": false,
+            "comment": true,
+            "finance": true,
+            "price": true,
+            "package": false,
+            "packageProperty": false,
+            "addressFrom": false,
+            "addressTo": false,
+            "revoke": true,
+            "rights": true
+          },
+          "delete": {
+            "order": false
+          },
+          "add": {
+            "commentPublic": true,
+            "price": false,
+            "package": false,
+            "packageProperty": false
+          }
+        },
+        {
+          "status": "OPEN",
+          "subStatus": "REJECTED",
+          "can": {
+            "commentPublic": true,
+            "outsource": true,
+            "reject": false,
+            "accept": false,
+            "resetOutsource": false
+          },
+          "edit": {
+            "orderStatus": true,
+            "contactPerson": true,
+            "pickUpDate": true,
+            "deliveryDate": false,
+            "deliveryTimestamp": false,
+            "pickupTimestamp": false,
+            "deliveryPerson": false,
+            "comment": true,
+            "finance": true,
+            "price": true,
+            "package": true,
+            "packageProperty": true,
+            "addressFrom": true,
+            "addressTo": true,
+            "revoke": true,
+            "rights": true
+          },
+          "delete": {
+            "order": false
+          },
+          "add": {
+            "commentPublic": true,
+            "price": false,
+            "package": true,
+            "packageProperty": true
+          }
+        },
+        {
+          "status": "OPEN",
+          "subStatus": "REVOKED",
+          "can": {
+            "commentPublic": true,
+            "outsource": true,
+            "reject": false,
+            "accept": false,
+            "resetOutsource": false
+          },
+          "edit": {
+            "orderStatus": true,
+            "contactPerson": true,
+            "pickUpDate": true,
+            "deliveryDate": false,
+            "deliveryTimestamp": false,
+            "pickupTimestamp": false,
+            "deliveryPerson": false,
+            "comment": true,
+            "finance": true,
+            "price": true,
+            "package": true,
+            "packageProperty": true,
+            "addressFrom": true,
+            "addressTo": true,
+            "revoke": false,
+            "rights": true
+          },
+          "delete": {
+            "order": false
+          },
+          "add": {
+            "commentPublic": true,
+            "price": false,
+            "package": true,
+            "packageProperty": true
+          }
+        },
+        {
+          "status": "OPEN",
+          "subStatus": "ACCEPTED",
+          "can": {
+            "commentPublic": true,
+            "outsource": true,
+            "reject": false,
+            "accept": false,
+            "resetOutsource": false
+          },
+          "edit": {
+            "orderStatus": false,
+            "contactPerson": true,
+            "pickUpDate": false,
+            "deliveryDate": false,
+            "deliveryTimestamp": false,
+            "pickupTimestamp": false,
+            "deliveryPerson": false,
+            "comment": true,
+            "finance": true,
+            "price": true,
+            "package": false,
+            "packageProperty": false,
+            "addressFrom": false,
+            "addressTo": false,
+            "revoke": true,
+            "rights": true
+          },
+          "delete": {
+            "order": false
+          },
+          "add": {
+            "commentPublic": true,
+            "price": false,
+            "package": false,
+            "packageProperty": false
+          }
+        },
+        {
+          "status": "OPEN",
+          "subStatus": "OPEN",
+          "can": {
+            "commentPublic": true,
+            "outsource": false,
+            "reject": false,
+            "accept": false,
+            "resetOutsource": false
+          },
+          "edit": {
+            "orderStatus": false,
+            "contactPerson": true,
+            "pickUpDate": false,
+            "deliveryDate": false,
+            "deliveryTimestamp": false,
+            "pickupTimestamp": false,
+            "deliveryPerson": false,
+            "comment": true,
+            "finance": true,
+            "price": true,
+            "package": false,
+            "packageProperty": true,
+            "addressFrom": false,
+            "addressTo": false,
+            "revoke": false,
+            "rights": false
+          },
+          "delete": {
+            "order": false
+          },
+          "add": {
+            "commentPublic": true,
+            "price": false,
+            "package": false,
+            "packageProperty": false
+          }
+        },
+        {
+          "status": "OPEN",
+          "subStatus": "PROCESSING",
+          "can": {
+            "commentPublic": true,
+            "outsource": false,
+            "reject": false,
+            "accept": false,
+            "resetOutsource": false
+          },
+          "edit": {
+            "orderStatus": false,
+            "contactPerson": false,
+            "pickUpDate": false,
+            "deliveryDate": false,
+            "deliveryTimestamp": false,
+            "pickupTimestamp": false,
+            "deliveryPerson": false,
+            "comment": true,
+            "finance": true,
+            "price": true,
+            "package": false,
+            "packageProperty": false,
+            "addressFrom": false,
+            "addressTo": false,
+            "revoke": false,
+            "rights": false
+          },
+          "delete": {
+            "order": false
+          },
+          "add": {
+            "commentPublic": true,
+            "price": false,
+            "package": false,
+            "packageProperty": false
+          }
+        },
+        {
+          "status": "OPEN",
+          "subStatus": "CANCELED",
+          "can": {
+            "commentPublic": true,
+            "outsource": true,
+            "reject": false,
+            "accept": false,
+            "resetOutsource": true
+          },
+          "edit": {
+            "orderStatus": true,
+            "contactPerson": true,
+            "pickUpDate": false,
+            "deliveryDate": false,
+            "deliveryTimestamp": false,
+            "pickupTimestamp": false,
+            "deliveryPerson": false,
+            "comment": true,
+            "finance": true,
+            "price": true,
+            "package": false,
+            "packageProperty": false,
+            "addressFrom": false,
+            "addressTo": false,
+            "revoke": false,
+            "rights": false
+          },
+          "delete": {
+            "order": false
+          },
+          "add": {
+            "commentPublic": true,
+            "price": false,
+            "package": false,
+            "packageProperty": false
+          }
+        },
+        {
+          "status": "PROCESSING",
+          "subStatus": "REVOKED",
+          "can": {
+            "commentPublic": true,
+            "outsource": false,
+            "reject": false,
+            "accept": false,
+            "resetOutsource": false
+          },
+          "edit": {
+            "orderStatus": true,
+            "contactPerson": true,
+            "pickUpDate": false,
+            "deliveryDate": false,
+            "deliveryTimestamp": true,
+            "pickupTimestamp": true,
+            "deliveryPerson": true,
+            "comment": true,
+            "finance": true,
+            "price": true,
+            "package": false,
+            "packageProperty": false,
+            "addressFrom": false,
+            "addressTo": false,
+            "revoke": false,
+            "rights": false
+          },
+          "delete": {
+            "order": false
+          },
+          "add": {
+            "commentPublic": true,
+            "price": false,
+            "package": false,
+            "packageProperty": false
+          }
+        },
+        {
+          "status": "PROCESSING",
+          "subStatus": "REJECTED",
+          "can": {
+            "commentPublic": true,
+            "outsource": false,
+            "reject": false,
+            "accept": false,
+            "resetOutsource": false
+          },
+          "edit": {
+            "orderStatus": true,
+            "contactPerson": true,
+            "pickUpDate": false,
+            "deliveryDate": false,
+            "deliveryTimestamp": true,
+            "pickupTimestamp": true,
+            "deliveryPerson": true,
+            "comment": true,
+            "finance": true,
+            "price": true,
+            "package": false,
+            "packageProperty": false,
+            "addressFrom": false,
+            "addressTo": false,
+            "revoke": false,
+            "rights": false
+          },
+          "delete": {
+            "order": false
+          },
+          "add": {
+            "commentPublic": true,
+            "price": false,
+            "package": false,
+            "packageProperty": false
+          }
+        },
+        {
+          "status": "PROCESSING",
+          "subStatus": "PROCESSING",
+          "can": {
+            "commentPublic": true,
+            "outsource": false,
+            "reject": false,
+            "accept": false,
+            "resetOutsource": false
+          },
+          "edit": {
+            "orderStatus": false,
+            "contactPerson": true,
+            "pickUpDate": false,
+            "deliveryDate": false,
+            "deliveryTimestamp": false,
+            "pickupTimestamp": false,
+            "deliveryPerson": false,
+            "comment": true,
+            "finance": true,
+            "price": true,
+            "package": false,
+            "packageProperty": false,
+            "addressFrom": false,
+            "addressTo": false,
+            "revoke": false,
+            "rights": false
+          },
+          "delete": {
+            "order": false
+          },
+          "add": {
+            "commentPublic": true,
+            "price": false,
+            "package": false,
+            "packageProperty": false
+          }
+        },
+        {
+          "status": "PROCESSING",
+          "subStatus": "COMPLETE",
+          "can": {
+            "commentPublic": true,
+            "outsource": false,
+            "reject": false,
+            "accept": false,
+            "resetOutsource": false
+          },
+          "edit": {
+            "orderStatus": true,
+            "contactPerson": true,
+            "pickUpDate": false,
+            "deliveryDate": false,
+            "deliveryTimestamp": false,
+            "pickupTimestamp": false,
+            "deliveryPerson": false,
+            "comment": true,
+            "finance": true,
+            "price": true,
+            "package": false,
+            "packageProperty": false,
+            "addressFrom": false,
+            "addressTo": false,
+            "revoke": false,
+            "rights": false
+          },
+          "delete": {
+            "order": false
+          },
+          "add": {
+            "commentPublic": true,
+            "price": false,
+            "package": false,
+            "packageProperty": false
+          }
+        },
+        {
+          "status": "PROCESSING",
+          "subStatus": "CANCELED",
+          "can": {
+            "commentPublic": true,
+            "outsource": false,
+            "reject": false,
+            "accept": false,
+            "resetOutsource": true
+          },
+          "edit": {
+            "orderStatus": true,
+            "contactPerson": true,
+            "pickUpDate": false,
+            "deliveryDate": false,
+            "deliveryTimestamp": false,
+            "pickupTimestamp": false,
+            "deliveryPerson": false,
+            "comment": true,
+            "finance": true,
+            "price": true,
+            "package": false,
+            "packageProperty": false,
+            "addressFrom": false,
+            "addressTo": false,
+            "revoke": false,
+            "rights": false
+          },
+          "delete": {
+            "order": false
+          },
+          "add": {
+            "commentPublic": true,
+            "price": false,
+            "package": false,
+            "packageProperty": false
+          }
+        },
+        {
+          "status": "CANCELED",
+          "subStatus": "CANCELED",
+          "can": {
+            "commentPublic": true,
+            "outsource": false,
+            "reject": false,
+            "accept": false,
+            "resetOutsource": false
+          },
+          "edit": {
+            "orderStatus": true,
+            "contactPerson": false,
+            "pickUpDate": false,
+            "deliveryDate": false,
+            "deliveryTimestamp": false,
+            "pickupTimestamp": false,
+            "deliveryPerson": false,
+            "comment": true,
+            "finance": true,
+            "price": false,
+            "package": false,
+            "packageProperty": false,
+            "addressFrom": false,
+            "addressTo": false,
+            "revoke": false,
+            "rights": false
+          },
+          "delete": {
+            "order": false
+          },
+          "add": {
+            "commentPublic": true,
+            "price": false,
+            "package": false,
+            "packageProperty": false
+          }
+        },
+        {
+          "status": "COMPLETE",
+          "subStatus": "COMPLETE",
+          "can": {
+            "commentPublic": true,
+            "outsource": false,
+            "reject": false,
+            "accept": false,
+            "resetOutsource": false
+          },
+          "edit": {
+            "orderStatus": false,
+            "contactPerson": false,
+            "pickUpDate": false,
+            "deliveryDate": false,
+            "deliveryTimestamp": false,
+            "pickupTimestamp": false,
+            "deliveryPerson": false,
+            "comment": true,
+            "finance": true,
+            "price": false,
+            "package": false,
+            "packageProperty": false,
+            "addressFrom": false,
+            "addressTo": false,
+            "revoke": false,
+            "rights": false
+          },
+          "delete": {
+            "order": false
+          },
+          "add": {
+            "commentPublic": true,
+            "price": false,
+            "package": false,
+            "packageProperty": false
+          }
+        }
+      ]
+    }
+  ]
+}

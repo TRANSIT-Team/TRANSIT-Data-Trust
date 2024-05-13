@@ -1,0 +1,18 @@
+<div class="row" style="top:0;">
+  <div class="col">
+    <h2 mat-dialog-title> {{title}}</h2>
+  </div>
+  <div class="col text-end">
+    <button (click)="close()" mat-icon-button>
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>
+
+
+<div class="row w-100" style="top:0;">
+  <div class="col">
+    <app-outsource class="position-relative" [order]="this.order" [dialogComponent]="true" [outsourceMapCompanies]="this.outsourceMapCompanies" (storeOutsourceMapCompanies)="storeOutsourceMapCompanies($event)"
+                   (closeWindow)="this.chooseItem('reloadSuborders')"></app-outsource>
+  </div>
+</div>

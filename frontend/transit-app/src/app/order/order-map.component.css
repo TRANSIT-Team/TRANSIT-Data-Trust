@@ -1,0 +1,13 @@
+
+.map {
+  height: 350px;
+  width: 100%;
+}
+
+@media screen and (max-width: 960px) {
+
+  .map {
+    height: calc(35vh);
+  }
+
+}

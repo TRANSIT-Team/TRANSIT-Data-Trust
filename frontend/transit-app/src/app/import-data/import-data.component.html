@@ -1,0 +1,141 @@
+<div class="container mt-4">
+  <div class="row p-2">
+    <div class="col-lg-9 col-sm-12 mt-2 d-inline">
+      <h1><b>Datenimport</b></h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col mt-4 mb-4">
+      <mat-card>
+        <div class="row pt-0 pb-0">
+          <div class="col">
+            <h3 class="mb-0"><b>Vorlage herunterladen und Daten einfügen</b></h3>
+          </div>
+
+
+        </div>
+        <div class="row">
+          <div class="col">
+            <a href="/downloads/template-file.xlsx" download="template-file.xlsx">Download Template</a>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <mat-card class="m-auto p-4">
+
+        <div class="row">
+          <div class="col">
+
+
+            <input type="file" (change)="onFileChange($event)" accept=".xlsx">
+
+
+          </div>
+        </div>
+
+
+      </mat-card>
+    </div>
+  </div>
+  <div class="row mt-4" *ngIf="this.uploadReady">
+    <div class="col">
+      <mat-card class="m-auto p-4">
+
+        <div class="row">
+          <div class="col">
+
+
+            <dx-data-grid class=" mat-tablee"
+                          id="gridContainer"
+                          [dataSource]="this.orders" [columnHidingEnabled]="true"
+
+                          [allowColumnReordering]="true"
+                          [showColumnLines]="false"
+                          [showRowLines]="true"
+                          [showBorders]="true"
+                          [rowAlternationEnabled]="false"
+                          (onRowInserting)="insertRow($event)"
+                          (onRowUpdating)="updateRow($event)"
+                          (onRowRemoving)="deleteRow($event)">
+              <dxo-pager
+                [visible]="true"
+                [allowedPageSizes]="allowedPageSizes"
+                [showPageSizeSelector]="true"
+                [showInfo]="true"
+                [showNavigationButtons]="true">
+              </dxo-pager>
+              <dxo-search-panel
+                [visible]="true"
+                [width]="240"
+                placeholder="Search..."
+              ></dxo-search-panel>
+              <dxo-filter-row [visible]="true"></dxo-filter-row>
+              <dxo-paging [pageSize]="5"></dxo-paging>
+
+              <dxo-header-filter [visible]="true"></dxo-header-filter>
+              <dxo-paging [enabled]="true"></dxo-paging>
+              <dxo-editing mode="row" [allowUpdating]="true" [allowDeleting]="false" [allowAdding]="true"
+                           [useIcons]="true">
+                <dxo-texts confirmDeleteTitle="Löschen?" confirmDeleteMessage="Datensatz löschen?"></dxo-texts>
+              </dxo-editing>
+              <dxo-export
+                [enabled]="true"
+                [formats]="['pdf']"
+                [allowExportSelectedData]="true"
+              ></dxo-export>
+
+
+              <dxi-column dataField="pickUpDate" caption="Abholdatum" [format]="{ type: 'dd.MM.yyyy' }">
+                <dxi-validation-rule
+                  type="date"
+                  message=""
+                ></dxi-validation-rule>
+              </dxi-column>
+
+              <dxi-column dataField="destinationDate" caption="Lieferdatum" [format]="{ type: 'dd.MM.yyyy' }">
+                <dxi-validation-rule
+                  type="date"
+                  message=""
+                ></dxi-validation-rule>
+              </dxi-column>
+
+
+              <dxi-column dataField="addressFrom.city" caption="Stadt von">
+              </dxi-column>
+
+              <dxi-column dataField="addressTo.city" caption="Stadt zu">
+              </dxi-column>
+
+
+            </dx-data-grid>
+
+
+          </div>
+        </div>
+
+        <div class="row pt-2 pb-2 mt-1" *ngIf="this.uploadReady">
+          <div class="col">
+            <button class="" mat-button mat-raised-button color="primary" (click)="uploadOrders()">
+              Import starten
+            </button>
+          </div>
+        </div>
+
+      </mat-card>
+
+    </div>
+  </div>
+
+  <div class="pre-loader text-center" *ngIf="this.uploadStarted">
+    <mat-card>
+      <h4><b>Upload {{this.currentProcessed}} von {{this.importData.length}}...</b></h4>
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </mat-card>
+  </div>
+</div>

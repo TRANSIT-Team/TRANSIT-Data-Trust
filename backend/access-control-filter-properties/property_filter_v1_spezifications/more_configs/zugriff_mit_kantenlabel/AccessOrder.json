@@ -1,0 +1,424 @@
+{
+  "style": {
+    "font-family": "Nunito Sans",
+    "background-color": "#F2F2F2",
+    "background-image": "",
+    "background-size": "100%",
+    "node-color": "#4C8EDA",
+    "border-width": 0,
+    "border-color": "#000000",
+    "radius": 75,
+    "node-padding": 5,
+    "node-margin": 2,
+    "outside-position": "auto",
+    "node-icon-image": "",
+    "node-background-image": "",
+    "icon-position": "inside",
+    "icon-size": 64,
+    "caption-position": "inside",
+    "caption-max-width": 200,
+    "caption-color": "#ffffff",
+    "caption-font-size": 20,
+    "caption-font-weight": "normal",
+    "label-position": "inside",
+    "label-display": "bare",
+    "label-color": "#ffffff",
+    "label-background-color": "#848484",
+    "label-border-color": "#848484",
+    "label-border-width": 3,
+    "label-font-size": 20,
+    "label-padding": 5,
+    "label-margin": 4,
+    "directionality": "directed",
+    "detail-position": "above",
+    "detail-orientation": "parallel",
+    "arrow-width": 3,
+    "arrow-color": "#848484",
+    "margin-start": 5,
+    "margin-end": 5,
+    "margin-peer": 20,
+    "attachment-start": "normal",
+    "attachment-end": "normal",
+    "relationship-icon-image": "",
+    "type-color": "#848484",
+    "type-background-color": "#F2F2F2",
+    "type-border-color": "#848484",
+    "type-border-width": 0,
+    "type-font-size": 21,
+    "type-padding": 5,
+    "property-position": "outside",
+    "property-alignment": "colon",
+    "property-color": "#848484",
+    "property-font-size": 20,
+    "property-font-weight": "normal"
+  },
+  "nodes": [
+    {
+      "id": "n1",
+      "position": {
+        "x": 1468.6346421898445,
+        "y": -39.13621593034692
+      },
+      "caption": "Order#1",
+      "labels": [],
+      "properties": {},
+      "style": {
+        "node-color": "#f44e3b"
+      }
+    },
+    {
+      "id": "n2",
+      "position": {
+        "x": 952.0221230896719,
+        "y": 146.03212065640025
+      },
+      "caption": "Group#1|Order#1",
+      "labels": [],
+      "properties": {
+        "readProperties": "deliveryTime,  contact person "
+      },
+      "style": {}
+    },
+    {
+      "id": "n3",
+      "position": {
+        "x": 446.0914059407446,
+        "y": 208.15230147625684
+      },
+      "caption": "Group#1",
+      "labels": [],
+      "properties": {},
+      "style": {
+        "node-color": "#aea1ff"
+      }
+    },
+    {
+      "id": "n4",
+      "position": {
+        "x": 1008.0907393641332,
+        "y": 1305.5866981599056
+      },
+      "caption": "PC",
+      "labels": [],
+      "properties": {},
+      "style": {
+        "node-color": "#000000"
+      }
+    },
+    {
+      "id": "n5",
+      "position": {
+        "x": 417.9659932498439,
+        "y": 494.57297348310027
+      },
+      "caption": "Group#2",
+      "labels": [],
+      "properties": {},
+      "style": {
+        "node-color": "#aea1ff"
+      }
+    },
+    {
+      "id": "n6",
+      "position": {
+        "x": 129,
+        "y": 106.59008269382883
+      },
+      "caption": "UserDefaultGroup#1",
+      "labels": [],
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n7",
+      "position": {
+        "x": 446.0914059407446,
+        "y": 747.5202409492533
+      },
+      "caption": "Group#3",
+      "labels": [],
+      "properties": {},
+      "style": {
+        "node-color": "#aea1ff"
+      }
+    },
+    {
+      "id": "n8",
+      "position": {
+        "x": 1784.4826901599324,
+        "y": 106.59008269382883
+      },
+      "caption": "Order#2",
+      "labels": [],
+      "properties": {
+        "suborderType": "true"
+      },
+      "style": {
+        "node-color": "#f44e3b"
+      }
+    },
+    {
+      "id": "n9",
+      "position": {
+        "x": 1463.0126968958107,
+        "y": 346.1931589395838
+      },
+      "caption": "Group#1|Order#2",
+      "labels": [],
+      "properties": {
+        "readProperties": "deliveryTime, contact person"
+      },
+      "style": {}
+    },
+    {
+      "id": "n10",
+      "position": {
+        "x": 1730.4427715564075,
+        "y": 570.5475093759309
+      },
+      "caption": "Group#2|Order#2",
+      "labels": [],
+      "properties": {
+        "readProperties": "deliveryTime, status",
+        "writeProperties": "status, subOrders?"
+      },
+      "style": {}
+    },
+    {
+      "id": "n11",
+      "position": {
+        "x": 2030.1964380214756,
+        "y": 284.2463196576604
+      },
+      "caption": "Order#3",
+      "labels": [],
+      "properties": {
+        "suborderType": "true"
+      },
+      "style": {
+        "node-color": "#f44e3b"
+      }
+    },
+    {
+      "id": "n12",
+      "position": {
+        "x": 2147.390727749982,
+        "y": 811.2725241223554
+      },
+      "caption": "Group#2|Order#3",
+      "labels": [],
+      "properties": {
+        "readProperties": "deliveryTime, other contact person"
+      },
+      "style": {}
+    },
+    {
+      "id": "n13",
+      "position": {
+        "x": 2639.885987209267,
+        "y": 1032.4953555560996
+      },
+      "caption": "Group#3|Order#3",
+      "labels": [],
+      "properties": {
+        "readProperties": "deliveryTime, other contact person"
+      },
+      "style": {}
+    }
+  ],
+  "relationships": [
+    {
+      "id": "n0",
+      "fromId": "n1",
+      "toId": "n2",
+      "type": "",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n1",
+      "fromId": "n3",
+      "toId": "n2",
+      "type": "",
+      "properties": {
+        "ops": "r ,w,c"
+      },
+      "style": {}
+    },
+    {
+      "id": "n2",
+      "fromId": "n2",
+      "toId": "n4",
+      "type": "",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n3",
+      "fromId": "n6",
+      "toId": "n3",
+      "type": "",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n4",
+      "fromId": "n3",
+      "toId": "n9",
+      "type": "",
+      "properties": {
+        "ops": "r ,w,c"
+      },
+      "style": {}
+    },
+    {
+      "id": "n5",
+      "fromId": "n9",
+      "toId": "n4",
+      "type": "",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n6",
+      "fromId": "n8",
+      "toId": "n9",
+      "type": "",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n7",
+      "type": "data",
+      "style": {},
+      "properties": {},
+      "fromId": "n9",
+      "toId": "n2"
+    },
+    {
+      "id": "n8",
+      "fromId": "n10",
+      "toId": "n4",
+      "type": "",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n9",
+      "fromId": "n8",
+      "toId": "n10",
+      "type": "",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n10",
+      "type": "rights",
+      "style": {},
+      "properties": {},
+      "fromId": "n10",
+      "toId": "n9"
+    },
+    {
+      "id": "n11",
+      "fromId": "n5",
+      "toId": "n10",
+      "type": "",
+      "properties": {
+        "ops": "r,w",
+        "entzogen": "[]"
+      },
+      "style": {}
+    },
+    {
+      "id": "n12",
+      "fromId": "n5",
+      "toId": "n12",
+      "type": "",
+      "properties": {
+        "ops": "r,w,c",
+        "entzogen": "[]"
+      },
+      "style": {}
+    },
+    {
+      "id": "n13",
+      "fromId": "n11",
+      "toId": "n12",
+      "type": "",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n14",
+      "fromId": "n12",
+      "toId": "n4",
+      "type": "",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n15",
+      "fromId": "n11",
+      "toId": "n13",
+      "type": "",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n16",
+      "fromId": "n7",
+      "toId": "n13",
+      "type": "",
+      "properties": {
+        "ops ": "r",
+        "entzogen": "[]"
+      },
+      "style": {}
+    },
+    {
+      "id": "n17",
+      "type": "rights",
+      "style": {},
+      "properties": {},
+      "fromId": "n13",
+      "toId": "n12"
+    },
+    {
+      "id": "n18",
+      "type": "rekursiv Entziehen ?  oder manuel // data",
+      "style": {},
+      "properties": {},
+      "fromId": "n12",
+      "toId": "n10"
+    },
+    {
+      "id": "n19",
+      "fromId": "n3",
+      "toId": "n10",
+      "type": "",
+      "properties": {
+        "ops": "c"
+      },
+      "style": {}
+    },
+    {
+      "id": "n20",
+      "fromId": "n13",
+      "toId": "n4",
+      "type": "",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n21",
+      "fromId": "n5",
+      "toId": "n13",
+      "type": "",
+      "properties": {
+        "ops": "c"
+      },
+      "style": {}
+    }
+  ]
+}

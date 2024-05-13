@@ -1,0 +1,42 @@
+<div class="row" style="top:0;">
+  <div class="col">
+    <h2>Kunden auswählen</h2>
+  </div>
+  <div class="col text-end">
+    <button (click)="close()" mat-icon-button aria-label="private dialogRef: MatDialogRef<DialogInputComponent>">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>
+
+
+<div class="row" style=";">
+  <div class="col-1" *ngIf="!this.addItem">
+    <button color="primary" mat-raised-button aria-label="Clear"
+            (click)="this.addItem=true;">
+      <mat-icon>add</mat-icon>
+      neuen Kunden anlegen
+    </button>
+  </div>
+
+  <div class="col-1" *ngIf="this.addItem">
+    <button color="warn" mat-raised-button aria-label="Clear"
+            (click)="this.addItem=false;">
+      <mat-icon>cancel</mat-icon>
+      abbrechen
+    </button>
+  </div>
+</div>
+
+<div class="">
+  <div class="row" style=";" *ngIf="this.addItem">
+    <app-customers-add [dialogComponent]="true" (externButtonClick)="chooseItem($event)"></app-customers-add>
+  </div>
+
+  <div class="row mt-2" style=";" *ngIf="!this.addItem">
+    <div class="col">
+      <app-customers-table [dialogComponent]="true" (externButtonClick)="chooseItem($event)"></app-customers-table>
+
+    </div>
+  </div>
+</div>

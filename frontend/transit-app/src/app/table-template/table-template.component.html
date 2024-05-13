@@ -1,0 +1,179 @@
+Powered by <a
+  href="https://stackblitz.com/edit/angular-custom-pagination-mat-table?file=src%2Fapp%2Ftable-basic-example.ts">StackBlitz</a>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <mat-card>
+
+        <div class="table-div">
+          <div class="px-1">
+
+            <mat-form-field style="width: 40%">
+              <mat-label>Filter</mat-label>
+              <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+            </mat-form-field>
+            <mat-form-field style="width: 20%; float: right;">
+              <mat-label>Go to Page</mat-label>
+              <input matInput type="number" placeholder="Enter page number" [(ngModel)]="pageNumber"
+                     (ngModelChange)="goToPage()">
+            </mat-form-field>
+
+          </div>
+
+          <form [formGroup]="VOForm" autocomplete="off">
+            <ng-container formArrayName="VORows">
+
+              <table #table mat-table [dataSource]="dataSource" class="table-editable mat-elevation-z1 mat-table-mobile"
+                     matSort>
+
+                <!-- readonly -->
+                <!-- column id is nessesary for editing and deleting -->
+                <ng-container matColumnDef="id">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by id"> Id</th>
+                  <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
+                    <span class="is_label_on_mobile">Id:<br/></span>
+                    <input matInput type="text" formControlName="id" readonly>
+                  </td>
+                </ng-container>
+
+                <!-- editable -->
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by id" class="ps-2"> Name</th>
+                  <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
+                    <span class="is_label_on_mobile">Name:<br/></span>
+                    <mat-form-field [class]="VOForm.get('VORows')?.value[i].isEditable? 'no-edit' : 'in-edit'"
+                                    appearance="fill">
+                      <input matInput type="text" formControlName="name"
+                             [readonly]="VOForm.get('VORows')?.value[i].isEditable">
+                    </mat-form-field>
+                  </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="weight">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by id" class="ps-2"> Weight</th>
+                  <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element" >
+                    <span class="is_label_on_mobile">Weight:<br/></span>
+                 <!--   <mat-form-field [class]="VOForm.get('VORows')?.value[i].isEditable? 'no-edit' : 'in-edit'"
+                                    appearance="standard">
+                      <input matInput type="text" formControlName="weight"
+                             [readonly]="VOForm.get('VORows')?.value[i].isEditable">
+                    </mat-form-field>-->
+
+                    <mat-form-field appearance="fill" floatLabel="never" [class]="VOForm.get('VORows')?.value[i].isEditable? 'edit-number no-edit' : 'in-edit'">
+                      <input matInput type="number"
+                             formControlName="weight" class="" placeholder="0" [readonly]="VOForm.get('VORows')?.value[i].isEditable">
+                      <span matPrefix></span>
+                      <span matSuffix>kg</span>
+                    </mat-form-field>
+
+
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="symbol">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by id" class="ps-2"> Symbol</th>
+                  <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
+                    <span class="is_label_on_mobile">Symbol:<br/></span>
+                    <mat-form-field [class]="VOForm.get('VORows')?.value[i].isEditable? 'no-edit' : 'in-edit'"
+                                    appearance="fill">
+                      <input matInput type="text" formControlName="symbol"
+                             [readonly]="VOForm.get('VORows')?.value[i].isEditable">
+                    </mat-form-field>
+                  </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="dropdown">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by type" class="ps-2"> Dropdown
+                  </th>
+                  <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
+                    <span class="is_label_on_mobile">Dropdown:<br/></span>
+                    <mat-form-field matInput appearance="fill" [class]="VOForm.get('VORows')?.value[i].isEditable? 'select-fill-edit no-edit' : 'select-fill-edit in-edit'" >
+                      <mat-label *ngIf="!VOForm.get('VORows')?.value[i].isEditable">Type</mat-label>
+                      <mat-select formControlName="dropdown" id="dropdown"  [disabled]="VOForm.get('VORows')?.value[i].isEditable">
+                        <mat-option value="1">Value 1</mat-option>
+                        <mat-option value="2">Value 2</mat-option>
+                        <mat-option value="3">Value 3</mat-option>
+                        <mat-option value="4">Value 4</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="dateExample">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by dateExample" class="ps-2"> dateExample</th>
+                  <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
+                    <span class="is_label_on_mobile">dateExample:<br/></span>
+
+                    <mat-form-field appearance="fill" [class]="VOForm.get('VORows')?.value[i].isEditable? 'no-edit' : 'in-edit'">
+                      <input matInput [matDatepicker]="picker" formControlName="dateExample" [readonly]="VOForm.get('VORows')?.value[i].isEditable">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+
+                  </td>
+                </ng-container>
+
+
+
+                <ng-container matColumnDef="action">
+                  <th mat-header-cell *matHeaderCellDef> Action</th>
+                  <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
+                    <button mat-icon-button class="material-icons app-toolbar-menu save-button"
+                            matTooltip="Speichern" (click)="saveVO(VOForm,i)"
+                            *ngIf="!VOForm.get('VORows')?.value[i].isEditable" color="primary">
+                      <mat-icon>check_circle</mat-icon>
+                    </button>
+
+                    <button mat-icon-button class="material-icons app-toolbar-menu cancel-button"
+                            matTooltip="Abbrechen" color="warn"
+                            (click)="cancelSVO(VOForm,i)"
+                            *ngIf="!VOForm.get('VORows')?.value[i].isEditable">
+                      <mat-icon>cancel</mat-icon>
+                    </button>
+
+                    <button mat-icon-button class="material-icons app-toolbar-menu save-button"
+                            *ngIf="VOForm.get('VORows')?.value[i].isEditable"
+                            matTooltip="Bearbeiten" color="primary" (click)="editSVO(VOForm,i)">
+                      <mat-icon>edit</mat-icon>
+                    </button>
+
+                    <button mat-icon-button class="material-icons app-toolbar-menu delete-button"
+                            (click)="deleteSVO(VOForm,i)"
+                            *ngIf="VOForm.get('VORows')?.value[i].isEditable"
+                            matTooltip="Löschen" color="warn">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+
+
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                <!-- Row shown when there is no matching data. -->
+                <tr class="mat-row" *matNoDataRow>
+                  <td class="mat-cell" colspan="4">Keine Daten zu dem Filter "{{input.value}}"</td>
+                </tr>
+              </table>
+            </ng-container>
+          </form>
+          <mat-card *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center">
+            <mat-progress-spinner
+              color="primary"
+              mode="indeterminate">
+            </mat-progress-spinner>
+          </mat-card>
+          <div class="row txt-small txt-grey px-3">Datensätze: {{dataSource.data.length}}</div>
+
+          <mat-paginator [pageSizeOptions]="[5,25,50,100,150,250, dataSource.data.length>8? dataSource.data.length:0]"
+                         showFirstLastButtons></mat-paginator>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,97 @@
+<div class="tcard bg-white p-4 pb-0">
+
+
+  <div class="row" *ngIf="this.loading">
+    <div class="col">
+      <h4>Finanzen</h4>
+    </div>
+  </div>
+  <app-loading-placeholder *ngIf="this.loading"></app-loading-placeholder>
+
+  <div *ngIf="!this.loading">
+    <form [formGroup]="editForm" (ngSubmit)='saveInformations()'>
+
+      <div class="row">
+        <div class="col">
+          <h4><b>Finanzen</b></h4>
+          <div class="tcard-btn-div p-3 px-2" *ngIf="this.order.orderRightsGlobal!.edit.finance">
+            <button color="primary" mat-icon-button
+                    aria-label="speichern">
+              <mat-icon>save</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <div *ngIf="!this.order.orderRightsGlobal!.edit.price" class="px-1 py-1 pb-2 mb-2">
+            <label class="font-weight-bold txt-small">Preis</label><br>
+            <span class="break-word">{{this.orderPrice}}</span>
+          </div>
+          <mat-form-field appearance="outline" floatLabel="always" class="mat-input-inline"
+                          *ngIf="this.order.orderRightsGlobal!.edit.price">
+
+            <mat-label>Preis</mat-label>
+            <input matInput (keypress)="preventNonNumericalInput($event)" pattern="[0-9]+([.,][0-9]+)?"   class="material-small"
+                   formControlName="orderPrice"
+                   type="number" placeholder="0"
+                   id="orderPrice"/>
+
+            <span matTextPrefix>€&nbsp;</span>
+            <mat-error *ngIf="editForm.controls['orderPrice'].hasError('min')">Mindestens 0€
+            </mat-error>
+            <mat-error *ngIf="editForm.controls['orderPrice'].hasError('pattern')">Bitte geben Sie eine Zahl ein
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <div *ngIf="this.order.outsourceCost" class="px-1 py-1 pb-2 mb-2">
+            <label class="font-weight-bold txt-small">Kosten Outsource</label><br>
+            <span>{{ this.order.outsourceCost | number : '1.2-2' }}</span>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <mat-form-field appearance="outline" floatLabel="always" class="mat-input-inline">
+            <mat-label>Warenwert Gesamt</mat-label>
+            <input matInput pattern="[0-9]+([.,][0-9]+)?" (keypress)="preventNonNumericalInput($event)"   class="material-small"
+                   formControlName="packagesPrice"
+                   type="number" placeholder=""
+                   id="packagesPrice"/>
+            <span matTextPrefix>€&nbsp;</span>
+            <mat-error *ngIf="editForm.controls['packagesPrice'].hasError('pattern')">Bitte geben Sie eine Zahl ein
+            </mat-error>
+
+
+          </mat-form-field>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+
+          <mat-form-field appearance="outline" floatLabel="always" class="mat-input-inline">
+            <mat-label>Freitextwert</mat-label>
+            <input matInput (keypress)="preventNonNumericalInput($event)" pattern="[0-9]+([.,][0-9]+)?"   class="material-small"
+                   type="number" placeholder="0"
+                   formControlName="orderAltPrice"
+                   id="orderAltPrice"/>
+            <span matTextPrefix>€&nbsp;</span>
+            <mat-error *ngIf="editForm.controls['orderAltPrice'].hasError('min')">Mindestens 0€
+            </mat-error>
+            <mat-error *ngIf="editForm.controls['orderAltPrice'].hasError('pattern')">Bitte geben Sie eine Zahl ein
+            </mat-error>
+
+          </mat-form-field>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+
+</div>
+

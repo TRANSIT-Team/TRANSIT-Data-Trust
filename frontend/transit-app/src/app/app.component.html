@@ -1,0 +1,13 @@
+<app-home-nonuser *ngIf="!(isLoggedIn$ | async)"></app-home-nonuser>
+
+
+<div *ngIf="(isLoggedIn$ | async)">
+
+
+
+  <app-main-nav id="topwindow" *ngIf="false || !(loaderService.isCollectingData | async)"></app-main-nav>
+
+  <app-loading-info [showText]="'App wird vorbereitet'"
+                    *ngIf="false || (loaderService.isCollectingData | async) || !this.localDataLoaded">
+  </app-loading-info>
+</div>

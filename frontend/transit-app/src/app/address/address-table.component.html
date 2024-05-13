@@ -1,0 +1,116 @@
+<dx-data-grid class=""
+              id="gridContainer"
+              [dataSource]="dataSource" [columnHidingEnabled]="true"
+              keyExpr="id"
+              [allowColumnReordering]="true"
+              [showColumnLines]="false"
+              [showRowLines]="true" [cacheEnabled]="true"
+              [showBorders]="true" [columnHidingEnabled]="false"
+              [rowAlternationEnabled]="false"
+              (onRowRemoving)="deleteRow($event)" (onExporting)="onExporting($event)">
+  <dxo-paging [enabled]="true" [pageSize]="this.currentPageSize" [pageIndex]="this.currentPage"></dxo-paging>
+  <dxo-remote-operations [paging]="true" [filtering]="true" [sorting]="true" ></dxo-remote-operations>
+  <dxo-pager
+    [visible]="true"
+    [allowedPageSizes]="allowedPageSizes"
+    [showPageSizeSelector]="true"
+    [showInfo]="true"
+    [showNavigationButtons]="true">
+  </dxo-pager>
+  <dxo-search-panel
+    [visible]="true"
+    [width]="240"
+    placeholder="Search..."
+  ></dxo-search-panel>
+  <dxo-filter-row [visible]="true"></dxo-filter-row>
+  <dxo-paging [pageSize]="5"></dxo-paging>
+
+  <dxo-header-filter [visible]="true"></dxo-header-filter>
+
+  <dxo-editing mode="row" [allowUpdating]="true" [allowDeleting]="false" [allowAdding]="false" [useIcons]="true"
+               refreshMode="repaint">
+    <dxo-texts confirmDeleteTitle="Löschen?" confirmDeleteMessage="Datensatz löschen?"></dxo-texts>
+  </dxo-editing>
+  <dxo-export
+    [enabled]="false"
+    [formats]="['pdf']"
+    [allowExportSelectedData]="false"
+  ></dxo-export>
+
+  <dxi-column name="idshow" *ngIf="this.dialogComponent"
+              dataField="id" caption="Anzeigen"
+              [allowFiltering]="false"
+              [allowSorting]="false"
+              [allowEditing]="false"
+              cellTemplate="cellTemplateId"
+  ></dxi-column>
+
+
+  <div *dxTemplate="let data of 'cellTemplate'">
+    <button mat-raised-button color="primary">Wählen</button>
+  </div>
+
+  <div *dxTemplate="let data of 'cellTemplateId'" class="d-grid">
+    <div style="max-width: 250px;">
+      <button class="" mat-button mat-flat-button
+              color="primary" (click)="chooseItem(data)">Wählen
+      </button>
+    </div>
+  </div>
+
+
+  <dxi-column dataField="companyName" caption="Firma">
+    <dxi-validation-rule
+      type="stringLength"
+      [min]="3"
+      message="Feld muss mind. 5 Buchstaben besitzen."
+    ></dxi-validation-rule>
+  </dxi-column>
+
+  <dxi-column dataField="street" caption="Straße">
+    <dxi-validation-rule
+      type="stringLength"
+      [min]="3"
+      message="Feld muss mind. 5 Buchstaben besitzen."
+    ></dxi-validation-rule>
+  </dxi-column>
+  <dxi-column dataField="zip" caption="PLZ">
+    <dxi-validation-rule
+      type="stringLength"
+      [min]="5"
+      message="Feld muss mind. 5 Buchstaben besitzen."
+    ></dxi-validation-rule>
+  </dxi-column>
+  <dxi-column dataField="city" caption="Stadt">
+    <dxi-validation-rule
+      type="stringLength"
+      [min]="3"
+      message="Feld muss mind. 3 Buchstaben besitzen."
+    ></dxi-validation-rule>
+  </dxi-column>
+
+  <dxi-column dataField="country" caption="Land">
+    <dxi-validation-rule
+      type="stringLength"
+      [min]="3"
+      message="Feld muss mind. 3 Buchstaben besitzen."
+    ></dxi-validation-rule>
+  </dxi-column>
+
+  <dxi-column dataField="clientName" caption="Ansprechperson">
+    <dxi-validation-rule
+      type="stringLength"
+      [min]="3"
+      message="Feld muss mind. 3 Buchstaben besitzen."
+    ></dxi-validation-rule>
+  </dxi-column>
+
+  <dxi-column dataField="phoneNumber" caption="Telefon">
+    <dxi-validation-rule
+      type="stringLength"
+      [min]="3"
+      message="Feld muss mind. 3 Buchstaben besitzen."
+    ></dxi-validation-rule>
+  </dxi-column>
+
+</dx-data-grid>

@@ -1,0 +1,27 @@
+
+.map {
+  height: 650px;
+  width: 100%;
+
+}
+
+.example-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+  align-items: flex-start;
+}
+
+.example-radio-button {
+  margin: 5px;
+}
+
+
+
+@media screen and (max-width: 960px) {
+
+  .map {
+    height: calc(35vh);
+  }
+
+}

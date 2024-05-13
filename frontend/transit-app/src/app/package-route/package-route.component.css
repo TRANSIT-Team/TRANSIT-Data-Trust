@@ -1,0 +1,24 @@
+.route-card{
+}
+
+.route-card mat-card{
+  min-height:100px;
+}
+
+.map-card{
+  min-height:500px;
+
+}
+
+.line{
+  height: 1px;
+  border-bottom: 1px solid #878282;
+  width: 100%;
+  margin-top: 49px;
+}
+
+#map {
+  width: 100%;
+  height: 600px;
+}
+

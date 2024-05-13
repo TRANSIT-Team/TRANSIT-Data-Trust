@@ -1,0 +1,19 @@
+.tcard{
+  position: relative;
+  min-height:140px;
+}
+
+.tcard-btn-div{
+  position: absolute;
+  right:0;
+  top:0;
+}
+h1,h2,h3,h4,h5{
+  font-weight: 700;
+}
+
+@media screen and (max-width: 1560px) {
+  .tcard{
+
+  }
+}

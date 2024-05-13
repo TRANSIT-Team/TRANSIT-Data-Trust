@@ -1,0 +1,15 @@
+<h2 mat-dialog-title> {{title}}</h2>
+
+<mat-dialog-content>
+
+  {{text}}
+  <br/>
+  <br/>
+  <span *ngIf="this.id!=''"> <b>Id:</b>
+    {{id}}</span>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button class="mat-raised-button me-3" (click)="close()">Abbrechen</button>
+  <button class="mat-raised-button mat-warn" (click)="delete()">{{this.buttonConfirmText}}</button>
+</mat-dialog-actions>

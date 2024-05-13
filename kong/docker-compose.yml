@@ -1,0 +1,205 @@
+version: '2'
+volumes:
+  kong-db-data-1:
+    driver: local
+  konga-db-data-1:
+    driver: local
+services:
+  king-for-kong:
+    image: devdocker.wifa.uni-leipzig.de:5000/transit/king-for-kong:1.2.1
+    restart: unless-stopped 
+    labels:
+      io.rancher.scheduler.affinity:host_label: role=worker
+      project: transit
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+
+  konga:
+    image: devdocker.wifa.uni-leipzig.de:5000/transit/konga:0.14.9
+    restart: unless-stopped 
+    environment:
+      DB_ADAPTER: mongo
+      DB_HOST: konga-db
+      NODE_ENV: production
+      TZ: Europe\Berlin
+    depends_on:
+      - konga-db  
+    labels:
+      io.rancher.scheduler.affinity:host_label: role=worker
+      project: transit
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+    secrets:
+      - TRANSIT_KONGA_DB_USER_NAME
+      - TRANSIT_KONGA_DB_USER_PASSWORD
+      - TRANSIT_KONGA_DB_NAME
+      - TRANSIT_KONGA_TOKEN_SECRET
+  konga-db:
+    image: devdocker.wifa.uni-leipzig.de:5000/transit/mongo:4.2.21
+    restart: unless-stopped 
+    environment:
+      MONGO_INITDB_ROOT_USERNAME_FILE: /run/secrets/TRANSIT_KONGA_DB_ADMIN_NAME
+      MONGO_INITDB_ROOT_PASSWORD_FILE: /run/secrets/TRANSIT_KONGA_DB_ADMIN_PASSWORD
+      MONGO_INITDB_DATABASE: admin
+      MONGO_USERNAME_FILE: /run/secrets/TRANSIT_KONGA_DB_USER_NAME
+      MONGO_PASSWORD_FILE: /run/secrets/TRANSIT_KONGA_DB_USER_PASSWORD
+      MONGO_DATABASE_FILE: /run/secrets/TRANSIT_KONGA_DB_NAME
+    volumes_from:
+      - konga-db-volume
+    labels:
+      io.rancher.scheduler.affinity:host_label: role=worker
+      project: transit
+      io.rancher.sidekicks: konga-db-volume
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+    secrets:
+      - TRANSIT_KONGA_DB_ADMIN_NAME
+      - TRANSIT_KONGA_DB_ADMIN_PASSWORD
+      - TRANSIT_KONGA_DB_USER_NAME
+      - TRANSIT_KONGA_DB_USER_PASSWORD
+      - TRANSIT_KONGA_DB_NAME
+
+  konga-db-volume:
+    image: rawmind/alpine-volume:0.0.2-4
+    environment:
+      SERVICE_GID: '999'
+      SERVICE_UID: '999'
+      SERVICE_VOLUME: /data/db
+    network_mode: none
+    volumes:
+    - konga-db-data-1:/data/db
+    labels:
+      io.rancher.container.start_once: 'true'
+      project: transit
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+  kong-migration-bootstrap:
+    image: devdocker.wifa.uni-leipzig.de:5000/transit/kong:2.8.1
+    command: "/bin/sh start-bootstrap.sh"
+    environment:
+      KONG_DATABASE: postgres
+      KONG_PG_HOST:  kong-db
+      KONG_PG_USER_FILE: /run/secrets/TRANSIT_KONG_DB_ADMIN_NAME
+      KONG_PG_PASSWORD_FILE: /run/secrets/TRANSIT_KONG_DB_ADMIN_PASSWORD
+
+    depends_on:
+      - kong-db
+    labels:  
+      io.rancher.scheduler.affinity:host_label: role=worker
+      io.rancher.container.start_once: 'true'
+      project: transit
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+    secrets:
+      - TRANSIT_KONG_DB_ADMIN_NAME
+      - TRANSIT_KONG_DB_ADMIN_PASSWORD    
+  kong-migration:
+    image: devdocker.wifa.uni-leipzig.de:5000/transit/kong:2.8.1
+    command: "/bin/sh start-update.sh"
+    environment:
+      KONG_DATABASE: postgres
+      KONG_PG_HOST:  kong-db
+      KONG_PG_USER_FILE: /run/secrets/TRANSIT_KONG_DB_ADMIN_NAME
+      KONG_PG_PASSWORD_FILE: /run/secrets/TRANSIT_KONG_DB_ADMIN_PASSWORD
+    
+    depends_on:
+      - kong-db
+    labels:  
+      io.rancher.scheduler.affinity:host_label: role=worker
+      io.rancher.container.start_once: 'true'
+      project: transit
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+    secrets:
+      - TRANSIT_KONG_DB_ADMIN_NAME
+      - TRANSIT_KONG_DB_ADMIN_PASSWORD
+  kong:
+    image: devdocker.wifa.uni-leipzig.de:5000/transit/kong:2.8.1
+    restart: unless-stopped 
+    command: "/bin/sh start.sh"
+    environment:
+      KONG_CASSANDRA_CONTACT_POINTS: kong-db
+      KONG_PG_HOST:  kong-db
+      KONG_PG_USER_FILE: /run/secrets/TRANSIT_KONG_DB_ADMIN_NAME
+      KONG_PG_PASSWORD_FILE: /run/secrets/TRANSIT_KONG_DB_ADMIN_PASSWORD
+      KONG_DATABASE: postgres
+      KONG_LOG_LEVEL: debug
+      KONG_PLUGINS: bundled,oidc
+      KONG_PROXY_LISTEN: 0.0.0.0:8000, 0.0.0.0:8443 ssl
+      KONG_ADMIN_LISTEN: 0.0.0.0:8001, 0.0.0.0:8444 ssl
+      JWT_KEYCLOAK_PRIORITY: '900'
+      KONG_TRUSTED_IPS: 10.42.0.0/16
+      KONG_HEADERS: "off"
+    depends_on:
+      - kong-migration-bootstrap
+      - kong-migration
+      - kong-db
+    labels:
+      io.rancher.scheduler.affinity:host_label: role=worker
+      project: transit
+      #io.rancher.sidekicks: kong-migration-bootstrap, kong-migration
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+    secrets:
+      - TRANSIT_KONG_DB_ADMIN_NAME
+      - TRANSIT_KONG_DB_ADMIN_PASSWORD
+
+  kong-db:
+    image: postgres:14.3
+    restart: unless-stopped
+    #entrypoint: /bin/sh -c 'sleep 10d' 
+    environment:
+      PGDATA: /var/lib/postgresql/data/kong
+      POSTGRES_DB: kong
+      POSTGRES_USER_FILE: /run/secrets/TRANSIT_KONG_DB_ADMIN_NAME
+      POSTGRES_PASSWORD_FILE: /run/secrets/TRANSIT_KONG_DB_ADMIN_PASSWORD
+    volumes_from:
+    - kong-db-volume
+    labels:
+      io.rancher.scheduler.affinity:host_label: role=worker
+      project: transit
+      io.rancher.sidekicks: kong-db-volume
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+    secrets:
+      - TRANSIT_KONG_DB_ADMIN_NAME
+      -  TRANSIT_KONG_DB_ADMIN_PASSWORD
+  kong-db-volume:
+    image: rawmind/alpine-volume:0.0.2-4
+    environment:
+      SERVICE_GID: '999'
+      SERVICE_UID: '999'
+      SERVICE_VOLUME: /var/lib/postgresql/data
+    network_mode: none
+    volumes:
+    - kong-db-data-1:/var/lib/postgresql/data
+    labels:
+      io.rancher.container.start_once: 'true'
+      project: transit
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+
+secrets:
+  TRANSIT_KONG_DB_ADMIN_NAME:
+    file: ./secrets/transit_kong_db_admin_name.txt
+  TRANSIT_KONG_DB_ADMIN_PASSWORD:
+    file: ./secrets/transit_kong_db_admin_password.txt
+  TRANSIT_KONGA_DB_ADMIN_NAME:
+    file: ./secrets/transit_konga_db_admin_name.txt
+  TRANSIT_KONGA_DB_ADMIN_PASSWORD:
+    file: ./secrets/transit_konga_db_admin_password.txt
+  TRANSIT_KONGA_DB_USER_NAME:
+    file: ./secrets/transit_konga_db_user_name.txt
+  TRANSIT_KONGA_DB_USER_PASSWORD:
+    file: ./secrets/transit_konga_db_user_password.txt
+  TRANSIT_KONGA_DB_NAME:
+    file: ./secrets/transit_konga_db_name.txt        
+  TRANSIT_KONGA_TOKEN_SECRET:
+    file: ./secrets/transit_konga_token_secret.txt
+
+#docker-compose up -d  
+
+#rancher up -s transit-kong-1 -f docker-compose.yml  --rancher-file rancher-compose.yml -u -c -d 
+
+
+#--env-file secrets/env.prod
