@@ -2,5 +2,5 @@
 	path = backend/access-control-filter-properties/fine-grained-abac
 	url = https://github.com/TRANSIT-Team/Finer-Grained-Attribute-Based-Policy-Machine.git
 	recurse = true
-	branch = transit-access-control
+	branch = main
 	update = merge
