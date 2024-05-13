@@ -4,7 +4,7 @@ FROM gradle:7.4.2-jdk17 as builder
 LABEL stage=builder_access_transit_stage
 WORKDIR /app
 RUN echo 
-COPY fine-grained-abac/access_control/graph-based-policy-machine/ /app/
+COPY finer-grained-abac/access_control/graph-based-policy-machine/ /app/
 
 RUN apt update && apt -y install  curl
 RUN gradle build -x test
