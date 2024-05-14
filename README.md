@@ -27,16 +27,16 @@ The following illustration shows the combination of the different sub-services.
 
 #### Frontend
 
-Build in Angular. Uses Mapbox for Maps and Directionsservices.
-Build with DevExpress for Tables and Charts.
+Built in Angular. Uses Mapbox for Maps and Directionsservices.
+Using DevExpress for Tables and Charts.
 
 #### Backend
-Build in Java. Uses the Spring Framework and extensions to provide an api.
+Built in Java. Uses the Spring Framework and extensions to provide an api.
 The HAETOS standard is used for the discovery of resources.
 Uses a postgres database which performs the data storage.
 
 #### Geoservice
-Build in Java. Uses the Spring Framework and extensions to provide an api.
+Built in Java. Uses the Spring Framework and extensions to provide an api.
 Uses the Postgis database, which can perform geometric calculations that are actively used. Is used to calculate delivery area polygons for a list of zip codes and/or federal states. The data basis includes all federal states and zip codes in Germany.
 
 #### Keycloak
