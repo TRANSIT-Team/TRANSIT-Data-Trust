@@ -29,6 +29,7 @@ public class AudienceValidator implements OAuth2TokenValidator<Jwt> {
 			return OAuth2TokenValidatorResult.success();
 		} else {
 			log.error("Invalid audience: {}", audience);
+			log.error("Invalid audience detected: {}", audience);
 			return OAuth2TokenValidatorResult.failure(error);
 		}
 	}
