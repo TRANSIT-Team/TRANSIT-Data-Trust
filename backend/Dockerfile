@@ -34,6 +34,16 @@ RUN curl -sfL $(curl -s https://api.github.com/repos/powerman/dockerize/releases
 COPY start.sh start.sh
 COPY start-test.sh start-test.sh
 
+FROM eclipse-temurin:17-jre-alpine
+LABEL description="Transit Backend Version 2"
+RUN mkdir /app
+WORKDIR /app
+COPY --from=builder /app/build/libs/*.jar /app/app.jar
+RUN apk add curl
+RUN curl -sfL $(curl -s https://api.github.com/repos/powerman/dockerize/releases/latest | grep -i /dockerize-$(uname -s)-$(uname -m)\" | cut -d\" -f4) | install /dev/stdin /usr/local/bin/dockerize
+COPY start.sh start.sh
+COPY start-test.sh start-test.sh
+
 
 #docker build  -t devdocker.wifa.uni-leipzig.de:5000/transit/spring-backend:latest .
 #docker push  devdocker.wifa.uni-leipzig.de:5000/transit/spring-backend:latest
