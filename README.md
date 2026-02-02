@@ -1,7 +1,7 @@
 # TRANSIT-project
 This repository provides the public access to the program code of the transit data trust platform for managing and sharing logistics order data.
 
-The project is being carried out as part of the BMBF (Federal Ministry of Education and Research) funding campaign for data trust models with the funding number 16DTM109A-C.
+The project is being carried out as part of the BMBF (Federal Ministry of Education and Research) funding campaign for data trust models with the funding number 16DTM109A-C (TRANSIT) and  16DTM422A-D (TRANSIT-ON).
 
 Project Website: [https://transit-project.de/](https://transit-project.de/)
 
@@ -57,7 +57,7 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 
 ## MIT License
 
-Copyright (c) [2025] [TRANSIT Project]
+Copyright (c) [2026] [InfAI e.V.]
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
