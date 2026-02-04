@@ -95,8 +95,6 @@ export class AddAddressComponent implements OnInit {
       }
     });
 
-    this.collapse = false
-
   }
 
 

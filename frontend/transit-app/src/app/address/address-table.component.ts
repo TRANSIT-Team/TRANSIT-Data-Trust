@@ -18,8 +18,6 @@ import {AddressService} from "./shared/address.service";
 import {FunctionsService} from '../_core/functions.service';
 import {SnackbarService} from "../_core/snackbar.service";
 
-
-
 @Component({
   selector: 'app-address-table',
   templateUrl: './address-table.component.html',

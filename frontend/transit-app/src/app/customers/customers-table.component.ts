@@ -31,9 +31,6 @@ export class CustomersTableComponent implements OnInit {
     {id: 'string', name: 'Text'},
   ]
 
-
-
-
   constructor(private resourceHateoasService: HateoasResourceService,
               private _snackBar: MatSnackBar, private snackbarService: SnackbarService,
               private companyService: CompanyService,
